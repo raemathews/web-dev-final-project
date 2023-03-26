@@ -1,21 +1,23 @@
-const ReviewItem = (review) => {
-    return(`
-       <div class="card">
-                <div class="card-body row">
-                    <div class="col-8">
-                        <h7 class="card-title-grey">${review.topic}</h7><br>
-                        <h7 class="card-title"><b>${review.userName} </b>
-                            <i class="fas fa-check-circle"></i>
-                            <span class="card-title-grey">- ${review.time}</span></h7>
-                        <p class="card-text">
-                            <b>${review.title}</b></p>
+import React from "react";
+const ReviewItem = (
+    {review}
+) => {
+    return(
+        <li className="list-group-item">
+            <div className="row">
+                <div className="col-10">
+                    <div>{review.userName}
+                        <i className="fas fa-check-circle"></i>
+                        - {review.time}
                     </div>
-                    <div class="col-4">
-                        <img class="wd-photo"
-                             src="${review.image}">
-                    </div>
+                    <div className="fw-bolder">{review.topic}</div>
+                    <div>{review.title}</div>
+                </div>
+                <div className="col-2">
+                    <img width={70} className="float-end rounded-3" src={`/images/${review.image}`}/>
                 </div>
             </div>
-        `);
-}
+        </li>
+    );
+};
 export default ReviewItem;

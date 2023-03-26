@@ -8,7 +8,7 @@ const Profile = () => {
             <div className="row mt-2">
                     <Navigation />
                 <div className="col-2"></div>
-                <div className="col-10">
+                <div className="col-8">
                     <div>
                         <h2> Profile </h2>
 
