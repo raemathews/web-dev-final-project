@@ -3,11 +3,11 @@ import Navigation from "../navigation/Navigation";
 import PersonalReviewList from "./PersonalReviewList";
 import {Link} from "react-router-dom";
 
-const Profile = ({active}) => {
+const ProfileFavorites = ({active}) => {
     return (
         <>
             <div className="row mt-2">
-                    <Navigation />
+                <Navigation />
                 <div className="col-2"></div>
                 <div className="col-8">
                     <div>
@@ -60,4 +60,4 @@ const Profile = ({active}) => {
     );
 }
 
-export default Profile
+export default ProfileFavorites
