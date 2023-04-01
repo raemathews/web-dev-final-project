@@ -1,23 +1,22 @@
 import React from "react";
-const ReviewItem = (
-    {review}
+const FollowersItem = (
+    {f}
 ) => {
     return(
         <li className="list-group-item">
             <div className="row">
                 <div className="col-10">
-                    <div>{review.userName}
+                    <div className="fw-bolder">{f.name}
                         <i className="fas fa-check-circle"></i>
-                        - {review.time}
+                        - {f.userName}
                     </div>
-                    <div className="fw-bolder">{review.topic}</div>
-                    <div>{review.title}</div>
+                    <div>{f.bio}</div>
                 </div>
                 <div className="col-2">
-                    <img width={70} className="float-end rounded-3" src={`/images/${review.image}`}/>
+                    <img width={70} className="float-end rounded-3" src={`/images/${f.image}`}/>
                 </div>
             </div>
         </li>
     );
 };
-export default ReviewItem;
+export default FollowersItem;

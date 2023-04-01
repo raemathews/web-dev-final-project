@@ -1,0 +1,17 @@
+[{ "_id": 123, "book_title": "Some Random Book", "publish_date": "17 January 1999",
+  "image": "../images/book1.jpg",
+  "summary": "Practicing meditation and mindfulness will make you at least 10 percent happier. Being mindful doesn’t change the problems in your life, but mindfulness does help you respond to your problems rather than react to them. Mindfulness helps you realize that striving for success is fine as long as you accept that the outcome is outside your control."
+},
+  { "_id": 234, "book_title": "A Random Book", "publish_date": "20 March 2020",
+    "image": "../images/book2.jpeg",
+    "summary": "The only thing you have that nobody else has is control of your life. The hardest thing of all is to learn to love the journey, not the destination. Get a real life rather than frantically chasing the next level of success."
+  },
+  { "_id": 345, "book_title": "Book Book", "publish_date": "5 September 1933",
+    "image": "../images/book3.webp",
+    "summary": "Seek out new ideas and try new things. When trying something new, do it on a scale where failure is survivable. Seek out feedback and learn from your mistakes as you go along."
+  },
+  { "_id": 456, "book_title": "Another Random Book", "publish_date": "11 December 2022",
+    "image": "../images/book4.webp",
+    "summary": "We do not have the freedom and free will that we think we do. Yes, you can make conscious choices, but everything that makes up those conscious choices (your thoughts, your wants, your desires) is determined by prior causes outside your control. Just because you can do what you want does not mean you have free will because you are not choosing what you want in the first place."
+  }
+]
