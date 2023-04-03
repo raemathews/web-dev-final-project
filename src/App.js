@@ -8,9 +8,6 @@ import Search from "./book-review/search/SearchResults";
 import ProfileFollowing from "./book-review/profile/ProfileFollowing";
 import ProfileFollowers from "./book-review/profile/ProfileFollowers";
 import ProfileFavorites from "./book-review/profile/ProfileFavorites";
-import Search from "./book-review/search/Search";
-
-
 
 function App() {
   return (
