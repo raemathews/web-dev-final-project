@@ -1,0 +1,4 @@
+[{ "_id": 123, "name": "Yolanda Jarrin", "dateJoined": "4/3/2023",
+  "favBook": "Hunger Games", "image": "yolanda.jpg" },
+  { "_id": 234, "name": "Zendaya", "dateJoined": "3/21/2023",
+    "favBook": "1984", "image": "zendaya.jpg" }]

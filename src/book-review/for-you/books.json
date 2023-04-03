@@ -1,0 +1,6 @@
+[{ "_id": 123, "title": "Harry Potter", "author": "JK Rowling",
+  "description": "Ur a Wizard Harry",
+  "stars": "4/5",   "image": "harrypotter.jpg" },
+  { "_id": 234, "title": "The Hunger Games", "author": "Susanne Collins",
+    "description": "Dystopian book about teens killing each other",
+    "stars": "5/5",   "image": "hungergames.jpg" }]
