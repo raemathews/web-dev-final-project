@@ -1,19 +1,18 @@
 import React from 'react'
 import Navigation from "../navigation/Navigation";
-import PersonalReviewList from "./review-data/PersonalReviewList";
-import {Link} from "react-router-dom";
+import FollowersList from "./followers-data/FollowersList";
 import ProfileInfo from "./Profile-Info";
 
-const Profile = ({active}) => {
+const ProfileFollowers = ({active}) => {
     return (
         <>
             <div className="row mt-2">
-                    <Navigation />
+                <Navigation />
                 <div className="col-2"></div>
                 <div className="col-8">
                     <ProfileInfo active={active}/>
                     <div className="row">
-                        <PersonalReviewList />
+                        <FollowersList />
                     </div>
                 </div>
                 <div className="col-2"></div>
@@ -22,4 +21,4 @@ const Profile = ({active}) => {
     );
 }
 
-export default Profile
+export default ProfileFollowers
