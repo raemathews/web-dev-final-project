@@ -8,22 +8,6 @@ const Home = () => {
         <>
             <Navigation />
             <h1>Home</h1>
-            <div className="row mt-2">
-                <div className="col-1 ">
-                    <i className="wd-bottom-4 text-primary float-end bi
-                       bi-book-fill fs-2 position-relative"></i>
-                </div>
-                <div className="col-9 position-relative">
-                    <input placeholder="Search Books"
-                           className="form-control rounded-pill ps-5"/>
-                    <i className="bi bi-search position-absolute
-                       wd-nudge-up"></i>
-                </div>
-                <div className="col-1">
-                    <i className="wd-bottom-4 text-primary float-end bi
-                       bi-gear-fill fs-2 position-relative"></i>
-                </div>
-            </div>
 
             <div className="row mt-2 ml-3">
                 <div className="col-2 col-md-2 col-lg-1 col-xl-2 ">
