@@ -1,0 +1,32 @@
+[
+  {
+    "_id": 234,
+    "title": "Can't Recommend",
+    "book": "It Ends With Us",
+    "username": "kimmiefin",
+    "handle": "@kimmiereviews",
+    "time": "2h",
+    "userImage": "profile.jpg",
+    "liked": true,
+    "likes": 2345,
+    "replies": 432,
+    "spoilers": true,
+    "review": "...I also think it is unacceptable for people to be recommending this book as just a “sad book” or a “book to make you cry”, because diminishing a book that explores such a difficult and serious topic like domestic abuse, to an object that simply serves the purpose of evoking emotions from you, is extremely disrespectful and shallow. Especially considering that this is such a personal book to Colleen Hoover."
+  },
+
+  {
+    "_id": 567,
+    "title": "Absolute must-read",
+    "book": "It Ends With Us",
+    "rating": 5,
+    "username": "katerina",
+    "handle": "@katlovesbooks",
+    "time": "8h",
+    "userImage": "profile.jpg",
+    "liked": true,
+    "likes": 6345,
+    "replies": 832,
+    "spoilers": false,
+    "review": "Naked truth coming. I was one of the people who don't understand. The people who, when they hear about abuse, the first thing that occurs to them is why doesn't she leave him? Why does she let her fear guide her, and she's so selfish that makes her children witness such horrors inside their home, that was supposed to be their sanctuary? But what we should ask is what is wrong with him? Instead of making excuses and trying to justify him, we should take a moment and consider how she feels, and the difficult decisions she has to make. Ryle broke my heart into millions of pieces. I fell in love with him, and I kept wishing that Colleen would delete these words, these scenes that hurt me and disappointed me and shattered my belief in happy endings. A part of me, a part I tried to smother, a part I am ashamed that exists, wanted him to change. To try harder, and for Lily to let him try harder. Me, who judged them for not leaving. In the end, I felt sorry for Ryle. For losing the love of his life, for destroying his only chance at happiness. I don't forgive him, I just wish that a magic wand would make everything better.\n"
+  }
+]
