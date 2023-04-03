@@ -1,20 +1,43 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
+// NOTE: THIS WILL NEED REACT/REDUCERS TO HANDLE EDITING THEM!
 const ProfileInfo = ({active}) => {
     return(
         <>
-                <div>
+                <div className="row">
                     <h2> Profile </h2>
+                    <div className="col-4">
+                        <img src="haybale.jpg"
+                             width="90%"
+                             height="200px"/>
+                    </div>
+                    <div className="col-6">
+                        <div>
+                            <div>
+                                <label htmlFor="firstNameFld">
+                                    First Name</label>
+                                <input id="firstNameFld"
+                                       value="Alice"/>
+                            </div>
 
-                    <img src="haybale.jpg"
-                         width="100%"
-                         height="200px"/>
+                            <div>
+                                <label htmlFor="lastNameFld">
+                                    Last Name</label>
+                                <input id="lastNameFld"
+                                       value="Greene"/>
+                            </div>
 
-                    <img src="mishu.jpeg"
-                         height="48px"
-                         width="48px"/>
-                    <a href="edit-profile.html">Edit Profile</a>
+                            <div>
+                                <label htmlFor="bioFld">Name</label>
+                                <textarea id="bioFld"
+                                          type="text"
+                                          title="bio"
+                                          placeholder="This is my bio for the profile!"/>
+                            </div>
+                        </div>
+                        <button type="button"> Edit Profile </button>
+                    </div>
                 </div>
                 <div className="row mt-3">
                     <ul className="nav nav-pills mb-2">
