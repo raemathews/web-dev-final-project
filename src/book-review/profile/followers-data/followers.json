@@ -1,0 +1,10 @@
+[{ "_id": 123, "name": "Gina Davis", "userName": "gdavis144", "image": "../images/red_panda.avif",
+  "bio": "Nuggets of gold with every review"
+},
+  { "_id": 234, "name": "Hannah Logan",   "userName": "book_lover55", "image": "../images/book_worm.webp",
+    "bio": "Hannah here! Fanatic ecstatic book lover for life."},
+  { "_id": 345, "name": "Josh Chadwin",  "userName": "i_am_josh", "image": "../images/frat_dude.jpeg",
+    "bio": "Dude yeah, I mean... yeah read my profile."},
+  { "_id": 567, "name": "Reed Savors",  "userName": "reedy_books", "image": "../images/another.jpeg",
+    "bio": "Philosophical takes on the most mundane of books."}
+]
