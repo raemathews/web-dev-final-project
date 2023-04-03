@@ -1,0 +1,22 @@
+.book-link {
+    color: black;
+}
+
+.card {
+    width: 16rem;
+}
+
+.book-link:hover {
+    text-shadow: 0 0 1px blue;
+    color: black;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.card-body {
+    height: 20vh;
+}
