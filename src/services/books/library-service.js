@@ -1,0 +1,23 @@
+import axios from 'axios';
+const BOOKS_API = 'https://openlibrary.org/search.json?q=';
+const COVERS_API = 'https://covers.openlibrary.org/b/id/';
+
+export const findBooks = async (q) => {
+    q.replaceAll(" ", "+");
+    const response = await axios.get(`${BOOKS_API}${q}`);
+    // for(let key in response) {
+    //     console.log(key + ":", response[key]);
+    // }
+    const books = response.data;
+    return books;
+}
+
+export const findBookCover = async (bid) => {
+    const response = await axios
+        .get(`${COVERS_API}/${bid}-L.jpg`);
+    const coverUrl = response.data;
+    return {cover_id: bid,
+        cover: coverUrl};
+}
+
+
