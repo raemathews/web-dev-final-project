@@ -8,6 +8,7 @@ import Search from "./book-review/search/SearchResults";
 import ProfileFollowing from "./book-review/profile/ProfileFollowing";
 import ProfileFollowers from "./book-review/profile/ProfileFollowers";
 import ProfileFavorites from "./book-review/profile/ProfileFavorites";
+import SignUp from "./book-review/signUp/SignUp";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/profile/favorites" element={<ProfileFavorites active="favorites"/>} />
           <Route path="/book-details" element={<BookDetails />} />
           <Route path="/search" element={<Search />} />
+        <Route path="/signUp" element={<SignUp />}/>
       </Routes>
     </Router>
   );
