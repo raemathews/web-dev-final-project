@@ -1,0 +1,13 @@
+[{ "_id": 123, "name": "Gina Davis", "userName": "gdavis144",
+  "book": "The Giver",
+  "review": "Absolute must-read.... if you want to waste a whole week of your life. Best advice you could take is to put this book down and run as far away as possible.",
+  "image": "../images/red_panda.avif" },
+  { "_id": 234, "name": "Hannah Logan",   "userName": "book_lover55",
+    "book": "Milk and Honey",
+    "review": "Savor every moment of your first read of this book. You'll never get it again, and every word finds a way to make you feel like you've been awakened by a new sense of purpose.",
+    "image": "../images/book_worm.webp" },
+  { "_id": 345, "name": "Josh Chadwin",  "userName": "i_am_josh",
+    "book": "Rich Dad, Poor Dad",
+    "review": "Dude, you've gotta listen to the solid advice from this book. If you haven't read it yet, you're not worth even speaking to",
+    "image": "../images/frat_dude.jpeg" }
+]
