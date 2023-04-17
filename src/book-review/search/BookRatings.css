@@ -18,5 +18,17 @@
 }
 
 .card-body {
+    height: 10vw;
+}
+
+.card-img-top .not-found {
+    object-fit: scale-down;
+}
+
+.card-body {
     height: 20vh;
+}
+
+.user-list-item :hover {
+    cursor: pointer;
 }

@@ -8,6 +8,7 @@ const Navigation = () => {
     const [searchKeys, setSearchKeys] = useState("")
     const checkForSearch = (e) => {
         if (e.key === 'Enter') {
+            searchKeys.replaceAll(" ", "+");
             navigate("/search/" + searchKeys, {replace: true})
         }
     }

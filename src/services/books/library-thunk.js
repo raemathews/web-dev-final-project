@@ -1,7 +1,7 @@
 import {createAsyncThunk}
     from "@reduxjs/toolkit"
 import * as service
-    from "./books-service"
+    from "./library-service"
 
 export const findBooksThunk = createAsyncThunk(
     'books/findBooks', async (q) =>

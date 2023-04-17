@@ -1,32 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {findBooksThunk, findBookCoverThunk} from "../services/books/books-thunk";
+import {findBooksThunk, findBookCoverThunk} from "../services/books/library-thunk";
 //import booksData from '../book-review/search/books.json'
 const initialState = {
     numResults: 0,
-    books: {},
+    books: [],
     loading: false
 }
-const booksSlice = createSlice({
-    name: "books",
+const librarySlice = createSlice({
+    name: "library",
     initialState: initialState,
     extraReducers: {
         [findBooksThunk.pending]:
             (state) => {
             console.log("loading")
                 state.loading = true
+                state.books = []
             },
         [findBooksThunk.fulfilled]:
             (state, {payload}) => {
-                console.log("payload: " + payload)
                 state.loading = false
-                state.books = payload.data.docs
-                state.numResults = payload.data.numFound
+                state.books = payload.docs
+                state.numResults = payload.numFound
             },
         [findBookCoverThunk.pending]:
             (state) => {
                 state.loading = false
             },
-        [findBooksThunk.fulfilled]:
+        [findBookCoverThunk.fulfilled]:
             (state, {payload}) => {
             state.loading = false
             //     const bookNdx = state.books.docs
@@ -40,4 +40,4 @@ const booksSlice = createSlice({
     }
 });
 
-export default booksSlice.reducer;
+export default librarySlice.reducer;
