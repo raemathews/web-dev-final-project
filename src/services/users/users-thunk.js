@@ -13,5 +13,17 @@ export const findUsersByIDThunk = createAsyncThunk(
         await service.findUsersByID(id)
 );
 
+export const createUserThunk = createAsyncThunk(
+    'users/createUser', async (newUser) =>
+        await service.createUser(newUser)
+);
 
+export const deleteUserThunk = createAsyncThunk(
+    'users/deleteUser', async (newUser) =>
+        await service.createUser(newUser)
+);
 
+export const updateUserThunk = createAsyncThunk(
+    'users/deleteUser', async (updatedUser) =>
+        await service.createUser(updatedUser)
+);

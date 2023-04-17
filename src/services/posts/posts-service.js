@@ -1,5 +1,5 @@
 import axios from 'axios';
-const POSTS_API = 'https://tuiter-node-server-app-1ro0.onrender.com/api/users';
+const POSTS_API = 'https://final-project-node-server-app-h4kv.onrender.com/api/reviews';
 
 export const findPostsByBook = async ({bookId}) => {
     const response = await axios.get(`${POSTS_API}/${bookId}`);

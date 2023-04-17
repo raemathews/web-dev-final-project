@@ -1,29 +1,29 @@
 import axios from 'axios';
-const USERS_API = 'https://tuiter-node-server-app-1ro0.onrender.com/api/users';
+const USERS_API = 'https://final-project-node-server-app-h4kv.onrender.com/api/users';
 
 export const findUsers = async () => {
     const response = await axios.get(USERS_API);
-    // for(let key in response) {
-    //     console.log(key + ":", response[key]);
-    // }
-    const users = response.data;
-    return users;
+    console.log("User API Response: " , response)
+    return response.data;
 }
 
 export const findUsersByID = async(id) => {
     const response = await axios.get(`${USERS_API}/${id}`);
-    const user = response.data
-    return user;
+    return response.data;
 }
 
-export const addUser = async({username, pw, email, phone}) => {
-    const response = await axios.post(`${USERS_API}/${username}/${pw}/${email}/${phone}`)
-    const status = response.status
-    return status
+export const createUser = async(newUser) => {
+    const response = await axios.post(`${USERS_API}`, newUser)
+    return response.status
 }
 
-export const updateUserFollow = async({followId}) => {
-    const response = await axios.put(`${USERS_API}/${followId}`)
+export const deleteUser = async(id) => {
+    const response = await axios.delete(`${USERS_API}/${id}`)
+    return response.status
+}
+
+export const updateUser = async(id, updatedUser) => {
+    const response = await axios.put(`${USERS_API}/${id}`, updatedUser)
     return response.status
 }
 

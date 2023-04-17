@@ -1,7 +1,7 @@
 import React from 'react'
 import {useNavigate} from "react-router";
 
-const UserTile = ({user}) => {
+const UserTile = (user) => {
     const navigate = useNavigate();
     const visitProfile = () => {
         navigate(`/profile/${user._id}`, {replace: true})

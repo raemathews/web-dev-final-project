@@ -6,11 +6,12 @@ import {findUsersThunk} from "../../services/users/users-thunk";
 import UserTile from "./UserTile";
 
 const UserResults = () => {
-    const {query} = useParams();
+    //const {query} = useParams();
     const dispatch = useDispatch();
 
-    const {users, loading} =
+    const {numResults, foundUsers, loading} =
         useSelector(store => store.users)
+
     useEffect(() => {
         dispatch(findUsersThunk())
     }, [])
@@ -21,11 +22,11 @@ const UserResults = () => {
                 <hr/>
             </div>
             <div className="list-group">
-            {
-                users.map(user =>
-                <UserTile key={user.username} user={user} />
-                )
-            }
+                {
+                    foundUsers.map(user =>
+                    <UserTile key={user.username} user={user} />
+                    )
+                }
             </div>
         </div>
     )

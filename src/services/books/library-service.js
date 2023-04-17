@@ -5,9 +5,9 @@ export const COVERS_API = 'https://covers.openlibrary.org/b/id/';
 export const findBooks = async (q) => {
     q.replaceAll(" ", "+");
     const response = await axios.get(`${BOOKS_API}${q}`);
-    for(let key in response) {
-        console.log(key + ":", response[key]);
-    }
+    // for(let key in response) {
+    //     console.log(key + ":", response[key]);
+    // }
     const books = response.data;
     return books;
 }
