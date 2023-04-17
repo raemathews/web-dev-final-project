@@ -6,7 +6,7 @@ import {findUsersThunk} from "../../services/users/users-thunk";
 import UserTile from "./UserTile";
 
 const UserResults = () => {
-    //const {query} = useParams();
+    const {query} = useParams();
     const dispatch = useDispatch();
 
     const {numResults, foundUsers, loading} =
