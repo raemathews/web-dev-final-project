@@ -43,7 +43,7 @@ const ProfileInfo = ({active}) => {
                     <ul className="nav nav-pills mb-2">
                         <li className="nav-item">
                             <Link to="/profile" className={`nav-link
-                     ${active === 'reviews'?'active':''}`}>
+                     ${active === 'start'?'active':''}`}>
                                 Reviews
                             </Link>
                         </li>
@@ -60,9 +60,15 @@ const ProfileInfo = ({active}) => {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/profile/favorites" className={`nav-link
-                     ${active === 'favorites'?'active':''}`}>
-                                Favorites
+                            <Link to="/profile/reads" className={`nav-link
+                     ${active === 'reads'?'active':''}`}>
+                                Reads
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/profile/willReads" className={`nav-link
+                     ${active === 'willReads'?'active':''}`}>
+                                Will Reads
                             </Link>
                         </li>
                     </ul>

@@ -1,18 +1,18 @@
 import React from 'react'
 import Navigation from "../navigation/Navigation";
-import PersonalReviewList from "./review-data/PersonalReviewList";
 import ProfileInfo from "./Profile-Info";
+import ReadsList from "./reads-data/ReadsList";
 
-const Profile = ({active}) => {
+const ProfileReads = ({active}) => {
     return (
         <>
             <div className="row mt-2">
-                    <Navigation />
+                <Navigation />
                 <div className="col-2"></div>
                 <div className="col-8">
                     <ProfileInfo active={active}/>
                     <div className="row">
-                        <PersonalReviewList />
+                        <ReadsList />
                     </div>
                 </div>
                 <div className="col-2"></div>
@@ -21,4 +21,4 @@ const Profile = ({active}) => {
     );
 }
 
-export default Profile
+export default ProfileReads

@@ -1,16 +1,16 @@
 import React from "react";
-import FavoritesItem from "./FavoritesItem";
+import ReadsItem from "./ReadsItem";
 import favorites from "./favorites.json"
 
-const FollowingList = () => {
+const ReadsList = () => {
     return(
         <ul className="list-group">
             {
                 favorites.map(book =>
-                    <FavoritesItem
+                    <ReadsItem
                         key={book._id} book={book}/> )
             }
         </ul>
     );
 };
-export default FollowingList;
+export default ReadsList;

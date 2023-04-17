@@ -1,9 +1,9 @@
 import React from 'react'
 import Navigation from "../navigation/Navigation";
 import ProfileInfo from "./Profile-Info";
-import FavoritesList from "./favorites-data/FavoritesList";
+import ReadsList from "./reads-data/ReadsList";
 
-const ProfileFavorites = ({active}) => {
+const ProfileWillReads = ({active}) => {
     return (
         <>
             <div className="row mt-2">
@@ -12,7 +12,7 @@ const ProfileFavorites = ({active}) => {
                 <div className="col-8">
                     <ProfileInfo active={active}/>
                     <div className="row">
-                        <FavoritesList />
+                        <ReadsList />
                     </div>
                 </div>
                 <div className="col-2"></div>
@@ -21,4 +21,4 @@ const ProfileFavorites = ({active}) => {
     );
 }
 
-export default ProfileFavorites
+export default ProfileWillReads
