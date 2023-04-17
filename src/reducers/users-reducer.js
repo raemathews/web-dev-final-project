@@ -13,7 +13,7 @@ const initialState = {
     loading: false
 }
 const usersSlice = createSlice({
-    name: "library",
+    name: "users",
     initialState: initialState,
     extraReducers: {
         [findUsersThunk.pending]:
