@@ -3,11 +3,11 @@ import React from "react";
 
 const AccountOptions = () => {
     return (
-        <div className="navbar-item ms-auto">
-            <div className="nav-link dropdown-toggle btn-info pull-right pr-3 form-inline navbar-collapse collapse"
+        <div className="nav-item ms-auto">
+            <div className="nav-link dropdown-toggle btn btn-info pull-right pr-3 form-inline navbar-collapse collapse p-2"
                  id="navbarDropdownMenuLink"
                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i className="fa fa-user ps-2"/>
+                <i className="fa fa-user ps-3"/>
             </div>
             <div className="dropdown-menu dropdown-menu-end"
                  aria-labelledby="navbarDropdownMenuLink">
