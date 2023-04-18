@@ -14,11 +14,12 @@ import SignUp from "./book-review/signUp/SignUp";
 import {configureStore} from "@reduxjs/toolkit";
 import libraryReducer from "./reducers/library-reducer";
 import usersReducer from './reducers/users-reducer';
+import currentUserReducer from "./reducers/current-user-reducer";
 import {Provider} from "react-redux";
 
 const store = configureStore(
     {reducer: {library: libraryReducer,
-            users: usersReducer}});
+            users: usersReducer, currentUser: currentUserReducer}});
 
 function App() {
     return (
