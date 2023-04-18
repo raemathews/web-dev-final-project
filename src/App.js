@@ -14,7 +14,8 @@ import usersReducer from './reducers/users-reducer';
 import {Provider} from "react-redux";
 
 const store = configureStore(
-    {reducer: {library: libraryReducer,
+    {reducer:
+            {library: libraryReducer,
             users: usersReducer}});
 
 function App() {

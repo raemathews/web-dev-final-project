@@ -7,7 +7,6 @@ const BookDetails = () => {
     return (
         <>
             <Navigation />
-            <h1>Book Details</h1>
             <BookItem />
             <BookReviewList />
         </>

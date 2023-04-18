@@ -40,7 +40,7 @@ const BookItem = (
                 <div className="col-3">
                     <img width="100%" className="float-end" src={`/images/${book.image}`}/>
                     {/*TODO: will change to say something else when you click it, and # of saved will go up*/}
-                    <button type="button" className="btn btn-primary mt-3" style={{width: "100%"}}>Save to Collection</button>
+                    <button type="button" className="btn btn-primary mt-3" style={{width: "100%"}}>Save to Reading List</button>
                     {/*TODO: will take you to write a review about this book*/}
                     <button type="button" className="btn btn-primary mt-2" style={{width: "100%"}}>Add a review</button>
                 </div>

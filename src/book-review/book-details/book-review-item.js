@@ -1,4 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
+import {useDispatch} from "react-redux";
+import {deleteReviewThunk} from "../../services/reviews/reviews-thunk";
 const ReviewItem = (
     {
         review = {
@@ -17,6 +19,22 @@ const ReviewItem = (
         }
     }
 ) => {
+    let [currentComment, setCurrentComment] = useState('');
+
+    const dispatch = useDispatch();
+    const deleteReviewHandler = (id) => {
+        dispatch(deleteReviewThunk(id));
+    }
+    const likeReviewHandler = (review) => {
+        // dispatch(likeReviewThunk({
+        //     ...review,
+        //     liked: !(review.liked),
+        //     likes: (review.liked)? (review.likes - 1) : (review.likes + 1)
+        // }));
+    }
+
+    const likedIcon = review.liked ? "fa-solid text-danger fa-heart pe-1" : "fa-regular fa-heart pe-1"
+
     const spolierTag = review.spoilers ?
         <i className="bi bi-exclamation-circle-fill fa-lg float-end mx-4 my-1"> Spoliers</i>
         : <span></span>
@@ -28,7 +46,8 @@ const ReviewItem = (
                 </div>
                 <div className="col-11">
                     <div>
-                        <i className="bi bi-x-lg float-end"></i>
+                        {/*TODO: Make only visible to user who wrote the review*/}
+                        <i className="bi bi-x-lg float-end" onClick={() => deleteReviewHandler(review)}></i>
                         <b>{review.username} </b>
                         {review.handle} | {review.time}
                     </div>
@@ -40,9 +59,22 @@ const ReviewItem = (
 
                     <div className="my-2">{review.review}</div>
                     <div>
-                        <label className="col-3"><i className="fa-regular fa-comment pe-1"></i>{review.replies}</label>
-                        <label className="col-3"><i className="fa-regular fa-heart pe-1"></i>{review.likes}</label>
+                        <label className="col-3">
+                            <i className="fa-regular fa-comment pe-1"></i>
+                            {review.replies}
+                        </label>
+                        <label className="col-3">
+                            <i className={likedIcon} onClick={() => likeReviewHandler(review)}></i>
+                            {review.likes}
+                        </label>
                         <label className="col-3"><i className="fa-solid fa-share-nodes pe-1"></i></label>
+                    </div>
+                    <div>
+                        {/*TODO: Make a comment reply section*/}
+                        <textarea value={currentComment} placeholder="Write a reply here..."
+                                  className="form-control border-0"
+                                  onChange={(event) => setCurrentComment(event.target.value)}>
+                        </textarea>
                     </div>
                 </div>
             </div>
