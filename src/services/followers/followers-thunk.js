@@ -3,7 +3,7 @@ import {createAsyncThunk}
 import * as service
     from "./followers-service"
 
-export const findFollows = createAsyncThunk(
+export const findFollowsThunk = createAsyncThunk(
     'followers/findFollows', async () =>
         await service.findFollows()
 );
