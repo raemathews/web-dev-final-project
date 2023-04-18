@@ -18,7 +18,7 @@ const BookResults = () => {
     }, [])
     return (
         <div className="col-xs-12 col-sm-7 col-lg-9 col-xl-9">
-            <div>
+            <div className="d-none d-sm-none d-md-block">
                 <h5 className="p-4">
                     {
                         `Results for "${query}"`
@@ -33,7 +33,7 @@ const BookResults = () => {
                 <div className="col-auto align-top">
                     {
                         loading &&
-                        <div className="spinner-grow" role="status">
+                        <div className="spinner-grow m-5" role="status">
                             <span className="sr-only">Loading...</span>
                         </div>
                     }

@@ -1,18 +1,9 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
-import {useNavigate} from "react-router";
 import AccountOptions from "./AccountOptions";
+import Searchbar from "./Searchbar";
 
 const Navigation = () => {
-    const navigate = useNavigate();
-    const [searchKeys, setSearchKeys] = useState("")
-    const checkForSearch = (e) => {
-        if (e.key === 'Enter') {
-            searchKeys.replaceAll(" ", "+");
-            navigate("/search/" + searchKeys, {replace: true})
-        }
-    }
-
     return (
         <div className="sticky-top">
             <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
@@ -26,14 +17,7 @@ const Navigation = () => {
                     <span className="navbar-toggler-icon"/>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    {/*SEARCH BAR*/}
-                    <form className="nav-item mx-auto form-inline col-md-5">
-                        <input className="form-control mr-sm-2 d-inline" type="text" placeholder="Search Books"
-                               aria-label="SearchResults"
-                               onChange={(e) => setSearchKeys(e.target.value)}
-                               onKeyPress={(e) => checkForSearch(e)}
-                        />
-                    </form>
+                    <Searchbar />
                     <AccountOptions />
                 </div>
 
