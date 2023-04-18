@@ -1,5 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {updateUserThunk} from "../services/users/users-thunk";
 
 const anonymousUserId = ""
 
