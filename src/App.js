@@ -8,6 +8,9 @@ import Search from "./book-review/search/SearchResults";
 import ProfileFollowing from "./book-review/profile/ProfileFollowing";
 import ProfileFollowers from "./book-review/profile/ProfileFollowers";
 import ProfileFavorites from "./book-review/profile/ProfileFavorites";
+import SignUp from "./book-review/signUp/SignUp";
+
+
 import {configureStore} from "@reduxjs/toolkit";
 import libraryReducer from "./reducers/library-reducer";
 import usersReducer from './reducers/users-reducer';
@@ -23,7 +26,6 @@ function App() {
             <Router>
                 <Routes>
                     <Route index element={<Home/>}/>
-
                     <Route path="login" element={<Login/>}/>
                     <Route path="profile" element={<Profile/>}/>
                     <Route path="book-details/*" element={<BookDetails/>}/>
