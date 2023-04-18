@@ -1,30 +1,30 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Navigation from "../navigation/Navigation";
-import BookTile from "./BookTile";
-import results from "./books.json";
 import "./BookRatings.css";
+import BookResults from "./BookResults";
+import UserResults from "./UserResults";
+import {useParams} from "react-router-dom";
 
 
-const SearchResults = ({query}) => {
-    /**eventually this will be done using api**/
-    const search = results.q
-    const books = results.docs
+const SearchResults = () => {
+    const {query} = useParams();
+
     return (
         <div>
             <Navigation/>
             <div className="container">
-                <div>
-                    <h5 className="p-4">Results for "{search}" ({results.numFound} found)</h5>
-                    <hr/>
-                </div>
-                <div className="row justify-content-center">
-                    <div className="col-auto align-top">
-                        {
-                            books.map(book =>
-                                <BookTile key={book.key} book={book}/>
-                            )
-                        }
-                    </div>
+                <div className="row">
+                    <span className="d-block d-md-none">{`Search Results for "${query}"`}</span>
+                    <ul className="nav nav-tabs mt-2 d-md-none">
+                        <li className="nav-item">
+                            <a className="nav-link active" href="#">Books</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Profiles</a>
+                        </li>
+                    </ul>
+                    <BookResults/>
+                    <UserResults/>
                 </div>
             </div>
         </div>
