@@ -19,29 +19,29 @@ import {Provider} from "react-redux";
 
 const store = configureStore(
     {reducer: {library: libraryReducer,
-        users: usersReducer, currentUser: currentUserReducer}});
+            users: usersReducer, currentUser: currentUserReducer}});
 
 function App() {
-  return (
-      <Provider store={store}>
-        <Router>
-          <Routes>
-            <Route index element={<Home/>}/>
-            <Route path="login" element={<Login/>}/>
-            <Route path="profile" element={<Profile/>}/>
-            <Route path="book-details/*" element={<BookDetails/>}/>
-            <Route path="search/:query" element={<Search/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/profile" element={<Profile active="reviews"/>}/>
-            <Route path="/profile/followers" element={<ProfileFollowers active="followers"/>}/>
-            <Route path="/profile/following" element={<ProfileFollowing active="following"/>}/>
-            <Route path="/profile/favorites" element={<ProfileFavorites active="favorites"/>}/>
-            <Route path="/book-details" element={<BookDetails/>}/>
-            <Route path="/search" element={<Search/>}/>
-          </Routes>
-        </Router>
-      </Provider>
-  );
+    return (
+        <Provider store={store}>
+            <Router>
+                <Routes>
+                    <Route index element={<Home/>}/>
+                    <Route path="login" element={<Login/>}/>
+                    <Route path="profile" element={<Profile/>}/>
+                    <Route path="book-details/*" element={<BookDetails/>}/>
+                    <Route path="search/:query" element={<Search/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/profile" element={<Profile active="reviews"/>}/>
+                    <Route path="/profile/followers" element={<ProfileFollowers active="followers"/>}/>
+                    <Route path="/profile/following" element={<ProfileFollowing active="following"/>}/>
+                    <Route path="/profile/favorites" element={<ProfileFavorites active="favorites"/>}/>
+                    <Route path="/book-details" element={<BookDetails/>}/>
+                    <Route path="/search" element={<Search/>}/>
+                </Routes>
+            </Router>
+        </Provider>
+    );
 }
 
 export default App;
