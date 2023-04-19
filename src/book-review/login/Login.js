@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { loginThunk } from "../services/auth-thunks";
 import Navigation from "../navigation/Navigation";
 import {Link} from "react-router-dom";
-function LoginScreen() {
+function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
@@ -56,4 +56,4 @@ function LoginScreen() {
 
 
 }
-export default LoginScreen;
+export default Login;

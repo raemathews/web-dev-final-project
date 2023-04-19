@@ -16,6 +16,7 @@ import libraryReducer from "./reducers/library-reducer";
 import usersReducer from './reducers/users-reducer';
 import currentUserReducer from "./reducers/current-user-reducer";
 import {Provider} from "react-redux";
+import ProfileScreen from "./book-review/profile/profile-screen";
 
 const store = configureStore(
     {reducer: {library: libraryReducer,
@@ -32,6 +33,9 @@ function App() {
                     <Route path="book-details/*" element={<BookDetails/>}/>
                     <Route path="search/:query" element={<Search/>}/>
                     <Route path="/login" element={<Login/>}/>
+                    <Route path="/profileScreen"
+                           element={<ProfileScreen />} />
+
                     <Route path="/profile" element={<Profile active="reviews"/>}/>
                     <Route path="/profile/followers" element={<ProfileFollowers active="followers"/>}/>
                     <Route path="/profile/following" element={<ProfileFollowing active="following"/>}/>
