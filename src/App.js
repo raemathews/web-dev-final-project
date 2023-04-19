@@ -28,7 +28,6 @@ function App() {
                 <Routes>
                     <Route index element={<Home/>}/>
                     <Route path="login" element={<Login/>}/>
-                    <Route path="profile" element={<Profile/>}/>
                     <Route path="book-details/*" element={<BookDetails/>}/>
                     <Route path="search/:query" element={<Search/>}/>
                     <Route path="/login" element={<Login/>}/>
