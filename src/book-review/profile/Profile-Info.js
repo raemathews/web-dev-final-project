@@ -1,7 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-// NOTE: THIS WILL NEED REACT/REDUCERS TO HANDLE EDITING THEM!
 const ProfileInfo = ({active}) => {
     return(
         <>
@@ -43,25 +42,25 @@ const ProfileInfo = ({active}) => {
                     <ul className="nav nav-pills mb-2">
                         <li className="nav-item">
                             <Link to="/profile" className={`nav-link
-                     ${active === 'reviews'?'active':''}`}>
+                     ${active === 'reviews'?'active':''}`} onClick= {() => {active = 'reviews'}}>
                                 Reviews
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/profile/followers" className={`nav-link
-                     ${active === 'followers'?'active':''}`}>
+                            <Link to="/profile" className={`nav-link
+                     ${active === 'followers'?'active':''}`} onClick= {() => {active = 'followers'}}>
                                 Followers
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/profile/following" className={`nav-link
-                     ${active === 'following'?'active':''}`}>
+                            <Link to="/profile" className={`nav-link
+                     ${active === 'following'?'active':''}`} onClick= {() => {active = 'following'}}>
                                 Following
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/profile/favorites" className={`nav-link
-                     ${active === 'favorites'?'active':''}`}>
+                            <Link to="/profile" className={`nav-link
+                     ${active === 'favorites'?'active':''}`} onClick= {() => {active = 'favorites'}}>
                                 Favorites
                             </Link>
                         </li>
