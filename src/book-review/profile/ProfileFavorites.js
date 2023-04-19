@@ -1,7 +1,7 @@
 import React from 'react'
 import Navigation from "../navigation/Navigation";
 import ProfileInfo from "./Profile-Info";
-import FavoritesList from "./favorites-data/FavoritesList";
+import FavoritesList from "./favorites-data/ReadList";
 
 const ProfileFavorites = ({active}) => {
     return (
