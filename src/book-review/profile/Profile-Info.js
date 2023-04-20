@@ -1,7 +1,6 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import ProfileTabs from "./ProfileTabs";
 
-// NOTE: THIS WILL NEED REACT/REDUCERS TO HANDLE EDITING THEM!
 const ProfileInfo = ({active}) => {
     return(
         <>
@@ -40,32 +39,7 @@ const ProfileInfo = ({active}) => {
                     </div>
                 </div>
                 <div className="row mt-3">
-                    <ul className="nav nav-pills mb-2">
-                        <li className="nav-item">
-                            <Link to="/profile" className={`nav-link
-                     ${active === 'reviews'?'active':''}`}>
-                                Reviews
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/profile/followers" className={`nav-link
-                     ${active === 'followers'?'active':''}`}>
-                                Followers
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/profile/following" className={`nav-link
-                     ${active === 'following'?'active':''}`}>
-                                Following
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/profile/favorites" className={`nav-link
-                     ${active === 'favorites'?'active':''}`}>
-                                Favorites
-                            </Link>
-                        </li>
-                    </ul>
+                    <ProfileTabs />
                 </div>
         </>
     );
