@@ -3,7 +3,6 @@ import profileArray from "./profiles.json";
 
 const AddNewItem = (
     {
-
     }
 ) => {
     return(
