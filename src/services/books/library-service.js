@@ -1,5 +1,6 @@
 import axios from 'axios';
 const BOOKS_API = 'https://openlibrary.org/search.json?q=';
+const BOOK_API = 'https://openlibrary.org/works/';
 export const COVERS_API = 'https://covers.openlibrary.org/b/id/';
 
 export const findBooks = async (q) => {
@@ -8,6 +9,12 @@ export const findBooks = async (q) => {
     // for(let key in response) {
     //     console.log(key + ":", response[key]);
     // }
+    const books = response.data;
+    return books;
+}
+
+export const findBookById = async (q) => {
+    const response = await axios.get(`${BOOK_API}${q}.json`);
     const books = response.data;
     return books;
 }
