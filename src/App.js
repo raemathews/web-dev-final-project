@@ -15,12 +15,13 @@ import {configureStore} from "@reduxjs/toolkit";
 import libraryReducer from "./reducers/library-reducer";
 import usersReducer from './reducers/users-reducer';
 import authReducer from "./book-review/reducers/auth-reducer";
+import followsReducer from "./reducers/followers-reducer"
 import {Provider} from "react-redux";
 import ProfileScreen from "./book-review/profile/profile-screen";
 
 const store = configureStore(
     {reducer: {library: libraryReducer,
-            users: usersReducer, currentUser: authReducer}});
+            users: usersReducer, currentUser: authReducer, follows: followsReducer}});
 
 function App() {
     return (
