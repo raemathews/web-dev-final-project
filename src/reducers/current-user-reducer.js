@@ -14,7 +14,7 @@ const currentUserSlice = createSlice({
         },
         logOutUser(state) {
             state.currentUser = anonymousUserId
-        }
+        },
     },
 });
 

@@ -23,6 +23,9 @@ export const deleteUser = async(id) => {
 }
 
 export const updateUser = async(id, updatedUser) => {
+    console.log("updating user");
+    console.log("The id is: " + id);
+    console.log("The updated user is: " + updatedUser.username);
     const response = await axios.put(`${USERS_API}/${id}`, updatedUser)
     return response.status
 }
