@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {deleteReviewThunk, updateReviewThunk} from "../../services/reviews/reviews-thunk";
+import {useParams} from "react-router-dom";
 const ReviewItem = (
     {
         review = {
@@ -20,17 +21,17 @@ const ReviewItem = (
     }
 ) => {
     let [currentComment, setCurrentComment] = useState('');
-
     const dispatch = useDispatch();
     const deleteReviewHandler = (id) => {
         dispatch(deleteReviewThunk(id));
     }
     const likeReviewHandler = (review) => {
-        dispatch(updateReviewThunk({
-            ...review,
-            liked: !(review.liked),
-            likes: (review.liked)? (review.likes - 1) : (review.likes + 1)
-        }));
+        // TODO: add current user to the list of users who liked this review
+        // dispatch(updateReviewThunk({
+        //     ...review,
+        //     liked: !(review.liked),
+        //     likes: (review.liked)? (review.likes - 1) : (review.likes + 1)
+        // }));
     }
 
     const likedIcon = review.liked ? "fa-solid text-danger fa-heart pe-1" : "fa-regular fa-heart pe-1"

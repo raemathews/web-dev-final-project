@@ -6,12 +6,12 @@ import {findReviewsByBookId} from "../../services/reviews/reviews-thunk";
 import {useParams} from "react-router-dom";
 
 const ReviewList = () => {
-    const {book} = useParams();
+    const {bookid} = useParams();
     const {reviews, loading} = useSelector(
         state => state.reviews)
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(findReviewsByBookId(book))
+        dispatch(findReviewsByBookId(bookid))
     }, [])
     return(
         <ul className="list-group mt-2 mb-4">

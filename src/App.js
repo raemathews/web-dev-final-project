@@ -31,7 +31,7 @@ function App() {
                 <Routes>
                     <Route index element={<Home/>}/>
                     <Route path="login" element={<Login/>}/>
-                    <Route path="book-details/works/:book" element={<BookDetails/>}/>
+                    <Route path="book-details/works/:bookid" element={<BookDetails/>}/>
                     <Route path="search/:query" element={<Search/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/profile" element={<Profile active="reviews"/>}/>

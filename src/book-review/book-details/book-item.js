@@ -1,8 +1,41 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import BookReviewList from "./book-review-list";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {createReviewThunk} from "../../services/reviews/reviews-thunk";
+import {useParams} from "react-router-dom";
+import StarRating from "../search/StarRating";
+import {findBookThunk} from "../../services/books/library-thunk";
 
+const defaultBook = {
+    "_id": 234,
+    "author": "Colleen Hoover",
+    "title": "It Ends With Us",
+    "image": "itendswithus.jpeg",
+    "rating": "4.8",
+    "reviews": 2378478,
+    "saves": 200620,
+    "saved": true,
+    "pages": 386,
+    "published": "August 2, 2016",
+    "tags": "Romance, Fiction, Contemporary, New Adult, Contemporary Romance, Adult",
+    "summary": "Sometimes it is the one who loves you who hurts you the most.\n" +
+        "\n" +
+        "Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life " +
+        "she wants. She’s come a long way from the small town in Maine where she grew up — she graduated " +
+        "from college, moved to Boston, and started her own business. So when she feels a spark with a " +
+        "gorgeous neurosurgeon named Ryle Kincaid, everything in Lily’s life suddenly seems almost too " +
+        "good to be true.\n" +
+        "\n" +
+        "Ryle is assertive, stubborn, maybe even a little arrogant. He’s also sensitive, brilliant, and " +
+        "has a total soft spot for Lily. And the way he looks in scrubs certainly doesn’t hurt. Lily can’t " +
+        "get him out of her head. But Ryle’s complete aversion to relationships is disturbing. Even as " +
+        "Lily finds herself becoming the exception to his “no dating” rule, she can’t help but wonder what " +
+        "made him that way in the first place.\n" +
+        "\n" +
+        "As questions about her new relationship overwhelm her, so do thoughts of Atlas Corrigan — her " +
+        "first love and a link to the past she left behind. He was her kindred spirit, her protector. " +
+        "When Atlas suddenly reappears, everything Lily has built with Ryle is threatened.",
+}
 const BookItem = (
     {
         book = {
@@ -17,92 +50,24 @@ const BookItem = (
             "pages": 386,
             "published": "August 2, 2016",
             "tags": "Romance, Fiction, Contemporary, New Adult, Contemporary Romance, Adult",
-            "summary": "Sometimes it is the one who loves you who hurts you the most.\n" +
-                "\n" +
-                "Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life " +
-                "she wants. She’s come a long way from the small town in Maine where she grew up — she graduated " +
-                "from college, moved to Boston, and started her own business. So when she feels a spark with a " +
-                "gorgeous neurosurgeon named Ryle Kincaid, everything in Lily’s life suddenly seems almost too " +
-                "good to be true.\n" +
-                "\n" +
-                "Ryle is assertive, stubborn, maybe even a little arrogant. He’s also sensitive, brilliant, and " +
-                "has a total soft spot for Lily. And the way he looks in scrubs certainly doesn’t hurt. Lily can’t " +
-                "get him out of her head. But Ryle’s complete aversion to relationships is disturbing. Even as " +
-                "Lily finds herself becoming the exception to his “no dating” rule, she can’t help but wonder what " +
-                "made him that way in the first place.\n" +
-                "\n" +
-                "As questions about her new relationship overwhelm her, so do thoughts of Atlas Corrigan — her " +
-                "first love and a link to the past she left behind. He was her kindred spirit, her protector. " +
-                "When Atlas suddenly reappears, everything Lily has built with Ryle is threatened."
-
-                +
-                "Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life " +
-                "she wants. She’s come a long way from the small town in Maine where she grew up — she graduated " +
-                "from college, moved to Boston, and started her own business. So when she feels a spark with a " +
-                "gorgeous neurosurgeon named Ryle Kincaid, everything in Lily’s life suddenly seems almost too " +
-                "good to be true.\n" +
-                "\n" +
-                "Ryle is assertive, stubborn, maybe even a little arrogant. He’s also sensitive, brilliant, and " +
-                "has a total soft spot for Lily. And the way he looks in scrubs certainly doesn’t hurt. Lily can’t " +
-                "get him out of her head. But Ryle’s complete aversion to relationships is disturbing. Even as " +
-                "Lily finds herself becoming the exception to his “no dating” rule, she can’t help but wonder what " +
-                "made him that way in the first place.\n"
-                +
-                "Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life " +
-                "she wants. She’s come a long way from the small town in Maine where she grew up — she graduated " +
-                "from college, moved to Boston, and started her own business. So when she feels a spark with a " +
-                "gorgeous neurosurgeon named Ryle Kincaid, everything in Lily’s life suddenly seems almost too " +
-                "good to be true.\n" +
-                "\n" +
-                "Ryle is assertive, stubborn, maybe even a little arrogant. He’s also sensitive, brilliant, and " +
-                "has a total soft spot for Lily. And the way he looks in scrubs certainly doesn’t hurt. Lily can’t " +
-                "get him out of her head. But Ryle’s complete aversion to relationships is disturbing. Even as " +
-                "Lily finds herself becoming the exception to his “no dating” rule, she can’t help but wonder what " +
-                "made him that way in the first place.\n"
-                +
-                "Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life " +
-                "she wants. She’s come a long way from the small town in Maine where she grew up — she graduated " +
-                "from college, moved to Boston, and started her own business. So when she feels a spark with a " +
-                "gorgeous neurosurgeon named Ryle Kincaid, everything in Lily’s life suddenly seems almost too " +
-                "good to be true.\n" +
-                "\n" +
-                "Ryle is assertive, stubborn, maybe even a little arrogant. He’s also sensitive, brilliant, and " +
-                "has a total soft spot for Lily. And the way he looks in scrubs certainly doesn’t hurt. Lily can’t " +
-                "get him out of her head. But Ryle’s complete aversion to relationships is disturbing. Even as " +
-                "Lily finds herself becoming the exception to his “no dating” rule, she can’t help but wonder what " +
-                "made him that way in the first place.\n"
-                +
-                "Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life " +
-                "she wants. She’s come a long way from the small town in Maine where she grew up — she graduated " +
-                "from college, moved to Boston, and started her own business. So when she feels a spark with a " +
-                "gorgeous neurosurgeon named Ryle Kincaid, everything in Lily’s life suddenly seems almost too " +
-                "good to be true.\n" +
-                "\n" +
-                "Ryle is assertive, stubborn, maybe even a little arrogant. He’s also sensitive, brilliant, and " +
-                "has a total soft spot for Lily. And the way he looks in scrubs certainly doesn’t hurt. Lily can’t " +
-                "get him out of her head. But Ryle’s complete aversion to relationships is disturbing. Even as " +
-                "Lily finds herself becoming the exception to his “no dating” rule, she can’t help but wonder what " +
-                "made him that way in the first place.\n"
-                +
-                "Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life " +
-                "she wants. She’s come a long way from the small town in Maine where she grew up — she graduated " +
-                "from college, moved to Boston, and started her own business. So when she feels a spark with a " +
-                "gorgeous neurosurgeon named Ryle Kincaid, everything in Lily’s life suddenly seems almost too " +
-                "good to be true.\n" +
-                "\n" +
-                "Ryle is assertive, stubborn, maybe even a little arrogant. He’s also sensitive, brilliant, and " +
-                "has a total soft spot for Lily. And the way he looks in scrubs certainly doesn’t hurt. Lily can’t " +
-                "get him out of her head. But Ryle’s complete aversion to relationships is disturbing. Even as " +
-                "Lily finds herself becoming the exception to his “no dating” rule, she can’t help but wonder what " +
-                "made him that way in the first place.\n"
-
-
-
-            ,
+            "summary": "",
         }
     }
 ) => {
     let [currentReview, setCurrentReview] = useState('');
+
+    // Get book from library
+    const {bookid} = useParams();
+    console.log(bookid);
+    const {numResults, books, loading} =
+        useSelector(store => store.library)
+    useEffect(() => {
+        dispatch(findBookThunk(bookid))
+    }, [])
+    console.log(`books: ${books}`);
+    const bookItem = books ? books[0] : defaultBook;
+    console.log(`description: ${bookItem.description}`);
+
     const dispatch = useDispatch();
 
     const createReviewHandler = () => {
@@ -137,19 +102,19 @@ const BookItem = (
                     <div>
                         <div className="float-end">
                             <i className="bi bi-star-fill text-warning fa-2x"></i>
-                            <h2 className="ps-2" style={{display: "inline"}}>{book.rating}</h2>
+                            <h2 className="ps-2" style={{display: "inline"}}>{bookItem.rating}</h2>
                         </div>
-                        <h1><b>{book.title}</b></h1>
+                        <h1><b>{bookItem.title}</b></h1>
                         {/*<i className="fa-solid fa-circle-check text-primary ps-2 pe-2"></i>*/}
-                        <h4>{book.author}</h4>
-                        <p>{book.reviews} reviews | {book.saves} saves</p>
+                        <h4>{bookItem.author_name}</h4>
+                        <p>{bookItem.reviews} reviews | {bookItem.already_read_count} saves</p>
                     </div>
                     <hr/>
-                    <div style={{whiteSpace: "pre-line"}}>{book.summary}</div>
+                    <div style={{whiteSpace: "pre-line"}}>{bookItem.description}</div>
                     <hr/>
                     <div>
-                        <p>Tags: {book.tags}</p>
-                        <p>Published: {book.published}</p>
+                        <p>Tags: {bookItem.subject_facet}</p>
+                        <p>Published: {bookItem.published}</p>
                     </div>
                     <hr/>
                     <BookReviewList />
