@@ -4,7 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {createReviewThunk} from "../../services/reviews/reviews-thunk";
 import {useParams} from "react-router-dom";
 import StarRating from "../search/StarRating";
-import {findBookThunk} from "../../services/books/library-thunk";
+import {findBookByIdThunk, findBooksThunk} from "../../services/books/library-thunk";
+import ReviewItem from "./book-review-item";
 
 const defaultBook = {
     "_id": 234,
@@ -58,17 +59,16 @@ const BookItem = (
 
     // Get book from library
     const {bookid} = useParams();
-    console.log(bookid);
+    // console.log(`book id: ${bookid}`);
+    const dispatch = useDispatch();
+
     const {numResults, books, loading} =
         useSelector(store => store.library)
+    // console.log(`original books: ${books}`);
     useEffect(() => {
-        dispatch(findBookThunk(bookid))
+        dispatch(findBookByIdThunk(bookid));
     }, [])
-    console.log(`books: ${books}`);
-    const bookItem = books ? books[0] : defaultBook;
-    console.log(`description: ${bookItem.description}`);
-
-    const dispatch = useDispatch();
+    // console.log(`books: ${books}`);
 
     const createReviewHandler = () => {
         const newReview = {
@@ -79,47 +79,56 @@ const BookItem = (
 
     return (
         <div className="container">
-            <div className="row">
-                <div className="col-3 position-fixed sticky-lg-top" style={{top: '10%'}}>
-                    <img width="100%" className="float-end" src={`/images/${book.image}`}/>
-                    {/*TODO: will change to say something else when you click it, and # of saved will go up*/}
-                    <button type="button"
-                            className="btn btn-primary mt-3"
-                            style={{width: "100%"}}>
-                        Save to Reading List
-                    </button>
-                    <textarea className="mt-2 p-1"
-                              placeholder={'Write a review...'}
-                              style={{width: "100%"}}></textarea>
-                    {/*TODO: will submit and add a review about this book*/}
-                    <button type="button"
-                            className="btn btn-primary mt-2"
-                            style={{width: "100%"}}>
-                        Add review
-                    </button>
-                </div>
-                <div className="col-9 position-relative pt-5 ps-xl-5" style={{marginLeft: '26%'}}>
-                    <div>
-                        <div className="float-end">
-                            <i className="bi bi-star-fill text-warning fa-2x"></i>
-                            <h2 className="ps-2" style={{display: "inline"}}>{bookItem.rating}</h2>
+            {
+                loading &&
+                <li className="list-group-item">
+                    Loading...
+                </li>
+            }
+            {
+                <div className="row">
+                    <div className="col-3 position-fixed sticky-lg-top" style={{top: '10%'}}>
+                        <img width="100%" className="float-end" src={`/images/${book.image}`}/>
+                        {/*TODO: will change to say something else when you click it, and # of saved will go up*/}
+                        <button type="button"
+                                className="btn btn-primary mt-3"
+                                style={{width: "100%"}}>
+                            Save to Reading List
+                        </button>
+                        <textarea className="mt-2 p-1"
+                                  placeholder={'Write a review...'}
+                                  style={{width: "100%"}}></textarea>
+                        {/*TODO: will submit and add a review about this book*/}
+                        <button type="button"
+                                className="btn btn-primary mt-2"
+                                style={{width: "100%"}}>
+                            Add review
+                        </button>
+                    </div>
+                    <div className="col-9 position-relative pt-5 ps-xl-5" style={{marginLeft: '26%'}}>
+                    {/*    <div>*/}
+                    {/*        <div className="float-end">*/}
+                    {/*            <i className="bi bi-star-fill text-warning fa-2x"></i>*/}
+                    {/*            <h2 className="ps-2" style={{display: "inline"}}>{books.rating}</h2>*/}
+                    {/*        </div>*/}
+                    {/*        <h1><b>{books.title}</b></h1>*/}
+                    {/*        <h4>{books.author_name}</h4>*/}
+                    {/*        <p>{books.reviews} reviews | {books.already_read_count} saves</p>*/}
+                    {/*    </div>*/}
+                    {/*    <hr/>*/}
+                    {/*    {console.log(`BBBOOK: ${Object.keys(books)}`)}*/}
+                    {/*    {console.log(`desc: ${books.description}`)}*/}
+                    {/*    <div style={{whiteSpace: "pre-line"}}>{books.data}</div>*/}
+                        <hr/>
+                        <div>
+                            <p>Tags: {books.subject_facet}</p>
+                            <p>Published: {books.published}</p>
                         </div>
-                        <h1><b>{bookItem.title}</b></h1>
-                        {/*<i className="fa-solid fa-circle-check text-primary ps-2 pe-2"></i>*/}
-                        <h4>{bookItem.author_name}</h4>
-                        <p>{bookItem.reviews} reviews | {bookItem.already_read_count} saves</p>
+                        <hr/>
+                        <BookReviewList />
                     </div>
-                    <hr/>
-                    <div style={{whiteSpace: "pre-line"}}>{bookItem.description}</div>
-                    <hr/>
-                    <div>
-                        <p>Tags: {bookItem.subject_facet}</p>
-                        <p>Published: {bookItem.published}</p>
-                    </div>
-                    <hr/>
-                    <BookReviewList />
                 </div>
-            </div>
+            }
         </div>
     );
 };

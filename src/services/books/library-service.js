@@ -13,12 +13,10 @@ export const findBooks = async (q) => {
     return books;
 }
 
-export const findBook = async (q) => {
-    console.log(`${BOOK_API}${q}.json`);
+export const findBookById = async (q) => {
     const response = await axios.get(`${BOOK_API}${q}.json`);
-    const book = response.data;
-    console.log(book);
-    return book;
+    const books = response.data;
+    return books;
 }
 
 // export const findBookCover = async (bid) => {
