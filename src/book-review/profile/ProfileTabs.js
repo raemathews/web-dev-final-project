@@ -12,7 +12,7 @@ const ProfileTabs = () => {
             defaultActiveKey="profile"
             id="uncontrolled-tab-example"
             className="mb-3">
-            <Tab eventKey="reviews" title="Reviews">
+            <Tab active={true} eventKey="reviews" title="Reviews">
                 <PersonalReviewList />
             </Tab>
             <Tab eventKey="followers" title="Followers">

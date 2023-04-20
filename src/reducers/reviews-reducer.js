@@ -39,8 +39,7 @@ const reviewsSlice = createSlice({
         [findReviewsByUserIdThunk.fulfilled]:
             (state, { payload }) => {
                 state.loading = false
-                state.reviews = state.reviews
-                    .filter(review => review.user_id !== payload)
+                state.reviews = payload
             },
         [findReviewsByUserIdThunk.rejected]:
             (state, action) => {

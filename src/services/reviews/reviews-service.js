@@ -12,17 +12,20 @@ export const findReviewsByBookId = async (bid) => {
 }
 
 export const findReviewsByUserId = async (uid) => {
-    const response = await axios.get(`${REVIEWS_API}/${uid}`)
+    console.log("uid in service" + uid);
+    const response = await axios.get(`${REVIEWS_API}/byUser/${uid}`)
+    console.log("response" + response);
+    console.log("response data" + response.data);
     return response.data
 }
 
 export const createReview = async () => {
-    const response = await axios.post(REVIEWS_API);
+    const response = await axios.post(`${REVIEWS_API}/create`);
     return response.data;
 }
 
 export const deleteReview = async (id) => {
-    const response = await axios.delete(`${REVIEWS_API}/${id}`);
+    const response = await axios.delete(`${REVIEWS_API}/delete/${id}`);
     return response.data;
 }
 
