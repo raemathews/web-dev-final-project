@@ -8,23 +8,28 @@ import {useParams} from "react-router-dom";
 
 const SearchResults = () => {
     const {query} = useParams();
-
     return (
         <div>
             <Navigation/>
             <div className="container">
                 <div className="row">
-                    <span className="d-block d-md-none">{`Search Results for "${query}"`}</span>
+                    <h5 className="d-block d-md-none mt-3">{`Search Results for "${query}"`}</h5>
                     <ul className="nav nav-tabs mt-2 d-md-none">
-                        <li className="nav-item">
-                            <a className="nav-link active" href="#">Books</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Profiles</a>
-                        </li>
+                            <li><a className="nav-link" href={"#books"} data-toggle="pill">Books</a></li>
+                            <li><a className="nav-link" href={"#profiles"} data-toggle="pill">Profiles</a></li>
                     </ul>
-                    <BookResults/>
-                    <UserResults/>
+                    <div className="tab-content">
+                        <div id="books" className="tab-pane" role="tab">
+                            <BookResults/>
+                        </div>
+                        <div id="profiles" className="tab-pane" role="tab">
+                            <UserResults/>
+                        </div>
+                    </div>
+                    <div className="d-none d-md-flex">
+                        <BookResults/>
+                        <UserResults/>
+                    </div>
                 </div>
             </div>
         </div>
