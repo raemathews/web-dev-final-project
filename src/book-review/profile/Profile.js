@@ -28,9 +28,6 @@ const Profile = ({active}) => {
                 <div className="col-2"></div>
                 <div className="col-8">
                     <ProfileInfo active={active}/>
-                    <div className="row">
-                        {content}
-                    </div>
                 </div>
                 <div className="col-2"></div>
             </div>
