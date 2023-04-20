@@ -9,10 +9,10 @@ import ReadList from "./favorites-data/ReadList";
 const ProfileTabs = () => {
     return (
         <Tabs
-            defaultActiveKey="profile"
+            defaultActiveKey="reviews"
             id="uncontrolled-tab-example"
             className="mb-3">
-            <Tab active={true} eventKey="reviews" title="Reviews">
+            <Tab eventKey="reviews" title="Reviews">
                 <PersonalReviewList />
             </Tab>
             <Tab eventKey="followers" title="Followers">
