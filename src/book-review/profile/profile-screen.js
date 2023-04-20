@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { profileThunk, logoutThunk, updateUserThunk }
+import { logoutThunk }
     from "../services/auth-thunks";
+import {updateUserThunk} from "../../services/users/users-thunk";
 function ProfileScreen() {
-    const { currentUser } = useSelector((state) => state.user);
+    const { currentUser } = useSelector((state) => state.currentUser);
     const [profile, setProfile] = useState(currentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const save = () => { dispatch(updateUserThunk(profile)); };
-    useEffect(async () => {
-        const { payload } = await dispatch(profileThunk());
-        setProfile(payload);
-    }, []);
+
     return (
         <div>
             <h1>Profile Screen</h1>

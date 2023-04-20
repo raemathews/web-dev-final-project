@@ -10,7 +10,8 @@ import {
 const initialState = {
     numResults: 0,
     foundUsers: [],
-    loading: false
+    loading: false,
+    currentUser: null
 }
 const usersSlice = createSlice({
     name: "users",

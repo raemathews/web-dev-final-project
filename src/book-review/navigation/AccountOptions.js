@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import currentUserSlice from "../../reducers/current-user-reducer";
 
 const AccountOptions = () => {
-    const { currentUser } = useSelector((state) => state.user);
+    const { currentUser } = useSelector((state) => state.currentUser);
     return (
         <div className="nav-item ms-auto">
             <div className="nav-link dropdown-toggle btn btn-info pull-right pr-3 form-inline navbar-collapse collapse p-2"
@@ -14,9 +14,9 @@ const AccountOptions = () => {
             </div>
             <div className="dropdown-menu dropdown-menu-end"
                  aria-labelledby="navbarDropdownMenuLink">
-                {!currentUser && <Link to="/login" className="dropdown-item">Log In</Link>} |
-                {!currentUser && <Link to="/signUp" className="dropdown-item">Sign Up</Link>} |
-                {currentUser  && <Link to="/profile" className="dropdown-item">Profile</Link>} |
+                {!currentUser && <Link to="/login" className="dropdown-item">Log In</Link>}
+                {!currentUser && <Link to="/signUp" className="dropdown-item">Sign Up</Link>}
+                {currentUser  && <Link to="/profile" className="dropdown-item">Profile</Link>}
                 {currentUser  && <Link to="/#" className="dropdown-item">Settings</Link>}
                 {currentUser  && <Link to="/logOut" className="dropdown-item">Log Out</Link>}
 
