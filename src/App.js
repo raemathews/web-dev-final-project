@@ -10,16 +10,19 @@ import ProfileFollowers from "./book-review/profile/ProfileFollowers";
 import ProfileFavorites from "./book-review/profile/ProfileFavorites";
 import SignUp from "./book-review/signUp/SignUp";
 
-
 import {configureStore} from "@reduxjs/toolkit";
 import libraryReducer from "./reducers/library-reducer";
 import usersReducer from './reducers/users-reducer';
 import currentUserReducer from "./reducers/current-user-reducer";
 import {Provider} from "react-redux";
+import reviewsReducer from "./reducers/reviews-reducer";
 
-const store = configureStore(
-    {reducer: {library: libraryReducer,
-            users: usersReducer, currentUser: currentUserReducer}});
+const store = configureStore({reducer: {
+            library: libraryReducer,
+            users: usersReducer,
+            currentUser: currentUserReducer,
+            reviews: reviewsReducer
+        }});
 
 function App() {
     return (
@@ -28,7 +31,7 @@ function App() {
                 <Routes>
                     <Route index element={<Home/>}/>
                     <Route path="login" element={<Login/>}/>
-                    <Route path="book-details/*" element={<BookDetails/>}/>
+                    <Route path="book-details/works/:book" element={<BookDetails/>}/>
                     <Route path="search/:query" element={<Search/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/profile" element={<Profile active="reviews"/>}/>

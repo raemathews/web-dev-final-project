@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
-import {deleteReviewThunk} from "../../services/reviews/reviews-thunk";
+import {deleteReviewThunk, updateReviewThunk} from "../../services/reviews/reviews-thunk";
 const ReviewItem = (
     {
         review = {
@@ -26,17 +26,17 @@ const ReviewItem = (
         dispatch(deleteReviewThunk(id));
     }
     const likeReviewHandler = (review) => {
-        // dispatch(likeReviewThunk({
-        //     ...review,
-        //     liked: !(review.liked),
-        //     likes: (review.liked)? (review.likes - 1) : (review.likes + 1)
-        // }));
+        dispatch(updateReviewThunk({
+            ...review,
+            liked: !(review.liked),
+            likes: (review.liked)? (review.likes - 1) : (review.likes + 1)
+        }));
     }
 
     const likedIcon = review.liked ? "fa-solid text-danger fa-heart pe-1" : "fa-regular fa-heart pe-1"
 
-    const spolierTag = review.spoilers ?
-        <i className="bi bi-exclamation-circle-fill fa-lg float-end mx-4 my-1"> Spoliers</i>
+    const spoilerTag = review.spoilers ?
+        <i className="bi bi-exclamation-circle-fill fa-lg float-end mx-4 my-1"> Spoilers</i>
         : <span></span>
     return(
         <li className="list-group-item">
@@ -53,7 +53,7 @@ const ReviewItem = (
                     </div>
 
                     <div>
-                        {spolierTag}
+                        {spoilerTag}
                         <h3 className="mt-2">{review.title}</h3>
                     </div>
 
@@ -75,6 +75,7 @@ const ReviewItem = (
                                   className="form-control border-0"
                                   onChange={(event) => setCurrentComment(event.target.value)}>
                         </textarea>
+                        <button type="button" className="btn btn-primary mt-2">Reply</button>
                     </div>
                 </div>
             </div>
