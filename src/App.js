@@ -37,8 +37,8 @@ function App() {
                     <Route path="/profileScreen"
                            element={<ProfileScreen />} />
                     <Route path="/signUp" element={<SignUp/>}/>
-                    <Route path="/profile" element={<Profile ownAccount={true} active="reviews"/>}/>
                     <Route path="/profile/:uid" element={<Profile ownAccount={false} active="reviews"/>}/>
+                    <Route path="/profile" element={<Profile ownAccount={true} active="reviews"/>}/>
                     <Route path="/book-details" element={<BookDetails/>}/>
                     <Route path="/search" element={<Search/>}/>
                 </Routes>

@@ -5,13 +5,12 @@ import {useParams} from "react-router-dom";
 import ProfileNonpersonalInfoNonmutable from "./ProfileNonpersonalInfoNonmutable";
 
 
-const ProfileInfo = ({ownAccount, active}) => {
-    const {query} = useParams();
+const ProfileInfo = ({accountId, ownAccount, active}) => {
     let info;
     if (ownAccount) {
         info = (<ProfilePersonalInfoMutable/>);
     } else {
-        info = (<ProfileNonpersonalInfoNonmutable user={query}/>);
+        info = (<ProfileNonpersonalInfoNonmutable user={accountId}/>);
     }
     return(
         <>
