@@ -26,3 +26,8 @@ export const deleteReview = async (id) => {
     return response.data;
 }
 
+export const updateReview = async (review) => {
+    const response = await axios
+        .put(`${REVIEWS_API}/${review._id}`, review);
+    return review;
+}
