@@ -17,6 +17,7 @@ import usersReducer from './reducers/users-reducer';
 import authReducer from "./book-review/reducers/auth-reducer";
 import {Provider} from "react-redux";
 import ProfileScreen from "./book-review/profile/profile-screen";
+import LogOut from "./book-review/login/LogOut";
 
 const store = configureStore(
     {reducer: {library: libraryReducer,
@@ -32,6 +33,7 @@ function App() {
                     <Route path="book-details/*" element={<BookDetails/>}/>
                     <Route path="search/:query" element={<Search/>}/>
                     <Route path="/login" element={<Login/>}/>
+                    <Route path="/logout" element={<LogOut/>}/>
                     <Route path="/profileScreen"
                            element={<ProfileScreen />} />
                     <Route path="/signUp" element={<SignUp/>}/>

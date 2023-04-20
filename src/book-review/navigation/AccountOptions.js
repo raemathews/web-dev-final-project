@@ -1,7 +1,6 @@
 import {Link} from "react-router-dom";
 import React from "react";
 import {useSelector} from "react-redux";
-import currentUserSlice from "../../reducers/current-user-reducer";
 
 const AccountOptions = () => {
     const { currentUser } = useSelector((state) => state.currentUser);
@@ -18,7 +17,7 @@ const AccountOptions = () => {
                 {!currentUser && <Link to="/signUp" className="dropdown-item">Sign Up</Link>}
                 {currentUser  && <Link to="/profile" className="dropdown-item">Profile</Link>}
                 {currentUser  && <Link to="/#" className="dropdown-item">Settings</Link>}
-                {currentUser  && <Link to="/logOut" className="dropdown-item">Log Out</Link>}
+                {currentUser  && <Link to="/logout" className="dropdown-item">Log Out</Link>}
 
 
             </div>
