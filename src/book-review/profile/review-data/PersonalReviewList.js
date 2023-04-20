@@ -1,8 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ReviewItem from "./ReviewItem.js";
-import reviews from "./reviews.json"
+import {useDispatch, useSelector} from "react-redux";
+import {findReviewsByUserIdThunk} from "../../../services/reviews/reviews-thunk";
 
 const PersonalReviewList = () => {
+
+    const { currentUser } = useSelector((state) => state.currentUser);
+    const {reviews, loading} = useSelector(
+        state => state.reviews)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(findReviewsByUserIdThunk(currentUser._id))
+    }, [])
+
+
     return(
         <ul className="list-group">
             {
