@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { loginThunk } from "../services/auth-thunks";
 import Navigation from "../navigation/Navigation";
 import {Link} from "react-router-dom";
@@ -10,6 +10,8 @@ function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleLogin = async () => {
+        console.log(username);
+        console.log(password);
         try {
             await dispatch(loginThunk({ username, password }));
             navigate("/profile");
