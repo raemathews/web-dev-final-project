@@ -22,7 +22,7 @@ const ProfileTabs = () => {
                 <FollowingList />
             </Tab>
             <Tab eventKey="Read" title="Read">
-                <ReadList />
+                <ReadList /> // TODO: add boolean so that you get wilRead/hasRead
             </Tab>
             <Tab eventKey="wantToRead" title="Want To Read">
                 <ReadList />
