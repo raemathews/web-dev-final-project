@@ -1,5 +1,5 @@
 import React from "react";
-const FavoritesItem = (
+const ReadItem = (
     {book}
 ) => {
     return(
@@ -18,4 +18,4 @@ const FavoritesItem = (
         </li>
     );
 };
-export default FavoritesItem;
+export default ReadItem;

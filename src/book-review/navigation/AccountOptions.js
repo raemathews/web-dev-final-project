@@ -18,8 +18,8 @@ const AccountOptions = () => {
                     <div className="dropdown-divider"/>
                 </div>
                 {/*TODO: log out vs in using real info*/}
-                <Link to="/" className="dropdown-item">Log Out/Log In</Link>
-                <Link to="/login" className="dropdown-item">Sign Up</Link>
+                <Link to="/login" className="dropdown-item">Log Out/Log In</Link>
+                <Link to="/signUp" className="dropdown-item">Sign Up</Link>
             </div>
         </div>
     )
