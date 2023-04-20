@@ -36,6 +36,7 @@ function App() {
                            element={<ProfileScreen />} />
                     <Route path="/signUp" element={<SignUp/>}/>
                     <Route path="/profile" element={<Profile active="reviews"/>}/>
+                    <Route path="/profile/:uid" element={<Profile active="reviews"/>}/>
                     <Route path="/book-details" element={<BookDetails/>}/>
                     <Route path="/search" element={<Search/>}/>
                 </Routes>

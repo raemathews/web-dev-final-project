@@ -10,8 +10,8 @@ import {
 const initialState = {
     numResults: 0,
     foundUsers: [],
-    loading: false,
-    currentUser: null
+    userFoundById: "",
+    loading: false
 }
 const usersSlice = createSlice({
     name: "users",
@@ -35,12 +35,12 @@ const usersSlice = createSlice({
         [findUsersByIDThunk.pending]:
             (state) => {
                 state.loading = true
-                state.foundUsers = []
+                state.userFoundById = []
             },
         [findUsersByIDThunk.fulfilled]:
             (state, {payload}) => {
                 state.loading = false
-                state.foundUsers = payload
+                state.userFoundById = payload
             },
         [createUserThunk.pending]:
             (state) => {

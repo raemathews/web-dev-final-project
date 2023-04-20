@@ -1,13 +1,21 @@
 import React from 'react'
 import ProfileTabs from "./ProfileTabs";
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {findUsersByIDThunk} from "../../services/users/users-thunk";
+
 
 const ProfileInfo = ({active}) => {
+
+    const { currentUser } = useSelector((state) => state.currentUser);
+    // TODO: add check if there is a logged in user or not.
+
     return(
         <>
                 <div className="row">
                     <h2> Profile </h2>
                     <div className="col-4">
-                        <img src="haybale.jpg"
+                        <img src={currentUser.profile_pic}
                              width="90%"
                              height="200px"/>
                     </div>
@@ -15,20 +23,20 @@ const ProfileInfo = ({active}) => {
                         <div>
                             <div>
                                 <label htmlFor="firstNameFld">
-                                    First Name</label>
+                                    Handle</label>
                                 <input id="firstNameFld"
-                                       value="Alice"/>
+                                       value={currentUser.handle}/>
                             </div>
 
                             <div>
                                 <label htmlFor="lastNameFld">
-                                    Last Name</label>
+                                    Username</label>
                                 <input id="lastNameFld"
-                                       value="Greene"/>
+                                       value={currentUser.username}/>
                             </div>
 
                             <div>
-                                <label htmlFor="bioFld">Name</label>
+                                <label htmlFor="bioFld">Bio</label>
                                 <textarea id="bioFld"
                                           type="text"
                                           title="bio"
