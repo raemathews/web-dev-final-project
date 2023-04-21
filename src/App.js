@@ -5,9 +5,6 @@ import Login from "./book-review/login/Login";
 import BookDetails from "./book-review/book-details/BookDetails";
 import Profile from "./book-review/profile/Profile";
 import Search from "./book-review/search/SearchResults";
-import ProfileFollowing from "./book-review/profile/ProfileFollowing";
-import ProfileFollowers from "./book-review/profile/ProfileFollowers";
-import ProfileFavorites from "./book-review/profile/ProfileFavorites";
 import SignUp from "./book-review/signUp/SignUp";
 
 import {configureStore} from "@reduxjs/toolkit";

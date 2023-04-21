@@ -3,6 +3,7 @@ import {findBooksThunk, findBookCoverThunk, findBookByIdThunk} from "../services
 //import booksData from '../book-review/search/books.json'
 const initialState = {
     numResults: 0,
+    bookById: {},
     books: [],
     loading: false
 }
@@ -26,13 +27,12 @@ const librarySlice = createSlice({
             (state) => {
                 console.log("loading")
                 state.loading = true
-                state.books = []
+                state.bookById = {}
             },
         [findBookByIdThunk.fulfilled]:
             (state, {payload}) => {
                 state.loading = false
-                state.books = payload
-                state.numResults = payload.numFound
+                state.bookById = payload
             },
         [findBookCoverThunk.pending]:
             (state) => {

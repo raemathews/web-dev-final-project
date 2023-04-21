@@ -15,8 +15,8 @@ export const findBooks = async (q) => {
 
 export const findBookById = async (q) => {
     const response = await axios.get(`${BOOK_API}${q}.json`);
-    const books = response.data;
-    return books;
+    const book = response.data;
+    return book;
 }
 
 // export const findBookCover = async (bid) => {
