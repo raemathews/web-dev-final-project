@@ -29,6 +29,7 @@ const BookItem = (
     const {bookid} = useParams();
     const dispatch = useDispatch();
 
+    const {currentUser} = useSelector(store => store.currentUser)
     const {numResults, books, bookById, loading} =
         useSelector(store => store.library)
     useEffect(() => {
@@ -43,9 +44,19 @@ const BookItem = (
     }
 
     const createReviewHandler = () => {
+        // TODO: put real values
+        console.log(currentUser._id);
         const newReview = {
-            body: currentReview,
+            "book_title": bookInfo.title,
+            "book_id": bookid,
+            "body": currentReview,
+            "likes": [currentUser._id],
+            "replied": 0,
+            "spoiler_flag": false,
+            "user_id": currentUser._id,
+            "time": "now"
         }
+        console.log(newReview);
         dispatch(createReviewThunk(newReview));
     }
 
@@ -75,7 +86,6 @@ const BookItem = (
 
     const getDescription = (book) => {
         console.log(`keys: ${Object.keys(book)}`);
-        console.log(`desc: ${book.description}`);
         if (book.description) {
             if (typeof book.description == 'string') {
                 return book.description.split(/\(\[|\[/)[0];

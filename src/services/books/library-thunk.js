@@ -9,9 +9,9 @@ export const findBooksThunk = createAsyncThunk(
 );
 
 export const findBookByIdThunk = createAsyncThunk(
-    'books/findBookById', async (q) => {
+    'books/findBookById', async (q) =>
         await service.findBookById(q)
-    });
+    );
 
 export const findBookCoverThunk = createAsyncThunk(
     'books/findBookCover', async (bid) =>
