@@ -8,6 +8,7 @@ export const findReviews = async () => {
 
 export const findReviewsByBookId = async (bid) => {
     const response = await axios.get(`${REVIEWS_API}/${bid}`)
+    console.log(response.data);
     return response.data
 }
 

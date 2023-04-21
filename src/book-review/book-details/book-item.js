@@ -35,10 +35,8 @@ const BookItem = (
         dispatch(findBookByIdThunk(bookid));
     }, [])
 
-    console.log(books)
     const extraBooks = books.filter(b => b.key == `/works/${bookid}`);
     const extraBook = extraBooks ? extraBooks[0] : {};
-    console.log(extraBook);
     const bookInfo = {
         ...extraBook,
         ...bookById,
@@ -53,15 +51,17 @@ const BookItem = (
 
     const StarRatingDetails = ({rating}) => {
         let stars = []
-        let rate = Math.round(rating);
+        let rate = Math.round(rating * 10) / 10;
         for (let r = 1; r < 6; r++) {
-            let c = "text-light";
-            if (rate >= r) {
-                c = "text-warning";
-                console.log(`${rate} >= ${r}`);
+            let c = "bi-star-fill text-light";
+            if (rate >= r - 0.5) {
+                c = "bi-star-half text-warning";
+                if (rate >= r) {
+                    c = "bi-star-fill text-warning";
+                }
             }
             stars.push(<span key={r}
-                             className={`bi bi-star-fill text-warning fa-2x ${c}`}
+                             className={`bi text-warning fa-2x ${c}`}
                              style={{textShadow: "0 0 1px black"}}/>)
         }
 
@@ -74,10 +74,14 @@ const BookItem = (
     }
 
     const getDescription = (book) => {
-        if (book.description != undefined) {
-            return book.description.split("([")[0];
+        if (book.description) {
+            if (typeof book.description == 'string') {
+                return book.description.split(/\(\[|\[/)[0];
+            } else {
+                return book.description.value.split(/\(\[|\[/)[0];
+            }
         }
-        return "No summary for this title.";
+        return "No summary available for this title";
     }
 
     return (
@@ -104,19 +108,12 @@ const BookItem = (
                         <button type="button"
                                 className="btn btn-primary mt-3"
                                 style={{width: "100%"}}>
-                            Save to Reading List
+                            Save to Read List
                         </button>
-                        <textarea className="mt-2 p-1"
-                                  placeholder={'Write a review...'}
-                                  style={{width: "100%"}}
-                                  onChange={(event) => setCurrentReview(event.target.value)}>
-                        </textarea>
-                        {/*TODO: will submit and add a review about this book*/}
                         <button type="button"
                                 className="btn btn-primary mt-2"
-                                style={{width: "100%"}}
-                                onClick={() => createReviewHandler()}>
-                            Add review
+                                style={{width: "100%"}}>
+                            Save to Want To Read List
                         </button>
                     </div>
                     <div className="col-9 position-relative pt-5 ps-xl-5" style={{marginLeft: '26%'}}>
@@ -126,20 +123,36 @@ const BookItem = (
                             </div>
                             <h1><b>{bookInfo.title}</b></h1>
                             <h4>{bookInfo.author_name}</h4>
-                            <p>{bookInfo.ratings_count? bookInfo.ratings_count : 0} reviews | {bookInfo.readinglog_count} saves</p>
+                            <p>{bookInfo.ratings_count? bookInfo.ratings_count : 0} Ratings
+                                | {bookInfo.readinglog_count? bookInfo.readinglog_count : 0} Saves</p>
                         </div>
                         <hr/>
-                        {console.log(`Book keys: ${Object.keys(bookInfo)}`)}
                         <div style={{whiteSpace: "pre-line"}}>{getDescription(bookInfo)}</div>
                         <hr/>
                         <div>
                             <p>Tags: {bookInfo.subjects ?
                                 bookInfo.subjects.slice(0, Math.min(bookInfo.subjects.length, 25)).join(", ")
                                 : "No tags for this book"}</p>
-                            <p>Published: {bookInfo.first_publish_year}</p>
-                            <p>Number of Pages: {bookInfo.number_of_pages_median}</p>
+                            <p>Published: {bookInfo.first_publish_year ? bookInfo.first_publish_year : "--"}</p>
+                            <p>Number of Pages: {bookInfo.number_of_pages_median ? bookInfo.number_of_pages_median : "--"}</p>
                         </div>
                         <hr/>
+
+                        <h3><b>Add a review</b></h3>
+                        <textarea className="mt-2 p-2"
+                                       placeholder={'Write a review...'}
+                                       style={{width: "100%"}}
+                                       onChange={(event) => setCurrentReview(event.target.value)}>
+                        </textarea>
+                        {/*TODO: will submit and add a review about this book*/}
+                        <button type="button"
+                                className="btn btn-primary mt-2 mb- 3"
+                                style={{width: "100%"}}
+                                onClick={() => createReviewHandler()}>
+                            Add review
+                        </button>
+                        <hr/>
+
                         <BookReviewList />
                     </div>
                 </div>
