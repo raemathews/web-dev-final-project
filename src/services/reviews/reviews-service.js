@@ -20,8 +20,8 @@ export const findReviewsByUserId = async (uid) => {
     return response.data
 }
 
-export const createReview = async () => {
-    const response = await axios.post(`${REVIEWS_API}/create`);
+export const createReview = async (review) => {
+    const response = await axios.post(`${REVIEWS_API}/create`, review);
     return response.data;
 }
 

@@ -48,6 +48,7 @@ const BookItem = (
         console.log(currentUser._id);
         const newReview = {
             "book_title": bookInfo.title,
+            "review_title": "Title",
             "book_id": bookid,
             "body": currentReview,
             "likes": [currentUser._id],
