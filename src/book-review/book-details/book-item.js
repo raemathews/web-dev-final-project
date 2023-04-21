@@ -74,6 +74,8 @@ const BookItem = (
     }
 
     const getDescription = (book) => {
+        console.log(`keys: ${Object.keys(book)}`);
+        console.log(`desc: ${book.description}`);
         if (book.description) {
             if (typeof book.description == 'string') {
                 return book.description.split(/\(\[|\[/)[0];
