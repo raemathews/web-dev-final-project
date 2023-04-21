@@ -15,8 +15,8 @@ export const findWantToRead = async(id) => {
 }
 
 export const findReadByUserId = async(uid) => {
-    const response = await axios.post(`${READ_API}/read/${uid}`)
-    return response.status
+    const response = await axios.get(`${READ_API}/read/${uid}`)
+    return response.data
 }
 
 export const createRead = async(newRead) => {

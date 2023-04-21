@@ -6,11 +6,11 @@ import {
     createFollowsThunk,
     deleteFollowsThunk
 } from "../services/followers/followers-thunk";
-//import booksData from '../book-review/search/books.json'
 const initialState = {
     follows: [],
     loading: false,
-    followersById: []
+    followersById: [],
+    followingById: []
 }
 const followsSlice = createSlice({
     name: "follows",
@@ -22,13 +22,17 @@ const followsSlice = createSlice({
                 state.follows = []
             },
         [findFollowsThunk.fulfilled]:
-            (state, payload) => {
+            (state, {payload}) => {
                 state.loading = false
                 state.follows = payload
             },
         [findFollowersByUserIdThunk.fulfilled]:
-            (state, payload) => {
+            (state, {payload}) => {
                 state.followersById = payload
+            },
+        [findFollowingByUserIdThunk.fulfilled]:
+            (state, {payload}) => {
+                state.followingById = payload
             }
     }
 });
