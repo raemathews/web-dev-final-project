@@ -9,7 +9,7 @@ const PopularUsers = () => {
     const dispatch = useDispatch()
     const {currentUser} = useSelector(store => store.currentUser)
     const {follows, followsLoading, followersById} =
-        useSelector(store => store.follows)
+        useSelector(store => store.followers)
     const {numResults, foundUsers, loading} =
         useSelector(store => store.users)
     useEffect(() => {
