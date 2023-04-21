@@ -14,18 +14,23 @@ const ReviewList = () => {
         dispatch(findReviewsByBookId(bookid))
     }, [])
     return(
-        <ul className="list-group mt-2 mb-4">
-            {
-                loading &&
-                <li className="list-group-item">
-                    Loading...
-                </li>
-            }
-            {
-                reviews.map(review =>
-                    <ReviewItem key={review._id} review={review}/>)
-            }
-        </ul>
+        <div>
+            <h3><b>Reviews</b></h3>
+            <ul className="list-group mt-3 mb-4">
+                {
+                    loading &&
+                    <li className="list-group-item">
+                        Loading...
+                    </li>
+                }
+                {
+                    reviews.length > 0 ?
+                        reviews.map(review =>
+                        <ReviewItem key={review._id} review={review}/>)
+                        : <p>No reviews yet, why not write one?</p>
+                }
+            </ul>
+        </div>
     );
 };
 export default ReviewList;

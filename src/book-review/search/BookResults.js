@@ -9,7 +9,7 @@ const BookResults = () => {
     const {query} = useParams();
     const dispatch = useDispatch();
 
-    const {numResults, books, loading} =
+    const {numResults, books, booksById, loading} =
         useSelector(store => store.library)
 
     useEffect(() => {

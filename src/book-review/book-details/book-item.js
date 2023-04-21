@@ -3,40 +3,8 @@ import BookReviewList from "./book-review-list";
 import {useDispatch, useSelector} from "react-redux";
 import {createReviewThunk} from "../../services/reviews/reviews-thunk";
 import {useParams} from "react-router-dom";
-import StarRating from "../search/StarRating";
 import {findBookByIdThunk, findBooksThunk} from "../../services/books/library-thunk";
-import ReviewItem from "./book-review-item";
 
-const defaultBook = {
-    "_id": 234,
-    "author": "Colleen Hoover",
-    "title": "It Ends With Us",
-    "image": "itendswithus.jpeg",
-    "rating": "4.8",
-    "reviews": 2378478,
-    "saves": 200620,
-    "saved": true,
-    "pages": 386,
-    "published": "August 2, 2016",
-    "tags": "Romance, Fiction, Contemporary, New Adult, Contemporary Romance, Adult",
-    "summary": "Sometimes it is the one who loves you who hurts you the most.\n" +
-        "\n" +
-        "Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life " +
-        "she wants. She’s come a long way from the small town in Maine where she grew up — she graduated " +
-        "from college, moved to Boston, and started her own business. So when she feels a spark with a " +
-        "gorgeous neurosurgeon named Ryle Kincaid, everything in Lily’s life suddenly seems almost too " +
-        "good to be true.\n" +
-        "\n" +
-        "Ryle is assertive, stubborn, maybe even a little arrogant. He’s also sensitive, brilliant, and " +
-        "has a total soft spot for Lily. And the way he looks in scrubs certainly doesn’t hurt. Lily can’t " +
-        "get him out of her head. But Ryle’s complete aversion to relationships is disturbing. Even as " +
-        "Lily finds herself becoming the exception to his “no dating” rule, she can’t help but wonder what " +
-        "made him that way in the first place.\n" +
-        "\n" +
-        "As questions about her new relationship overwhelm her, so do thoughts of Atlas Corrigan — her " +
-        "first love and a link to the past she left behind. He was her kindred spirit, her protector. " +
-        "When Atlas suddenly reappears, everything Lily has built with Ryle is threatened.",
-}
 const BookItem = (
     {
         book = {
@@ -59,22 +27,61 @@ const BookItem = (
 
     // Get book from library
     const {bookid} = useParams();
-    // console.log(`book id: ${bookid}`);
     const dispatch = useDispatch();
 
-    const {numResults, books, loading} =
+    const {numResults, books, bookById, loading} =
         useSelector(store => store.library)
-    // console.log(`original books: ${books}`);
     useEffect(() => {
         dispatch(findBookByIdThunk(bookid));
     }, [])
-    // console.log(`books: ${books}`);
+
+    const extraBooks = books.filter(b => b.key == `/works/${bookid}`);
+    const extraBook = extraBooks ? extraBooks[0] : {};
+    const bookInfo = {
+        ...extraBook,
+        ...bookById,
+    }
 
     const createReviewHandler = () => {
         const newReview = {
             body: currentReview,
         }
         dispatch(createReviewThunk(newReview));
+    }
+
+    const StarRatingDetails = ({rating}) => {
+        let stars = []
+        let rate = Math.round(rating * 10) / 10;
+        for (let r = 1; r < 6; r++) {
+            let c = "bi-star-fill text-light";
+            if (rate >= r - 0.5) {
+                c = "bi-star-half text-warning";
+                if (rate >= r) {
+                    c = "bi-star-fill text-warning";
+                }
+            }
+            stars.push(<span key={r}
+                             className={`bi text-warning fa-2x ${c}`}
+                             style={{textShadow: "0 0 1px black"}}/>)
+        }
+
+        return (
+            <div >
+                {stars}
+                <h2 className="ps-2" style={{display: "inline"}}>{rating? Math.round(rating * 100) / 100 : 0}</h2>
+            </div>
+        )
+    }
+
+    const getDescription = (book) => {
+        if (book.description) {
+            if (typeof book.description == 'string') {
+                return book.description.split(/\(\[|\[/)[0];
+            } else {
+                return book.description.value.split(/\(\[|\[/)[0];
+            }
+        }
+        return "No summary available for this title";
     }
 
     return (
@@ -88,43 +95,64 @@ const BookItem = (
             {
                 <div className="row">
                     <div className="col-3 position-fixed sticky-lg-top" style={{top: '10%'}}>
-                        <img width="100%" className="float-end" src={`/images/${book.image}`}/>
+                        {bookInfo.cover_i ?
+                            <img className="float-end"
+                                 width="100%"
+                                 src={`https://covers.openlibrary.org/b/id/${bookInfo.cover_i}-L.jpg`}
+                                 alt="book cover"/>
+                            : <img className="float-end not-found"
+                                   width="100%"
+                                   src={"/images/no_cover.png"}
+                                   alt="book cover"/>               }
                         {/*TODO: will change to say something else when you click it, and # of saved will go up*/}
                         <button type="button"
                                 className="btn btn-primary mt-3"
                                 style={{width: "100%"}}>
-                            Save to Reading List
+                            Save to Read List
                         </button>
-                        <textarea className="mt-2 p-1"
-                                  placeholder={'Write a review...'}
-                                  style={{width: "100%"}}></textarea>
-                        {/*TODO: will submit and add a review about this book*/}
                         <button type="button"
                                 className="btn btn-primary mt-2"
                                 style={{width: "100%"}}>
-                            Add review
+                            Save to Want To Read List
                         </button>
                     </div>
                     <div className="col-9 position-relative pt-5 ps-xl-5" style={{marginLeft: '26%'}}>
-                    {/*    <div>*/}
-                    {/*        <div className="float-end">*/}
-                    {/*            <i className="bi bi-star-fill text-warning fa-2x"></i>*/}
-                    {/*            <h2 className="ps-2" style={{display: "inline"}}>{books.rating}</h2>*/}
-                    {/*        </div>*/}
-                    {/*        <h1><b>{books.title}</b></h1>*/}
-                    {/*        <h4>{books.author_name}</h4>*/}
-                    {/*        <p>{books.reviews} reviews | {books.already_read_count} saves</p>*/}
-                    {/*    </div>*/}
-                    {/*    <hr/>*/}
-                    {/*    {console.log(`BBBOOK: ${Object.keys(books)}`)}*/}
-                    {/*    {console.log(`desc: ${books.description}`)}*/}
-                    {/*    <div style={{whiteSpace: "pre-line"}}>{books.data}</div>*/}
-                        <hr/>
                         <div>
-                            <p>Tags: {books.subject_facet}</p>
-                            <p>Published: {books.published}</p>
+                            <div className="float-end">
+                                {StarRatingDetails({rating: bookInfo.ratings_average})}
+                            </div>
+                            <h1><b>{bookInfo.title}</b></h1>
+                            <h4>{bookInfo.author_name}</h4>
+                            <p>{bookInfo.ratings_count? bookInfo.ratings_count : 0} Ratings
+                                | {bookInfo.readinglog_count? bookInfo.readinglog_count : 0} Saves</p>
                         </div>
                         <hr/>
+                        <div style={{whiteSpace: "pre-line"}}>{getDescription(bookInfo)}</div>
+                        <hr/>
+                        <div>
+                            <p>Tags: {bookInfo.subjects ?
+                                bookInfo.subjects.slice(0, Math.min(bookInfo.subjects.length, 25)).join(", ")
+                                : "No tags for this book"}</p>
+                            <p>Published: {bookInfo.first_publish_year ? bookInfo.first_publish_year : "--"}</p>
+                            <p>Number of Pages: {bookInfo.number_of_pages_median ? bookInfo.number_of_pages_median : "--"}</p>
+                        </div>
+                        <hr/>
+
+                        <h3><b>Add a review</b></h3>
+                        <textarea className="mt-2 p-2"
+                                       placeholder={'Write a review...'}
+                                       style={{width: "100%"}}
+                                       onChange={(event) => setCurrentReview(event.target.value)}>
+                        </textarea>
+                        {/*TODO: will submit and add a review about this book*/}
+                        <button type="button"
+                                className="btn btn-primary mt-2 mb- 3"
+                                style={{width: "100%"}}
+                                onClick={() => createReviewHandler()}>
+                            Add review
+                        </button>
+                        <hr/>
+
                         <BookReviewList />
                     </div>
                 </div>

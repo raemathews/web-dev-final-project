@@ -48,17 +48,19 @@ const reviewsSlice = createSlice({
             },
         [findReviewsByBookId.pending]:
             (state) => {
+                console.log("loading")
                 state.loading = true
                 state.reviews = []
             },
         [findReviewsByBookId.fulfilled]:
             (state, {payload}) => {
+                console.log("done")
                 state.loading = false
-                state.reviews = state.reviews
-                    .filter(review => review.book_id !== payload)
+                state.reviews = payload
             },
         [findReviewsByBookId.rejected]:
             (state, action) => {
+                console.log("rejected")
                 state.loading = false
                 state.error = action.error
             },

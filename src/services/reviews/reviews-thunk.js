@@ -17,9 +17,11 @@ export const findReviewsByUserIdThunk = createAsyncThunk(
 );
 
 export const findReviewsByBookId = createAsyncThunk(
-    'reviews/findReviewsByBookId', async (id) =>
-        await service.findReviewsByBookId(id)
-);
+    'reviews/findReviewsByBookId', async (id) => {
+        const result = await service.findReviewsByBookId(id)
+        console.log("result: " + result)
+        return result;
+    });
 
 export const createReviewThunk = createAsyncThunk(
     'reviews/createReview', async () =>
