@@ -5,9 +5,6 @@ import Login from "./book-review/login/Login";
 import BookDetails from "./book-review/book-details/BookDetails";
 import Profile from "./book-review/profile/Profile";
 import Search from "./book-review/search/SearchResults";
-import ProfileFollowing from "./book-review/profile/ProfileFollowing";
-import ProfileFollowers from "./book-review/profile/ProfileFollowers";
-import ProfileFavorites from "./book-review/profile/ProfileFavorites";
 import SignUp from "./book-review/signUp/SignUp";
 
 import {configureStore} from "@reduxjs/toolkit";
@@ -19,13 +16,15 @@ import {Provider} from "react-redux";
 import reviewsReducer from "./reducers/reviews-reducer";
 import ProfileScreen from "./book-review/profile/profile-screen";
 import LogOut from "./book-review/login/LogOut";
+import readingListReducer from "./reducers/reading-list-reducer";
 
 const store = configureStore({reducer: {
             library: libraryReducer,
             users: usersReducer,
             currentUser: authReducer,
             reviews: reviewsReducer,
-            follows: followsReducer
+            follows: followsReducer,
+            readingList: readingListReducer
         }});
 
 function App() {

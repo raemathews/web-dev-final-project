@@ -9,7 +9,7 @@ const TrendingReviewItem = (
         <li className="list-group-item">
             <div className="row my-2">
                 <div className="col-2">
-                    <img width={40} className="float-end rounded-circle" src={`/images/${review.userImage}`}/>
+                    <img className="float-end rounded-circle" src={`/images/${review.userImage}`}/>
                 </div>
                 <div className="col-10">
                     <div>

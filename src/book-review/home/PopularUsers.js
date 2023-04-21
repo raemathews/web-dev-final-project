@@ -23,7 +23,7 @@ const PopularUsers = () => {
     let top5Ids = cleanedFollows.slice(0, 5)
     return (
         <>
-        <h5 className="mt-3">Popular Users</h5>
+        <h5 className="mt-3 fw-bolder">Popular Users</h5>
         <ul className="list-group">
             {
                 top5Ids.map(profile =>
