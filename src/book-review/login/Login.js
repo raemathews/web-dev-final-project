@@ -14,44 +14,57 @@ function Login() {
         console.log(password);
         try {
             await dispatch(loginThunk({ username, password }));
-            navigate("/profile");
         } catch (e) {
             alert(e);
         }
     };
+    const { currentUser } = useSelector((state) => state.currentUser);
     return (
         <>
             <Navigation />
-            <div>
-                <h1>Login Screen</h1>
+            {!currentUser && <>
                 <div>
-                    <label>Username</label>
-                    <input className="form-control"
-                           type="text" value={username}
-                           onChange={(event) => setUsername(event.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input className="form-control"
-                           type="password" value={password}
-                           onChange={(event) => setPassword(event.target.value)}
-                    />
-                </div>
-                <button onClick={handleLogin}>
-                    Login
-                </button>
-            </div>
-            <br/>
-            <br/>
-            <br/>
-            <h3>Not a User Yet? Click here to sign up!</h3>
-            <button className="btn btn-warning">
-                <Link to="/signUp">
-                    Sign Up for a New Account
-                </Link>
+                    <h1>Login Screen</h1>
 
-            </button>
+                    <div>
+                        <label>Username</label>
+                        <input className="form-control"
+                               type="text" value={username}
+                               onChange={(event) => setUsername(event.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <input className="form-control"
+                               type="password" value={password}
+                               onChange={(event) => setPassword(event.target.value)}
+                        />
+                    </div>
+                    <button onClick={handleLogin}>
+                        Login
+                    </button>
+
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <h3>Not a User Yet? Click here to sign up!</h3>
+                <button className="btn btn-warning">
+                    <Link to="/signUp">
+                        Sign Up for a New Account
+                    </Link>
+
+                </button>
+            </>}
+            {currentUser && <> <h1>You're all logged in!</h1>
+                <button className="btn btn-warning">
+                    <Link to="/profile">
+                        Proceed to your profile
+                    </Link>
+
+                </button>
+            </>}
+
         </>
 
     );
