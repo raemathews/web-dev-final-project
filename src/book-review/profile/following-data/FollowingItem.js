@@ -1,19 +1,37 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {findUsersByIDThunk, findUsersThunk} from "../../../services/users/users-thunk";
 const FollowingItem = (
     {f}
 ) => {
+    const {numResults, foundUsers, userFoundById, loading} = useSelector(
+        state => state.users)
+    const dispatch = useDispatch();
+
+    let[user, setUser] = useState({});
+    useEffect(() => {
+        dispatch(findUsersThunk())
+    }, [])
+
+    useEffect(() => {
+        console.log("ALL USERS IN FOLLOWING: " + foundUsers);
+        const list = foundUsers.filter((u) => u._id == f.following_id)
+        if(list.length > 0) {setUser(list[0])};
+    }, [foundUsers])
+
+
     return(
         <li className="list-group-item">
             <div className="row">
                 <div className="col-10">
-                    <div className="fw-bolder">{f.name}
+                    <div className="fw-bolder">{user.handle}
                         <i className="fas fa-check-circle"></i>
-                        - {f.userName}
+                        - {user.username}
                     </div>
-                    <div>{f.bio}</div>
+                    <div>{user.bio}</div>
                 </div>
                 <div className="col-2">
-                    <img width={70} className="float-end rounded-3" src={`/images/${f.image}`}/>
+                    <img width={70} className="float-end rounded-3" src={`/images/${user.profile_pic}`}/>
                 </div>
             </div>
         </li>

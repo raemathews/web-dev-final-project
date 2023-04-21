@@ -3,27 +3,23 @@ import {createAsyncThunk}
 import * as service
     from "./followers-service"
 
-export const findFollowsThunk = createAsyncThunk(
-    'followers/findFollows', async () =>
-        await service.findFollows()
-);
-
-export const findFollowersByUserIdThunk = createAsyncThunk(
-    'followers/findFollowersByUserId', async (id) =>
-        await service.findFollowersByUserId(id)
-);
 
 export const findFollowingByUserIdThunk = createAsyncThunk(
-    'followers/findFollowingByUserId', async (id) =>
+    'followers/findFollowersByUserId', async (id) =>
         await service.findFollowingByUserId(id)
 );
 
-export const createFollowsThunk = createAsyncThunk(
+export const findFollowersByUserIdThunk = createAsyncThunk(
+    'followers/findFollowingByUserId', async (id) =>
+        await service.findFollowersByUserId(id)
+);
+
+export const createFollowerThunk = createAsyncThunk(
     'follows/createFollow', async (fid) =>
         await service.createFollows(fid)
 );
 
-export const deleteFollowsThunk = createAsyncThunk(
+export const deleteFollowerThunk = createAsyncThunk(
     'follows/deleteFollow', async (fid) =>
         await service.deleteFollows(fid)
 );

@@ -1,36 +1,69 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+
 import {
-    findFollowsThunk,
-    findFollowersByUserIdThunk,
+    findFollowersByUserIdThunk, //
     findFollowingByUserIdThunk,
-    createFollowsThunk,
-    deleteFollowsThunk
+    createFollowerThunk,
+    deleteFollowerThunk,
 } from "../services/followers/followers-thunk";
-//import booksData from '../book-review/search/books.json'
+
 const initialState = {
-    follows: [],
-    loading: false,
-    followersById: []
+    followers: [],
+    following: [],
+    loading: false
 }
-const followsSlice = createSlice({
-    name: "follows",
+const followersSlice = createSlice({
+    name: "reviews",
     initialState: initialState,
     extraReducers: {
-        [findFollowsThunk.pending]:
+        [findFollowersByUserIdThunk.pending]:
             (state) => {
                 state.loading = true
-                state.follows = []
-            },
-        [findFollowsThunk.fulfilled]:
-            (state, payload) => {
-                state.loading = false
-                state.follows = payload
+                state.followers = []
+                state.following = []
             },
         [findFollowersByUserIdThunk.fulfilled]:
-            (state, payload) => {
-                state.followersById = payload
-            }
+            (state, { payload }) => {
+                state.loading = false
+                state.followers = payload
+            },
+        [findFollowersByUserIdThunk.rejected]:
+            (state, action) => {
+                state.loading = false
+                state.error = action.error
+            },
+        [findFollowingByUserIdThunk.pending]:
+            (state) => {
+                state.loading = true
+                state.followers = []
+                state.following = []
+            },
+        [findFollowingByUserIdThunk.fulfilled]:
+            (state, {payload}) => {
+                state.loading = false
+                state.following = payload
+            },
+        [findFollowingByUserIdThunk.rejected]:
+            (state, action) => {
+                state.loading = false
+                state.error = action.error
+            },
+        [createFollowerThunk.fulfilled]:
+            (state, { payload }) => {
+                state.loading = false
+                state.followers.push(payload)
+                state.following.push(payload)
+            },
+        [deleteFollowerThunk.fulfilled] :
+            (state, { payload }) => {
+                state.loading = false
+                state.followers = state.followers
+                    .filter(followers => followers._id !== payload)
+                state.following = state.following
+                    .filter(following => following._id !== payload)
+            },
+
     }
 });
 
-export default followsSlice.reducer;
+export default followersSlice.reducer;
