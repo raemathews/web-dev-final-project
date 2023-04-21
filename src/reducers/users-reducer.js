@@ -6,6 +6,7 @@ import {
     deleteUserThunk,
     updateUserThunk
 } from "../services/users/users-thunk";
+import {findFollowingByUserIdThunk} from "../services/followers/followers-thunk";
 
 const initialState = {
     numResults: 0,
@@ -31,6 +32,12 @@ const usersSlice = createSlice({
                 state.foundUsers = payload
                 //state.numResults = state.foundUsers.length;
                 console.log("found users in state: ", state.foundUsers)
+            },
+        [findUsersThunk.rejected]:
+            (state, action) => {
+                state.loading = false
+                state.error = action.error
+                console.log("error finding user in reducer")
             },
         [findUsersByIDThunk.pending]:
             (state) => {

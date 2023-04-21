@@ -1,12 +1,12 @@
 import axios from "axios";
+import FollowingItem from "../../book-review/profile/following-data/FollowingItem";
+import React from "react";
 
-const BASE_API = 'https://final-project-node-server-app-h4kv.onrender.com/api/';
+const BASE_API = 'https://final-project-node-server-app-h4kv.onrender.com/api';
 
-export const findFollows = async () => {
-    const response = await axios.get(`${BASE_API}/follows`);
-    // for(let key in response) {
-    //     console.log(key + ":", response[key]);
-    // }
+
+export const findFollowingByUserId = async (uid) => {
+    const response = await axios.get(`${BASE_API}/following/${uid}`);
     return response.data;
 }
 
@@ -15,13 +15,8 @@ export const findFollowersByUserId = async (uid) => {
     return response.data;
 }
 
-export const findFollowingByUserId = async (uid) => {
-    const response = await axios.get(`${BASE_API}/following/${uid}`);
-    return response.data;
-}
-
 export const createFollows = async (fid) => {
-    const response = await axios.post(`${BASE_API}/follows/${fid}`);
+    const response = await axios.post(`${BASE_API}/follows`);
     return response.data;
 }
 
