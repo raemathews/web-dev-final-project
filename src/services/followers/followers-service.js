@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_API = 'https://final-project-node-server-app-h4kv.onrender.com/api/';
+const BASE_API = 'https://final-project-node-server-app-h4kv.onrender.com/api';
 
 export const findFollows = async () => {
     const response = await axios.get(`${BASE_API}/follows`);

@@ -11,6 +11,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import libraryReducer from "./reducers/library-reducer";
 import usersReducer from './reducers/users-reducer';
 import authReducer from "./book-review/reducers/auth-reducer";
+import followsReducer from "./reducers/followers-reducer"
 import {Provider} from "react-redux";
 import reviewsReducer from "./reducers/reviews-reducer";
 import ProfileScreen from "./book-review/profile/profile-screen";
@@ -20,7 +21,8 @@ const store = configureStore({reducer: {
             library: libraryReducer,
             users: usersReducer,
             currentUser: authReducer,
-            reviews: reviewsReducer
+            reviews: reviewsReducer,
+            follows: followsReducer
         }});
 
 function App() {
@@ -37,8 +39,8 @@ function App() {
                     <Route path="/profileScreen"
                            element={<ProfileScreen />} />
                     <Route path="/signUp" element={<SignUp/>}/>
-                    <Route path="/profile" element={<Profile active="reviews"/>}/>
-                    <Route path="/profile/:uid" element={<Profile active="reviews"/>}/>
+                    <Route path="/profile/:uid" element={<Profile ownAccount={false} active="reviews"/>}/>
+                    <Route path="/profile" element={<Profile ownAccount={true} active="reviews"/>}/>
                     <Route path="/book-details" element={<BookDetails/>}/>
                     <Route path="/search" element={<Search/>}/>
                 </Routes>

@@ -3,29 +3,32 @@ import Navigation from "../navigation/Navigation";
 import ForYouList from "../for-you/for-you-list";
 import AddNewList from "../add-new/add-new-list";
 import TrendingList from "../trending/trending-list";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {findUsersThunk} from "../../services/users/users-thunk";
+import {findFollowsThunk} from "../../services/followers/followers-thunk";
+import PopularUsers from "./PopularUsers";
+import BooksForYou from "./BooksForYou";
+import SuggestedReviews from "./SuggestedReviews";
 
 const Home = () => {
+    const {currentUserId} =
+        useSelector(store => store.currentUser)
     return (
         <>
-            <Navigation />
+            <Navigation/>
+            <div className={"container"}>
+                <div className="row mt-2 ml-3">
+                    <div className="col-12 col-md-3 col-lg-3 col-xl-3 ">
+                        <PopularUsers user={currentUserId}/>
+                        <SuggestedReviews />
+                    </div>
+                    <div className="col-12 col-md-9 col-lg-9 col-xl-9">
+                        <BooksForYou/>
+                    </div>
+                </div>
 
-            <div className="row mt-2 ml-3">
-                <div className="col-4 col-md-4 col-lg-3 col-xl-4 ">
-                    <h1>Popular Users</h1>
-                    <AddNewList/>
-                </div>
-                <div className="col-8 col-md-8 col-lg-5 col-xl-4"
-                     style={{"position": "relative"}}>
-                    <h1>For You</h1>
-                    <ForYouList/>
-                </div>
-                <div className="d-sm-none d-md-none d-lg-block col-lg-4 col-xl-4">
-                    <h1>Trending Reviews</h1>
-                    <TrendingList/>
-                </div>
             </div>
-
-
 
         </>
 
