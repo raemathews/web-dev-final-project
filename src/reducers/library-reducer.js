@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {findBooksThunk, findBookCoverThunk, findBookByIdThunk} from "../services/books/library-thunk";
-//import booksData from '../book-review/search/books.json'
+import {
+    findBooksThunk,
+    findBookCoverThunk,
+    findBookByIdThunk,
+    accumulateBooksByIdsThunk
+} from "../services/books/library-thunk";
 const initialState = {
     numResults: 0,
     books: [],
-    loading: false
+    loading: false,
+    booksByIds: []
 }
 const librarySlice = createSlice({
     name: "library",
@@ -12,7 +17,6 @@ const librarySlice = createSlice({
     extraReducers: {
         [findBooksThunk.pending]:
             (state) => {
-            console.log("loading")
                 state.loading = true
                 state.books = []
             },
@@ -24,7 +28,6 @@ const librarySlice = createSlice({
             },
         [findBookByIdThunk.pending]:
             (state) => {
-                console.log("loading")
                 state.loading = true
                 state.books = []
             },
@@ -49,6 +52,17 @@ const librarySlice = createSlice({
             //         ...payload
              // }
             },
+        [accumulateBooksByIdsThunk.pending]:
+            (state) => {
+                state.loading = true
+            },
+        [accumulateBooksByIdsThunk.fulfilled]:
+            (state, {payload}) => {
+                state.loading = false
+                state.booksByIds = payload
+                console.log("STATE FROM ACCUMULATOR: ", state.booksByIds)
+            },
+
     }
 });
 

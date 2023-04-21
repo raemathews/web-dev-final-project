@@ -7,16 +7,20 @@ import {findBookCoverThunk} from "../../services/books/library-thunk";
 import {findBookCover} from "../../services/books/library-service";
 
 const BookTile = ({book}) => {
+    console.log("THIS IS A BOOK: " + book)
     const maxTitleLength = 40;
     const maxAuthorLength = 25;
-    let cover = findBookCover(book.cover_i);
     let author = book.author_name ? Object.values(book.author_name) : [""];
+    for(let key in book) {
+        console.log(key + ":", book[key]);
+    }
+
     return (
-        <Link to={"/book-details" + book.key} className="book-link">
+        <Link to={"/book-details" + (book.key || `/works/${book.book_id}`)} className="book-link">
             <div className="d-inline-block">
                 <div className="card m-3">
                     {book.cover_i ?
-                    <img className="card-img-top"
+                        <img className="card-img-top"
                          src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
                          alt="book cover"/>
                         : <img className="card-img-top not-found"

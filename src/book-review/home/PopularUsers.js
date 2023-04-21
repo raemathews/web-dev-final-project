@@ -8,8 +8,8 @@ import UserTile from "../search/UserTile";
 const PopularUsers = () => {
     const dispatch = useDispatch()
     const {currentUser} = useSelector(store => store.currentUser)
-    const {follows, followsLoading, followersById} =
-        useSelector(store => store.follows)
+    const {follows, followsLoading, followersById, followingById} =
+        useSelector(store => store.followers)
     const {numResults, foundUsers, loading} =
         useSelector(store => store.users)
     useEffect(() => {
@@ -19,8 +19,9 @@ const PopularUsers = () => {
         currentUser &&
         dispatch(findFollowingByUserIdThunk(currentUser._id))
     }, [])
-    const cleanedFollows = currentUser ? foundUsers.filter((f) => !followersById.includes()) : foundUsers
-    let top5Ids = cleanedFollows.slice(0, 5)
+    const followingIds = followingById.map((f) => f.following_id)
+    const cleanedSuggestions = currentUser ? foundUsers.filter((u) => !followingIds.includes(u._id)) : foundUsers
+    let top5Ids = cleanedSuggestions.slice(0, 5)
     return (
         <>
         <h5 className="mt-3 fw-bolder">Popular Users</h5>

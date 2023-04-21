@@ -18,5 +18,10 @@ export const findBookCoverThunk = createAsyncThunk(
         await service.findBookCover(bid)
 )
 
+export const accumulateBooksByIdsThunk = createAsyncThunk(
+    'books/accumulateBooksByIds', async (bids) => {
+        await service.accumulateBooksByIds(bids)
+    }
+)
 
 

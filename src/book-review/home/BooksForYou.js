@@ -1,27 +1,27 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useSelector, useDispatch} from "react-redux";
 import {useEffect} from "react";
-import {findBooksThunk} from "../../services/books/library-thunk";
+import {findBookByIdThunk, accumulateBooksByIdsThunk, findBooksThunk} from "../../services/books/library-thunk";
 import BookTile from "../search/BookTile";
 import {findReadByUserIdThunk} from "../../services/reading-list/reading-list-thunk";
-
+import {findBookById, accumulateBooksByIds} from "../../services/books/library-service";
+import BookTileUsingId from "../search/BookTileUsingId";
 var randomWords = require('random-words');
 
 const BooksForYou = () => {
     const dispatch = useDispatch()
     const {currentUser} = useSelector((state) => state.currentUser);
-    const {numResults, books, loading} = useSelector(store => store.library)
+    const {numResults, books, loading, booksByIds} = useSelector(store => store.library)
     const {read, wantToRead, readLoading} = useSelector(store => store.readingList)
-
 
     useEffect(() => {
         !currentUser &&
-        dispatch(findBooksThunk(randomWords(1).join(" ")))
+        dispatch(findBooksThunk(randomWords(2).join(" ")))
 
         currentUser &&
         dispatch(findReadByUserIdThunk(currentUser._id))
     }, [])
-    let suggested = currentUser ? wantToRead : books.slice(0, 10)
+    let suggested = currentUser ? wantToRead : books.slice(0,5)
     return (
         <>
             <h5 className={"mt-3 fw-bolder"}>{currentUser ? "Next in Your Queue" : "Suggested Books"}</h5>
@@ -32,8 +32,8 @@ const BooksForYou = () => {
                 </div>
             }
             {
-                suggested.map((book) =>
-                    <BookTile book={book}/>
+                suggested.map((b) =>
+                    <BookTile book={b} />
                 )
             }
             {
@@ -45,7 +45,7 @@ const BooksForYou = () => {
                     </div>
                 </ul>
             }
-        </>
+            </>
     )
 }
 

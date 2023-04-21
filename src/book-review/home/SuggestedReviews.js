@@ -26,7 +26,7 @@ const SuggestedReviews = () => {
         followsLoading,
         followersById,
         followingById
-    } = useSelector(store => store.follows)
+    } = useSelector(store => store.followers)
     useEffect(() => {
         dispatch(findReviewsThunk())
         currentUser &&
