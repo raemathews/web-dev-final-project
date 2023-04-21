@@ -73,6 +73,13 @@ const BookItem = (
         )
     }
 
+    const getDescription = (book) => {
+        if (book.description != undefined) {
+            return book.description.split("([")[0];
+        }
+        return "No summary for this title.";
+    }
+
     return (
         <div className="container">
             {
@@ -123,8 +130,7 @@ const BookItem = (
                         </div>
                         <hr/>
                         {console.log(`Book keys: ${Object.keys(bookInfo)}`)}
-                        <div style={{whiteSpace: "pre-line"}}>
-                            {bookInfo.description ? bookInfo.description.split("([")[0] : "No summary for this title."}</div>
+                        <div style={{whiteSpace: "pre-line"}}>{getDescription(bookInfo)}</div>
                         <hr/>
                         <div>
                             <p>Tags: {bookInfo.subjects ?
