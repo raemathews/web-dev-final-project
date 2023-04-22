@@ -30,11 +30,13 @@ const ReviewItem = (
     }
 ) => {
     let [currentComment, setCurrentComment] = useState('');
-    const dispatch = useDispatch();
+    let [user, setUser] = useState(defaultUser);
+    const {currentUser} = useSelector(store => store.currentUser);
     const {numResults, foundUsers, userFoundById, loading} =
         useSelector(store => store.users)
 
-    let [user, setUser] = useState(defaultUser);
+    const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(findUsersThunk());
     }, [])
@@ -48,12 +50,27 @@ const ReviewItem = (
         dispatch(deleteReviewThunk(id));
     }
     const likeReviewHandler = (review) => {
+        if (currentUser) {
+            if (review.likes.includes(currentUser._id)) {
+                // They've already liked it, unlike it
+                dispatch(updateReviewThunk({
+                    ...review,
+                    likes: []
+                }));
+            } else {
+                // They haven't liked it yet, like it
+                dispatch(updateReviewThunk({
+                    ...review,
+                    likes: [... review.likes, currentUser._id]
+                }));
+            }
+        } else {
+            // TODO: display something telling them to log in/sign up
+        }
+    }
+
+    function createReplyHandler() {
         // TODO: add current user to the list of users who liked this review
-        // dispatch(updateReviewThunk({
-        //     ...review,
-        //     liked: !(review.liked),
-        //     likes: (review.liked)? (review.likes - 1) : (review.likes + 1)
-        // }));
     }
 
     const getProfileFile = () => {
@@ -63,11 +80,12 @@ const ReviewItem = (
         return `/images/${defaultUser.profile_pic}`;
     }
 
-    const likedIcon = review.liked ? "fa-solid text-danger fa-heart pe-1" : "fa-regular fa-heart pe-1"
+    const likedIcon = review.likes.includes(currentUser._id) ? "fa-solid text-danger fa-heart" : "fa-regular fa-heart"
 
     const spoilerTag = review.spoiler_flag ?
         <i className="bi bi-exclamation-circle-fill fa-lg float-end mx-4 my-1"> Spoilers</i>
         : <span></span>
+
     return(
         <li className="list-group-item">
             <div className="row my-2 me-2">
@@ -90,19 +108,19 @@ const ReviewItem = (
                     </div>
 
                     <div className="my-2">{review.body}</div>
-                    <div>
-                        <label className="col-3">
-                            <i className="fa-regular fa-comment pe-1"></i>
-                            {review.replied}
+                    <hr/>
+                    <div className="my-2 mx-2">
+                        <label className="col-2 me-3">
+                            <i className="fa-regular fa-comment pe-2"></i>
+                            {review.replied} Comments
                         </label>
-                        <label className="col-3">
-                            <i className={likedIcon} onClick={() => likeReviewHandler(review)}></i>
-                            {review.likes}
+                        <label className="col-2">
+                            <i className={`${likedIcon} pe-2`} onClick={() => likeReviewHandler(review)}></i>
+                            {review.likes ? review.likes.length : 0} Loves
                         </label>
-                        <label className="col-3"><i className="fa-solid fa-share-nodes pe-1"></i></label>
                     </div>
                     <div>
-                        <div className="row mt-2">
+                        <div className="row mt-3">
                             {/*TODO: Make a comment reply section*/}
                             <div className="col-11">
                                 <textarea value={currentComment} placeholder="Write a reply here..."
@@ -110,7 +128,11 @@ const ReviewItem = (
                                           onChange={(event) => setCurrentComment(event.target.value)}>
                                 </textarea>
                             </div>
-                            <button type="button" className="btn btn-primary col-1">Reply</button>
+                            <button type="button"
+                                    className="btn btn-primary col-1"
+                                    onClick={() => createReplyHandler()}>
+                                Reply
+                            </button>
                         </div>
                     </div>
                 </div>

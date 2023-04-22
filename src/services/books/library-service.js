@@ -14,8 +14,10 @@ export const findBooks = async (q) => {
 }
 
 export const findBookById = async (q) => {
+    console.log(`${BOOK_API}${q}.json`);
     const response = await axios.get(`${BOOK_API}${q}.json`);
     const book = response.data;
+    console.log(`book response : ${Object.keys(book)}`);
     return book;
 }
 

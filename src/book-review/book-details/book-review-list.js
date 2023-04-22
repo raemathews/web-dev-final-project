@@ -5,14 +5,7 @@ import {useDispatch, useSelector}
 import {findReviewsByBookId} from "../../services/reviews/reviews-thunk";
 import {useParams} from "react-router-dom";
 
-const ReviewList = () => {
-    const {bookid} = useParams();
-    const {reviews, loading} = useSelector(
-        state => state.reviews)
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(findReviewsByBookId(bookid))
-    }, [])
+const ReviewList = ({reviews, loading}) => {
     return(
         <div>
             <h3><b>Reviews</b></h3>

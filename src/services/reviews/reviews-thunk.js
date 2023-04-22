@@ -24,8 +24,8 @@ export const findReviewsByBookId = createAsyncThunk(
     });
 
 export const createReviewThunk = createAsyncThunk(
-    'reviews/createReview', async () =>
-        await service.createReview()
+    'reviews/createReview', async (review) =>
+        await service.createReview(review)
 );
 
 export const deleteReviewThunk = createAsyncThunk(
@@ -34,6 +34,6 @@ export const deleteReviewThunk = createAsyncThunk(
 );
 
 export const updateReviewThunk = createAsyncThunk(
-    'reviews/updateReview', async (id) =>
-        await service.updateReview(id)
+    'reviews/updateReview', async (review) =>
+        await service.updateReview(review)
 );
