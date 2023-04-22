@@ -10,7 +10,7 @@ import OtherFollowersList from "./followers-data/OtherFollowersList";
 import OtherFollowingList from "./following-data/OtherFollowingList";
 import OtherReadList from "./favorites-data/OtherReadList";
 
-const ProfileTabs = ({ownAccount}) => {
+const ProfileTabs = ({ownAccount, accountId}) => {
     let reviewList;
     let followerList;
     let followingList;
@@ -24,11 +24,11 @@ const ProfileTabs = ({ownAccount}) => {
         willReadList = (<ReadList isRead={false}/>);
     }
     else {
-        reviewList = (<OtherReviewList />);
-        followerList = (<OtherFollowersList />);
-        followingList = (<OtherFollowingList />);
-        readList = (<OtherReadList isRead={true}/> );
-        willReadList = (<OtherReadList isRead={false}/>);
+        reviewList = (<OtherReviewList accountId={accountId}/>);
+        followerList = (<OtherFollowersList accountId={accountId}/>);
+        followingList = (<OtherFollowingList accountId={accountId}/>);
+        readList = (<OtherReadList isRead={true} accountId={accountId}/> );
+        willReadList = (<OtherReadList isRead={false} accountId={accountId}/>);
     }
     return (
         <Tabs

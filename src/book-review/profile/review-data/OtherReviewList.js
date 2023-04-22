@@ -1,17 +1,16 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import ReviewItem from "./ReviewItem.js";
 import {useDispatch, useSelector} from "react-redux";
 import {findReviewsByUserIdThunk} from "../../../services/reviews/reviews-thunk";
+import {findUsersThunk} from "../../../services/users/users-thunk";
 
-const OtherReviewList = () => {
-
-    const { currentUser } = useSelector((state) => state.currentUser);
+const OtherReviewList = ({accountId}) => {
     const {reviews, loading} = useSelector(
         state => state.reviews)
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(findReviewsByUserIdThunk(currentUser._id))
-    }, [])
+        dispatch(findReviewsByUserIdThunk(accountId))
+    }, [accountId]);
 
 
     return(
