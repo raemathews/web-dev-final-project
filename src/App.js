@@ -15,13 +15,15 @@ import followersReducer from "./reducers/followers-reducer";
 import {Provider} from "react-redux";
 import reviewsReducer from "./reducers/reviews-reducer";
 import LogOut from "./book-review/login/LogOut";
+import wantToReadReducer from "./reducers/want-to-read-reducer";
 
 const store = configureStore({reducer: {
             library: libraryReducer,
             users: usersReducer,
             currentUser: authReducer,
             reviews: reviewsReducer,
-            followers: followersReducer
+            followers: followersReducer,
+            readingList: wantToReadReducer
         }});
 
 function App() {

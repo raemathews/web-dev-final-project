@@ -3,23 +3,49 @@ import {createAsyncThunk}
 import * as service
     from "./want-to-read-service.js"
 
-export const findWantToReadThunk = createAsyncThunk(
-    'wtr/findWantToRead', async () =>
-        await service.findWantToRead()
+export const findReadThunk = createAsyncThunk(
+    'wtr/findRead', async () =>
+        await service.findReads()
 );
 
-export const findFollowersByUserIdThunk = createAsyncThunk(
-    'wtr/findWantToReadByUserId', async (id) =>
-        await service.findWantToReadByUserId(id)
+export const findReadByUserIdThunk = createAsyncThunk(
+    'wtr/findReadsByUserId', async (id) =>
+        await service.findReadsByUserId(id)
 );
 
-export const createWantToReadThunk = createAsyncThunk(
-    'wtr/createWantToRead', async (id) =>
-        await service.createWantToRead(id)
+export const findFinishedReadThunk = createAsyncThunk(
+    'wtr/findFinishedRead', async () =>
+        await service.findFinishedReads()
+);
+
+export const findUnfinishedReadThunk = createAsyncThunk(
+    'wtr/findUnfinishedRead', async () =>
+        await service.findWantToReads()
+);
+
+export const findFinishedReadByUserIdThunk = createAsyncThunk(
+    'wtr/findFinishedReadsByUserId', async (id) =>
+        await service.findFinishedReadsByUserId(id)
+);
+
+export const findUnfinishedReadByUserIdThunk = createAsyncThunk(
+    'wtr/findUnfinishedReadsByUserId', async (id) =>
+        await service.findWantToReadsByUserId(id)
+);
+
+export const createReadThunk = createAsyncThunk(
+    'wtr/create', async (read) =>
+        await service.createRead(read)
+);
+
+export const deleteReadThunk = createAsyncThunk(
+    'wtr/delete', async (id) =>
+        await service.deleteRead(id)
+);
+
+export const updateReadThunk = createAsyncThunk(
+    'wtr/update', async (read) =>
+        await service.updateRead(read)
 );
 
 
-export const deleteWantToReadThunk = createAsyncThunk(
-    'wtr/deleteWantToRead', async (fid) =>
-        await service.deleteWantToRead(fid)
-);

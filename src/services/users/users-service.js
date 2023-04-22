@@ -3,14 +3,14 @@ const USERS_API = 'https://final-project-node-server-app-h4kv.onrender.com/api/u
 
 export const findUsers = async () => {
     const response = await axios.get(USERS_API);
-    console.log("User API Response: " , response)
+    // console.log("User API Response: " , response)
     return response.data;
 }
 
 export const findUsersByID = async(id) => {
-    console.log("ID GIVEN: " + id)
+    // console.log("ID GIVEN: " + id)
     const response = await axios.get(`${USERS_API}/${id}`);
-    console.log("Data: " + response.data)
+    // console.log("Data: " + response.data)
     return response.data;
 }
 

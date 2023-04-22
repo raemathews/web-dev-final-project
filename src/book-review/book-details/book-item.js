@@ -4,6 +4,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {createReviewThunk, findReviewsByBookId} from "../../services/reviews/reviews-thunk";
 import {useParams} from "react-router-dom";
 import {findBookByIdThunk, findBooksThunk} from "../../services/books/library-thunk";
+import {
+    createReadThunk,
+    findUnfinishedReadByUserIdThunk,
+    updateReadThunk
+} from "../../services/want-to-read/want-to-read-thunk";
 
 const BookItem = (
     {
@@ -32,8 +37,16 @@ const BookItem = (
     const dispatch = useDispatch();
 
     const {currentUser} = useSelector(store => store.currentUser)
+
+    const {readingList, read, wantToRead, loadingReadingList} =
+        useSelector(store => store.readingList)
+    useEffect(() => {
+        dispatch(findUnfinishedReadByUserIdThunk(currentUser._id));
+    }, [])
+
     const {numResults, books, bookById, loading} =
         useSelector(store => store.library)
+
     useEffect(() => {
         dispatch(findBookByIdThunk(bookid));
     }, [])
@@ -70,6 +83,77 @@ const BookItem = (
         dispatch(createReviewThunk(newReview));
     }
 
+    const addToReadHandler = () => {
+        if (currentUser) {
+            if (bookInfo) {
+                const inRead = read.find((r) => (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id));
+                const inWantToRead = wantToRead.find((r) => (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id));
+                if (inWantToRead) {
+                    dispatch(updateReadThunk({
+                        ...inWantToRead,
+                        finished: false
+                    }));
+                } else if (!inRead) {
+                    dispatch(createReadThunk({
+                        user_id: currentUser._id,
+                        book_id: bookInfo.key.substring(7),
+                        finished: true,
+                        title: bookInfo.book_title,
+                        cover_i: bookInfo.cover_i,
+                        ratings_average: getAverageRating(bookInfo),
+                        ratings_count: getNumOfReviews(bookInfo),
+                        author_name: bookInfo.author_name ? bookInfo.author_name.toString() : "",
+                    }));
+                }
+            }
+        } else {
+            // TODO: display something telling them to log in/sign up
+        }
+    }
+
+    const rrr = (r) => {
+        console.log(JSON.stringify(r));
+        return (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id);
+    }
+
+    const addToWantToReadHandler = () => {
+        console.log('ADDING1');
+        if (currentUser) {
+            console.log('ADDING2');
+            if (bookInfo) {
+                console.log('ADDING3');
+                console.log(bookInfo.key);
+                console.log(`JSON: ${wantToRead}`);
+                const inRead = read.find((r) => (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id));
+                const inWantToRead = wantToRead.find((r) =>
+                    rrr(r)
+                );
+                console.log(inWantToRead);
+                if (inRead) {
+                    console.log('ADDING4');
+                    dispatch(updateReadThunk({
+                        ...inRead,
+                        finished: true
+                    }));
+                } else if (!inWantToRead) {
+                    console.log('ADDING5');
+                    dispatch(createReadThunk({
+                        user_id: currentUser._id,
+                        book_id: bookInfo.key.substring(7),
+                        finished: false,
+                        title: bookInfo.book_title,
+                        cover_i: bookInfo.cover_i,
+                        ratings_average: getAverageRating(bookInfo),
+                        ratings_count: getNumOfReviews(bookInfo),
+                        author_name: bookInfo.author_name ? bookInfo.author_name.toString() : "",
+                    }));
+                }
+            }
+        } else {
+            // TODO: display something telling them to log in/sign up
+        }
+    }
+
     const StarRatingDetails = ({rating}) => {
         let stars = []
         let rate = Math.round(rating * 10) / 10;
@@ -95,7 +179,7 @@ const BookItem = (
     }
 
     const getDescription = (book) => {
-        console.log(`keys: ${Object.keys(book)}`);
+        // console.log(`keys: ${Object.keys(book)}`);
         if (book.description) {
             if (typeof book.description == 'string') {
                 return book.description.split(/\(\[|\[/)[0];
@@ -118,7 +202,7 @@ const BookItem = (
         if (reviews && reviews.length > 0) {
             for (const idx in reviews) {
                 const r = reviews[idx];
-                console.log(`review ${JSON.stringify(r)}`);
+                // console.log(`review ${JSON.stringify(r)}`);
                 if (r.rating) {
                     numerator =+ r.rating;
                     denominator += 1;
@@ -166,12 +250,14 @@ const BookItem = (
                         {/*TODO: will change to say something else when you click it, and # of saved will go up*/}
                         <button type="button"
                                 className="btn btn-primary mt-3"
-                                style={{width: "100%"}}>
+                                style={{width: "100%"}}
+                                onClick={addToReadHandler}>
                             {readButtonMsg}
                         </button>
                         <button type="button"
                                 className="btn btn-primary mt-2"
-                                style={{width: "100%"}}>
+                                style={{width: "100%"}}
+                                onClick={addToWantToReadHandler}>
                             {wantToReadButtonMsg}
                         </button>
                     </div>
