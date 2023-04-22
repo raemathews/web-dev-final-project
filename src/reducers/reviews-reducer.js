@@ -80,8 +80,8 @@ const reviewsSlice = createSlice({
                 state.loading = false
                 const reviewIndex = state.reviews
                     .findIndex((r) => r._id === payload._id)
-                state.tuits[reviewIndex] = {
-                    ...state.tuits[reviewIndex],
+                state.reviews[reviewIndex] = {
+                    ...state.reviews[reviewIndex],
                     ...payload
                 }
             },

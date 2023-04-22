@@ -55,13 +55,13 @@ const ReviewItem = (
                 // They've already liked it, unlike it
                 dispatch(updateReviewThunk({
                     ...review,
+                    likes: []
                 }));
-                review.likes.remove(currentUser._id);
             } else {
                 // They haven't liked it yet, like it
                 dispatch(updateReviewThunk({
                     ...review,
-                    likes: []
+                    likes: [... review.likes, currentUser._id]
                 }));
             }
         } else {
