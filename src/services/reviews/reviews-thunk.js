@@ -32,6 +32,6 @@ export const deleteReviewThunk = createAsyncThunk(
 );
 
 export const updateReviewThunk = createAsyncThunk(
-    'reviews/updateReview', async (id) =>
-        await service.updateReview(id)
+    'reviews/updateReview', async (review) =>
+        await service.updateReview(review)
 );

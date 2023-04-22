@@ -30,11 +30,13 @@ const ReviewItem = (
     }
 ) => {
     let [currentComment, setCurrentComment] = useState('');
-    const dispatch = useDispatch();
+    let [user, setUser] = useState(defaultUser);
+    const {currentUser} = useSelector(store => store.currentUser);
     const {numResults, foundUsers, userFoundById, loading} =
         useSelector(store => store.users)
 
-    let [user, setUser] = useState(defaultUser);
+    const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(findUsersThunk());
     }, [])
@@ -48,7 +50,23 @@ const ReviewItem = (
         dispatch(deleteReviewThunk(id));
     }
     const likeReviewHandler = (review) => {
-        // TODO: add current user to the list of users who liked this review
+        if (currentUser) {
+            if (review.likes.includes(currentUser._id)) {
+                // They've already liked it, unlike it
+                dispatch(updateReviewThunk({
+                    ...review,
+                }));
+                review.likes.remove(currentUser._id);
+            } else {
+                // They haven't liked it yet, like it
+                dispatch(updateReviewThunk({
+                    ...review,
+                    likes: []
+                }));
+            }
+        } else {
+            // TODO: display something telling them to log in/sign up
+        }
     }
 
     function createReplyHandler() {
@@ -62,7 +80,7 @@ const ReviewItem = (
         return `/images/${defaultUser.profile_pic}`;
     }
 
-    const likedIcon = review.liked ? "fa-solid text-danger fa-heart" : "fa-regular fa-heart"
+    const likedIcon = review.likes.includes(currentUser._id) ? "fa-solid text-danger fa-heart" : "fa-regular fa-heart"
 
     const spoilerTag = review.spoiler_flag ?
         <i className="bi bi-exclamation-circle-fill fa-lg float-end mx-4 my-1"> Spoilers</i>
