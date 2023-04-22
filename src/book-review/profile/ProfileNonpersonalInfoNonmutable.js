@@ -12,8 +12,7 @@ const ProfileNonpersonalInfoNonmutable = ({user}) => {
 
     useEffect(() => {
         dispatch(findUsersByIDThunk(user));
-        console.log("User found " + userFoundById);
-    }, [])
+    }, [user])
     return(
         <>
             <div className="col-4">

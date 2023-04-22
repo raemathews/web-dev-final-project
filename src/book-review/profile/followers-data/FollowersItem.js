@@ -24,7 +24,7 @@ const FollowersItem = (
             <li className="list-group-item">
                 <div className="row">
                     <div className="col-10">
-                        <div className="fw-bolder">
+                        <div className="fw-bolder">{user.handle}
                             <i className="fas fa-check-circle"></i>
                             - {user.username}
                         </div>

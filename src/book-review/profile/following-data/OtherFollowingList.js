@@ -1,16 +1,18 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import FollowingItem from "./FollowingItem.js";
 import {useDispatch, useSelector} from "react-redux";
 import {findFollowingByUserIdThunk} from "../../../services/followers/followers-thunk";
+import {findUsersThunk} from "../../../services/users/users-thunk";
+import {findReviewsByUserIdThunk} from "../../../services/reviews/reviews-thunk";
 
-const OtherFollowingList = () => {
-    const { currentUser } = useSelector((state) => state.currentUser);
+const OtherFollowingList = ({accountId}) => {
     const {followers, following, loading} = useSelector(
-        state => state.followers)
+        state => state.followers);
+
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(findFollowingByUserIdThunk(currentUser._id))
-    }, [])
+        dispatch(findFollowingByUserIdThunk(accountId))
+    }, [accountId]);
 
     return(
         <ul className="list-group">
