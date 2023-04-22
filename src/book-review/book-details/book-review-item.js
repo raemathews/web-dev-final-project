@@ -98,7 +98,7 @@ const ReviewItem = (
                         </label>
                         <label className="col-2">
                             <i className={`${likedIcon} pe-2`} onClick={() => likeReviewHandler(review)}></i>
-                            {review.likes} Loves
+                            {review.likes ? review.likes.length : 0} Loves
                         </label>
                     </div>
                     <div>

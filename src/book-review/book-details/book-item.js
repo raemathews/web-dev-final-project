@@ -152,8 +152,12 @@ const BookItem = (
                         <hr/>
 
                         <h3><b>Add a review</b></h3>
+                        <input type="text"
+                               className="mt-2 p-2"
+                               style={{width: "100%"}}
+                               placeholder="Write a title for your review here..."></input>
                         <textarea className="mt-2 p-2"
-                                       placeholder={'Write a review...'}
+                                       placeholder={'Write your review here...'}
                                        style={{width: "100%"}}
                                        onChange={(event) => setCurrentReview(event.target.value)}>
                         </textarea>
