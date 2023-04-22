@@ -19,7 +19,7 @@ const ProfileInfo = ({accountId, ownAccount, active}) => {
                     {info}
                 </div>
                 <div className="row mt-3">
-                    <ProfileTabs />
+                    <ProfileTabs ownAccount={ownAccount}/>
                 </div>
         </>
     );

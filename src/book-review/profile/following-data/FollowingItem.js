@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {findUsersByIDThunk, findUsersThunk} from "../../../services/users/users-thunk";
+import {Link} from "react-router-dom";
 const FollowingItem = (
     {f}
 ) => {
@@ -21,20 +22,22 @@ const FollowingItem = (
 
 
     return(
-        <li className="list-group-item">
-            <div className="row">
-                <div className="col-10">
-                    <div className="fw-bolder">{user.handle}
-                        <i className="fas fa-check-circle"></i>
-                        - {user.username}
+        <Link to={`/profile/${user._id}`}>
+            <li className="list-group-item">
+                <div className="row">
+                    <div className="col-10">
+                        <div className="fw-bolder">{user.handle}
+                            <i className="fas fa-check-circle"></i>
+                            - {user.username}
+                        </div>
+                        <div>{user.bio}</div>
                     </div>
-                    <div>{user.bio}</div>
+                    <div className="col-2">
+                        <img width={70} className="float-end rounded-3" src={`/images/${user.profile_pic}`}/>
+                    </div>
                 </div>
-                <div className="col-2">
-                    <img width={70} className="float-end rounded-3" src={`/images/${user.profile_pic}`}/>
-                </div>
-            </div>
-        </li>
+            </li>
+        </Link>
     );
 };
 export default FollowingItem;

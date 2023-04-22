@@ -5,27 +5,50 @@ import PersonalReviewList from "./review-data/PersonalReviewList";
 import FollowersList from "./followers-data/FollowersList";
 import FollowingList from "./following-data/FollowingList";
 import ReadList from "./favorites-data/ReadList";
+import OtherReviewList from "./review-data/OtherReviewList";
+import OtherFollowersList from "./followers-data/OtherFollowersList";
+import OtherFollowingList from "./following-data/OtherFollowingList";
+import OtherReadList from "./favorites-data/OtherReadList";
 
-const ProfileTabs = () => {
+const ProfileTabs = ({ownAccount}) => {
+    let reviewList;
+    let followerList;
+    let followingList;
+    let readList;
+    let willReadList;
+    if (ownAccount) {
+        reviewList = (<PersonalReviewList />);
+        followerList = (<FollowersList />);
+        followingList = (<FollowingList />);
+        readList = (<ReadList isRead={true}/> );
+        willReadList = (<ReadList isRead={false}/>);
+    }
+    else {
+        reviewList = (<OtherReviewList />);
+        followerList = (<OtherFollowersList />);
+        followingList = (<OtherFollowingList />);
+        readList = (<OtherReadList isRead={true}/> );
+        willReadList = (<OtherReadList isRead={false}/>);
+    }
     return (
         <Tabs
             defaultActiveKey="reviews"
             id="uncontrolled-tab-example"
             className="mb-3">
             <Tab eventKey="reviews" title="Reviews">
-                <PersonalReviewList />
+                {reviewList}
             </Tab>
             <Tab eventKey="followers" title="Followers">
-                <FollowersList />
+                {followerList}
             </Tab>
             <Tab eventKey="following" title="Following">
-                <FollowingList />
+                {followingList}
             </Tab>
             <Tab eventKey="Read" title="Read">
-                <ReadList /> // TODO: add boolean so that you get wilRead/hasRead
+                {readList}
             </Tab>
             <Tab eventKey="wantToRead" title="Want To Read">
-                <ReadList />
+                {willReadList}
             </Tab>
         </Tabs>
     );
