@@ -7,6 +7,7 @@ const FollowersItem = (
 ) => {
     const {numResults, foundUsers, userFoundById, loading} = useSelector(
         state => state.users)
+    const { currentUser } = useSelector((state) => state.currentUser);
     const dispatch = useDispatch();
 
     let[user, setUser] = useState({});
@@ -20,7 +21,7 @@ const FollowersItem = (
     }, [foundUsers])
 
     return(
-        <Link to={`/profile/${user._id}`}>
+        <Link to={(user._id === currentUser._id) ? `/profile` : `/profile/${user._id}`}>
             <li className="list-group-item">
                 <div className="row">
                     <div className="col-10">

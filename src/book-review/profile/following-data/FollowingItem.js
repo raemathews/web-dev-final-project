@@ -7,6 +7,7 @@ const FollowingItem = (
 ) => {
     const {numResults, foundUsers, userFoundById, loading} = useSelector(
         state => state.users)
+    const { currentUser } = useSelector((state) => state.currentUser);
     const dispatch = useDispatch();
 
     let[user, setUser] = useState({});
@@ -15,14 +16,13 @@ const FollowingItem = (
     }, [])
 
     useEffect(() => {
-        console.log("ALL USERS IN FOLLOWING: " + foundUsers);
         const list = foundUsers.filter((u) => u._id == f.following_id)
         if(list.length > 0) {setUser(list[0])};
     }, [foundUsers])
 
 
     return(
-        <Link to={`/profile/${user._id}`}>
+        <Link to={(user._id === currentUser._id) ? `/profile` : `/profile/${user._id}`}>
             <li className="list-group-item">
                 <div className="row">
                     <div className="col-10">
