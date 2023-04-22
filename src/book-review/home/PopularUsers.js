@@ -19,7 +19,7 @@ const PopularUsers = () => {
         currentUser &&
         dispatch(findFollowingByUserIdThunk(currentUser._id))
     }, [])
-    const cleanedFollows = currentUser ? foundUsers.filter((f) => !followersById.includes()) : foundUsers
+    const cleanedFollows = (currentUser && followersById && foundUsers) ? foundUsers.filter((f) => !followersById.includes()) : foundUsers
     let top5Ids = cleanedFollows.slice(0, 5)
     return (
         <>

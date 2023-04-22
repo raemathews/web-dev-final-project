@@ -106,6 +106,7 @@ const BookItem = (
         return "No summary available for this title";
     }
 
+
     const getAverageRating = (book) => {
         let numerator = 0;
         let denominator = 0;
@@ -139,6 +140,8 @@ const BookItem = (
         return result;
     }
 
+    const wantToReadButtonMsg = "Save to Want To Read List";
+    const readButtonMsg = "Save to Read List";
 
     return (
         <div className="container">
@@ -164,12 +167,12 @@ const BookItem = (
                         <button type="button"
                                 className="btn btn-primary mt-3"
                                 style={{width: "100%"}}>
-                            Save to Read List
+                            {readButtonMsg}
                         </button>
                         <button type="button"
                                 className="btn btn-primary mt-2"
                                 style={{width: "100%"}}>
-                            Save to Want To Read List
+                            {wantToReadButtonMsg}
                         </button>
                     </div>
                     <div className="col-9 position-relative pt-5 ps-xl-5" style={{marginLeft: '26%'}}>

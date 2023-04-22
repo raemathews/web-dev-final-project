@@ -70,7 +70,7 @@ const ReviewItem = (
     }
 
     function createReplyHandler() {
-        // TODO: add current user to the list of users who liked this review
+        // TODO: Create reply
     }
 
     const getProfileFile = () => {
