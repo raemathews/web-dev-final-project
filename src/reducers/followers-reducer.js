@@ -60,7 +60,8 @@ const followersSlice = createSlice({
                 state.followers = state.followers
                     .filter(followers => followers._id !== payload)
                 state.following = state.following
-                    .filter(following => following._id !== payload)
+                    .filter(following => following.following_id !== payload.following_id
+                    && following.follower_id !== payload.follower_id)
             },
 
     }
