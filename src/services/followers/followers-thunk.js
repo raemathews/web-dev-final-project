@@ -15,8 +15,8 @@ export const findFollowersByUserIdThunk = createAsyncThunk(
 );
 
 export const createFollowerThunk = createAsyncThunk(
-    'follows/createFollow', async (fid) =>
-        await service.createFollows(fid)
+    'follows/createFollow', async (follow) =>
+        await service.createFollows(follow)
 );
 
 export const deleteFollowerThunk = createAsyncThunk(
