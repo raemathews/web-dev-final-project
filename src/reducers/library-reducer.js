@@ -25,12 +25,13 @@ const librarySlice = createSlice({
             },
         [findBookByIdThunk.pending]:
             (state) => {
-                console.log("loading")
+                console.log("loading section")
                 state.loading = true
                 state.bookById = {}
             },
         [findBookByIdThunk.fulfilled]:
             (state, {payload}) => {
+                console.log(`payload: ${payload}`)
                 state.loading = false
                 state.bookById = payload
             },
