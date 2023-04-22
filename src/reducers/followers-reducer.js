@@ -51,16 +51,14 @@ const followersSlice = createSlice({
         [createFollowerThunk.fulfilled]:
             (state, { payload }) => {
                 state.loading = false
-                state.followers.push(payload)
-                state.following.push(payload)
+                // state.following.push(payload)
             },
         [deleteFollowerThunk.fulfilled] :
             (state, { payload }) => {
                 state.loading = false
-                state.followers = state.followers
-                    .filter(followers => followers._id !== payload)
-                state.following = state.following
-                    .filter(following => following._id !== payload)
+                // state.followers = state.followers
+                //     .filter(followers => followers.following_id !== payload.following_id
+                //     && followers.follower_id !== payload.follower_id)
             },
 
     }

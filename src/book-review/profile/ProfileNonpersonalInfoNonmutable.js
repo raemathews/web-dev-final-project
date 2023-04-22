@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {findUsersByIDThunk, findUsersThunk} from "../../services/users/users-thunk";
-import {findFollowersByUserIdThunk, findFollowingByUserIdThunk} from "../../services/followers/followers-thunk";
-import ProfilePersonalInfoMutable from "./ProfilePersonalInfoMutable";
+import {
+    createFollowerThunk,
+    deleteFollowerThunk, findFollowersByUserIdThunk,
+    findFollowingByUserIdThunk
+} from "../../services/followers/followers-thunk";
 
 const ProfileNonpersonalInfoNonmutable = ({user}) => {
     // user is the ID from the param. We want to retrieve the details of the user by ID.
@@ -14,9 +17,10 @@ const ProfileNonpersonalInfoNonmutable = ({user}) => {
         state => state.followers)
     useEffect(() => {
         if (currentUser) {
-            dispatch(findFollowingByUserIdThunk(currentUser._id))
+            dispatch(findFollowingByUserIdThunk(currentUser._id));
+            //dispatch(findFollowersByUserIdThunk(currentUser._id));
         }
-    }, [])
+    }, [following, followers])
 
     useEffect(() => {
         dispatch(findUsersByIDThunk(user));
@@ -26,17 +30,20 @@ const ProfileNonpersonalInfoNonmutable = ({user}) => {
         if (!currentUser) {
             return (<h4>Log in to follow this account!</h4>);
         } else {
-            following.map(f => {console.log("Users in following: " + JSON.stringify(f))});
-            console.log("The user info is " + user);
             const list = following.filter((u) => u.follower_id == user);
-            console.log("The list is " + list);
             if (list.length > 0) {
                 // that means that you are already following this person. So show the unfollow button.
-                console.log("UNFOLLOW");
-                return (<button>Unfollow</button>);
+                return (<button
+                    onClick={() => {
+                        //const removeFollowing = {follower_id: currentUser._id, following_id: user}
+                        //dispatch(deleteFollowerThunk(removeFollowing))
+                    }}>Unfollow</button>);
             } else {
-                console.log("FOLLOW");
-                return (<button>Follow</button>);
+                return (<button
+                    onClick={() => {
+                        const newFollowing = {follower_id: currentUser._id, following_id: user}
+                        dispatch(createFollowerThunk(newFollowing))
+                    }}>Follow</button>);
             }
         }
     })

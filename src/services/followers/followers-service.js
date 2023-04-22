@@ -15,12 +15,12 @@ export const findFollowersByUserId = async (uid) => {
     return response.data;
 }
 
-export const createFollows = async (fid) => {
-    const response = await axios.post(`${BASE_API}/follows`);
+export const createFollows = async (follow) => {
+    const response = await axios.post(`${BASE_API}/follows`, follow);
     return response.data;
 }
 
-export const deleteFollows = async (fid) => {
-    const response = await axios.delete(`${BASE_API}/follows/${fid}`);
+export const deleteFollows = async (follow) => {
+    const response = await axios.delete(`${BASE_API}/follows`, follow);
     return response.data;
 }
