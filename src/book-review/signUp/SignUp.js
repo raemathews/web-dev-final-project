@@ -11,11 +11,16 @@ function SignUp() {
     const [password, setPassword] = useState("");
     const [library, setLibrary] = useState("");
     const [handle, setHandle] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone_number, setPhoneNum] = useState("");
+    const bio = "I'm a new user!"
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleSignUp = async () => {
         try {
-            await dispatch(createUserThunk({ username, password, handle }));
+            const admin = false
+            await dispatch(createUserThunk({ username, password, handle, email, phone_number, bio, admin}));
             handleLogin();
         } catch (e) {
             alert(e);
@@ -24,7 +29,8 @@ function SignUp() {
 
     const handleLibrarianSignUp = async () => {
         try {
-            await dispatch(createLibrarianThunk({ username, password, handle, library }));
+            const admin = true
+            await dispatch(createLibrarianThunk({ username, password, handle, library, email, bio, admin }));
             handleLogin();
         } catch (e) {
             alert(e);
@@ -46,43 +52,57 @@ function SignUp() {
         <>
             <Navigation />
             {!librarianSignUp && <>
-            <div>
-                <h1>Sign Up for a New Account!</h1>
-                <h3>Please chose a new username, password, and handle to create your account</h3>
                 <div>
-                    <label>Username</label>
-                    <input className="form-control"
-                           type="text" value={username} placeholder={"Ex: @bookLover99"}
-                           onChange={(event) => setUsername(event.target.value)}
-                    />
+                    <h1>Sign Up for a New Account!</h1>
+                    <h3>Please chose a new username, password, and handle to create your account</h3>
+                    <div>
+                        <label>Username</label>
+                        <input className="form-control"
+                               type="text" value={username} placeholder={"Ex: @bookLover99"}
+                               onChange={(event) => setUsername(event.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <input className="form-control"
+                               type="password" value={password} placeholder={"Ex: @newPassword123"}
+                               onChange={(event) => setPassword(event.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label>Handle</label>
+                        <input className="form-control"
+                               type="handle" value={handle} placeholder={"Ex: yourHandle"}
+                               onChange={(event) => setHandle(event.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input className="form-control"
+                               type="email" value={email} placeholder={"Ex: myemail@gmail.com"}
+                               onChange={(event) => setEmail(event.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label>Phone Number</label>
+                        <input className="form-control"
+                               type="phoneNum" value={phone_number} placeholder={"Ex: 1234567890"}
+                               onChange={(event) => setPhoneNum(event.target.value)}
+                        />
+                    </div>
+                    <button onClick={handleSignUp}>
+                        Sign Up
+                    </button>
                 </div>
+                <br/>
+                <br/>
                 <div>
-                    <label>Password</label>
-                    <input className="form-control"
-                           type="password" value={password} placeholder={"Ex: @newPassword123"}
-                           onChange={(event) => setPassword(event.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Handle</label>
-                    <input className="form-control"
-                           type="handle" value={handle} placeholder={"Ex: yourHandle"}
-                           onChange={(event) => setHandle(event.target.value)}
-                    />
-                </div>
-                <button onClick={handleSignUp}>
-                    Sign Up
-                </button>
-            </div>
-            <br/>
-            <br/>
-            <div>
-                <h1>Are you a Librarian? Click below to create a librarian account:</h1>
-                <button onClick={() => setLibrarian(true)}>
+                    <h1>Are you a Librarian? Click below to create a librarian account:</h1>
+                    <button onClick={() => setLibrarian(true)}>
 
-                    Sign Up for a librarian Account
-                </button>
-            </div>
+                        Sign Up for a librarian Account
+                    </button>
+                </div>
 
 
             </>}
@@ -92,8 +112,7 @@ function SignUp() {
             {librarianSignUp && <>
                 <div>
                     <h1>Sign Up for a New Librarian Account!</h1>
-                    <h3>Please chose a new username, password, and handle to create your account</h3>
-                    <h3>Also enter the Library you are associated with!</h3>
+                    <h3>Please fill out the following:</h3>
                     <div>
                         <label>Username</label>
                         <input className="form-control"
@@ -121,6 +140,13 @@ function SignUp() {
                         <input className="form-control"
                                type="handle" value={library} placeholder={"Ex: Boston Public Library"}
                                onChange={(event) => setLibrary(event.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input className="form-control"
+                               type="email" value={email} placeholder={"Ex: myemail@gmail.com"}
+                               onChange={(event) => setEmail(event.target.value)}
                         />
                     </div>
                     <button onClick={handleLibrarianSignUp}>
