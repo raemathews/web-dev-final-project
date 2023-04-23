@@ -21,7 +21,6 @@ const followersSlice = createSlice({
             (state, {payload}) => {
                 state.loading = false;
                 state.follows = payload
-                console.log("THE FOLLOWS: " + JSON.stringify(state.follows))
             },
         [findFollowersByUserIdThunk.pending]:
             (state) => {
@@ -65,9 +64,14 @@ const followersSlice = createSlice({
         [deleteFollowerThunk.fulfilled] :
             (state, { payload }) => {
                 state.loading = false
+                console.log(`folowing in payload: ${JSON.stringify(state.following)}`)
+                console.log(`payload in payload: ${JSON.stringify(payload)}`)
+                state.follows = state.follows
+                    .filter(f => f._id !== payload)
                 state.following = state.following
-                    .filter(following => following.following_id !== payload.following_id
-                    && following.follower_id !== payload.follower_id)
+                    .filter(f => f._id !== payload)
+                state.followers = state.followers
+                    .filter(f => f._id !== payload)
             },
 
     }

@@ -13,13 +13,16 @@ const ProfileNonpersonalInfoNonmutable = ({user}) => {
     const dispatch = useDispatch();
     const {numResults, foundUsers, userFoundById, loading} =
         useSelector(store => store.users)
-    const {followers, following, l} = useSelector(
+    const {followers, following, follows, l} = useSelector(
         state => state.followers)
     useEffect(() => {
         if (currentUser) {
             dispatch(findFollowingByUserIdThunk(currentUser._id))
         }
     }, [])
+
+    useEffect(() => {
+    }, [following])
 
     useEffect(() => {
         dispatch(findUsersByIDThunk(user));
@@ -34,8 +37,7 @@ const ProfileNonpersonalInfoNonmutable = ({user}) => {
                 // that means that you are already following this person. So show the unfollow button.
                 return (<button
                     onClick={() => {
-                        const removeFollower = {follower_id: currentUser._id, following_id: user}
-                        dispatch(deleteFollowerThunk(removeFollower));
+                        dispatch(deleteFollowerThunk(list[0]._id));
                     }}>Unfollow</button>);
             } else {
                 return (<button

@@ -15,11 +15,7 @@ const OtherFollowingList = ({accountId}) => {
     }, [accountId]);
 
     useEffect(() => {
-        console.log("All follows in followings for the user is: " + follows);
-        follows.map((f) => {console.log("Follow: " + JSON.stringify(f))})
-        console.log("USER ID: " + accountId)
         setList(follows.filter((u) => u.follower_id === accountId));
-        console.log("THE followings for the user is: " + list);
     }, [follows])
 
     return(
