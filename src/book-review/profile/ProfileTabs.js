@@ -31,10 +31,11 @@ const ProfileTabs = ({ownAccount, accountId}) => {
         willReadList = (<OtherReadList isRead={false} accountId={accountId}/>);
     }
     return (
+        <div className={"list-group-item mt-5"}>
         <Tabs
             defaultActiveKey="reviews"
             id="uncontrolled-tab-example"
-            className="mb-3">
+            className="mb-3 nav-pills">
             <Tab eventKey="reviews" title="Reviews">
                 {reviewList}
             </Tab>
@@ -51,6 +52,7 @@ const ProfileTabs = ({ownAccount, accountId}) => {
                 {willReadList}
             </Tab>
         </Tabs>
+        </div>
     );
 }
 
