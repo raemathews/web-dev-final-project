@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import { loginThunk } from "../services/auth-thunks";
@@ -18,10 +18,25 @@ function Login() {
             alert(e);
         }
     };
-    const { currentUser } = useSelector((state) => state.currentUser);
+
+    const { currentUser, rejected } = useSelector((state) => state.currentUser);
+    useEffect(() => {
+        if (rejected) {
+            setToast(true);
+            setTimeout(function(){ setToast(false)}, 3000);
+        }
+        else {
+            setToast(false);
+        }
+    }, [rejected])
+
+
+
+    let [toast, setToast] = useState(false);
     return (
         <>
             <Navigation />
+
             {!currentUser && <>
                 <div>
                     <h1>Login Screen</h1>
@@ -41,6 +56,7 @@ function Login() {
                         />
                     </div>
                     <button onClick={handleLogin}>
+
                         Login
                     </button>
 
@@ -64,6 +80,12 @@ function Login() {
 
                 </button>
             </>}
+
+            <div className={`${toast ? "" : "visually-hidden"}`}>
+                <div className="alert alert-primary">
+                    Unsuccessful Login: Please try again
+                </div>
+            </div>
 
         </>
 
