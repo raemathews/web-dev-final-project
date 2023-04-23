@@ -16,7 +16,6 @@ const AccountOptions = () => {
                 {!currentUser && <Link to="/login" className="dropdown-item">Log In</Link>}
                 {!currentUser && <Link to="/signUp" className="dropdown-item">Sign Up</Link>}
                 {currentUser  && <Link to="/profile" className="dropdown-item">Profile</Link>}
-                {currentUser  && <Link to="/#" className="dropdown-item">Settings</Link>}
                 {currentUser  && <Link to="/logout" className="dropdown-item">Log Out</Link>}
 
 

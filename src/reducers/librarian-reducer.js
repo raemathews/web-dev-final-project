@@ -1,63 +1,64 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
-    findUsersThunk,
-    findUsersByIDThunk,
-    createUserThunk,
-    updateUserThunk
-} from "../services/users/users-thunk";
+    findLibrariansThunk,
+    findLibrarianByIDThunk,
+    createLibrarianThunk,
+    deleteLibrarianThunk,
+    updateLibrarianThunk
+} from "../services/librarians/librarians-thunk";
 import {findFollowingByUserIdThunk} from "../services/followers/followers-thunk";
 
 const initialState = {
     numResults: 0,
-    foundUsers: [],
-    userFoundById: "",
+    foundLibrarians: [],
+    librarianFoundById: "",
     loading: false
 }
 const usersSlice = createSlice({
     name: "users",
     initialState: initialState,
     extraReducers: {
-        [findUsersThunk.pending]:
+        [findLibrariansThunk.pending]:
             (state) => {
                 state.loading = true
                 state.foundUsers = []
             },
-        [findUsersThunk.fulfilled]:
+        [findLibrariansThunk.fulfilled]:
             (state, {payload}) => {
                 state.loading = false;
                 state.foundUsers = payload
             },
-        [findUsersThunk.rejected]:
+        [findLibrariansThunk.rejected]:
             (state, action) => {
                 state.loading = false
                 state.error = action.error
                 // console.log("error finding user in reducer")
             },
-        [findUsersByIDThunk.pending]:
+        [findLibrarianByIDThunk.pending]:
             (state) => {
                 state.loading = true
                 state.userFoundById = []
             },
-        [findUsersByIDThunk.fulfilled]:
+        [findLibrarianByIDThunk.fulfilled]:
             (state, {payload}) => {
                 state.loading = false
                 state.userFoundById = payload
             },
-        [createUserThunk.pending]:
+        [createLibrarianThunk.pending]:
             (state) => {
                 state.loading = true;
             },
-        [createUserThunk.fulfilled]:
+        [createLibrarianThunk.fulfilled]:
             (state, {payload}) => {
                 state.loading = false;
                 state.foundUsers.push(payload);
                 state.numResults = state.foundUsers.length;
             },
-        [updateUserThunk.pending]:
+        [updateLibrarianThunk.pending]:
             (state, {payload}) => {
                 state.loading = true;
             },
-        [updateUserThunk.fulfilled]:
+        [updateLibrarianThunk.fulfilled]:
             (state, {payload}) => {
                 state.loading = false;
                 const userIndex = state.foundUsers
