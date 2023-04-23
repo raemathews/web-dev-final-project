@@ -18,11 +18,10 @@ const ProfileInfo = ({ownAccount, active}) => {
 
     return(
         <>
-                <div className="row">
-                    <h2> Profile </h2>
+                <div className="row mt-3">
                     {getAccountInfo(uid)}
                 </div>
-                <div className="row mt-3">
+                <div className="row mt-3 list-group">
                     <ProfileTabs ownAccount={ownAccount} accountId={uid}/>
                 </div>
         </>
