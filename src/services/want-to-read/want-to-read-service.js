@@ -18,7 +18,7 @@ export const findReads = async () => {
     return response.data;
 }
 export const findReadsByUserId = async (uid) => {
-    const response = await axios.get(`${WTR_API}/uid`);
+    const response = await axios.get(`${WTR_API}/${uid}`);
     return response.data;
 }
 export const findFinishedReads = async () => {

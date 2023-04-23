@@ -5,8 +5,7 @@ import {createReviewThunk, findReviewsByBookId} from "../../services/reviews/rev
 import {useParams} from "react-router-dom";
 import {findBookByIdThunk, findBooksThunk} from "../../services/books/library-thunk";
 import {
-    createReadThunk,
-    findUnfinishedReadByUserIdThunk,
+    createReadThunk, deleteReadThunk, findReadByUserIdThunk,
     updateReadThunk
 } from "../../services/want-to-read/want-to-read-thunk";
 
@@ -41,7 +40,7 @@ const BookItem = (
     const {readingList, read, wantToRead, loadingReadingList} =
         useSelector(store => store.readingList)
     useEffect(() => {
-        dispatch(findUnfinishedReadByUserIdThunk(currentUser._id));
+        dispatch(findReadByUserIdThunk(currentUser._id));
     }, [])
 
     const {numResults, books, bookById, loading} =
@@ -83,64 +82,43 @@ const BookItem = (
         dispatch(createReviewThunk(newReview));
     }
 
-    const addToReadHandler = () => {
-        if (currentUser) {
-            if (bookInfo) {
-                const inRead = read.find((r) => (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id));
-                const inWantToRead = wantToRead.find((r) => (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id));
-                if (inWantToRead) {
-                    dispatch(updateReadThunk({
-                        ...inWantToRead,
-                        finished: false
-                    }));
-                } else if (!inRead) {
-                    dispatch(createReadThunk({
-                        user_id: currentUser._id,
-                        book_id: bookInfo.key.substring(7),
-                        finished: true,
-                        title: bookInfo.book_title,
-                        cover_i: bookInfo.cover_i,
-                        ratings_average: getAverageRating(bookInfo),
-                        ratings_count: getNumOfReviews(bookInfo),
-                        author_name: bookInfo.author_name ? bookInfo.author_name.toString() : "",
-                    }));
-                }
-            }
-        } else {
-            // TODO: display something telling them to log in/sign up
-        }
+    const getMatch = (r) => {
+        // console.log(`stringy: ${JSON.stringify(r)}`);
+        console.log(`/works/${r.book_id}` === bookInfo.key);
+       return (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id);
     }
 
-    const rrr = (r) => {
-        console.log(JSON.stringify(r));
-        return (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id);
-    }
-
-    const addToWantToReadHandler = () => {
+    const addToReadingListHandler = (finished) => {
         console.log('ADDING1');
         if (currentUser) {
             console.log('ADDING2');
             if (bookInfo) {
                 console.log('ADDING3');
                 console.log(bookInfo.key);
-                console.log(`JSON: ${wantToRead}`);
-                const inRead = read.find((r) => (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id));
-                const inWantToRead = wantToRead.find((r) =>
-                    rrr(r)
-                );
-                console.log(inWantToRead);
-                if (inRead) {
-                    console.log('ADDING4');
-                    dispatch(updateReadThunk({
-                        ...inRead,
-                        finished: true
-                    }));
-                } else if (!inWantToRead) {
+                console.log(`reading list: ${readingList.map((r) => (JSON.stringify(r)))}`);
+                console.log(`read: ${read.map((r) => (JSON.stringify(r)))}`);
+                console.log(`wtr: ${wantToRead.map((r) => (JSON.stringify(r)))}`);
+                const inReadingList = readingList.find((r) => getMatch(r));
+                console.log(inReadingList);
+                if (inReadingList) {
+                    if (inReadingList.finished == finished) {
+                        // They are trying to delete it
+                        console.log('ADDING4A');
+                        dispatch(deleteReadThunk(inReadingList._id));
+                    } else {
+                        // They are trying to add to the other list
+                        console.log('ADDING4A');
+                        dispatch(updateReadThunk({
+                            ...inReadingList,
+                            finished: finished
+                        }));
+                    }
+                } else {
                     console.log('ADDING5');
                     dispatch(createReadThunk({
                         user_id: currentUser._id,
                         book_id: bookInfo.key.substring(7),
-                        finished: false,
+                        finished: finished,
                         title: bookInfo.book_title,
                         cover_i: bookInfo.cover_i,
                         ratings_average: getAverageRating(bookInfo),
@@ -224,8 +202,12 @@ const BookItem = (
         return result;
     }
 
-    const wantToReadButtonMsg = "Save to Want To Read List";
-    const readButtonMsg = "Save to Read List";
+    const wantToReadButtonMsg = wantToRead && wantToRead.find(
+        (r) => (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id)) ?
+        "Remove from Want To Read" : "Save to Want To Read";
+    const readButtonMsg = read && read.find(
+        (r) => (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id)) ?
+        "Remove from Read list" : "Save to Read list";
 
     return (
         <div className="container">
@@ -251,13 +233,13 @@ const BookItem = (
                         <button type="button"
                                 className="btn btn-primary mt-3"
                                 style={{width: "100%"}}
-                                onClick={addToReadHandler}>
+                                onClick={() => addToReadingListHandler(true)}>
                             {readButtonMsg}
                         </button>
                         <button type="button"
                                 className="btn btn-primary mt-2"
                                 style={{width: "100%"}}
-                                onClick={addToWantToReadHandler}>
+                                onClick={() => addToReadingListHandler(false)}>
                             {wantToReadButtonMsg}
                         </button>
                     </div>
