@@ -38,14 +38,16 @@ export const findWantToReadsByUserId = async (uid) => {
     return response.data;
 }
 export const createRead = async(read) => {
-    console.log(`In create read: ${JSON.stringify(read)}`)
+    // console.log(`In create read: ${JSON.stringify(read)}`)
     const response = await axios.post(`${WTR_API}`, read)
-    console.log(`response: ${response}`)
-    return response.status
+    // console.log(`response: ${JSON.stringify(response)}`)
+    return response.data
 }
 export const deleteRead = async(id) => {
+    // console.log("Trying to delete this id: " + id)
     const response = await axios.delete(`${WTR_API}/${id}`)
-    return response.status
+    // console.log(`delete read response ${response}`)
+    return id
 }
 export const updateRead = async (read) => {
     const response = await axios

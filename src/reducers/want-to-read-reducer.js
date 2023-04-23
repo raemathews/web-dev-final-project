@@ -63,7 +63,7 @@ const wantToReadSlice = createSlice({
 
         [createReadThunk.fulfilled]:
             (state, { payload }) => {
-                console.log(`payload: ${JSON.stringify(payload)}`)
+                // console.log(`payload: ${JSON.stringify(payload)}`)
                 state.loading = false
                 state.readingList.push(payload)
                 state.read = state.readingList.filter(r => r.finished)
@@ -71,14 +71,18 @@ const wantToReadSlice = createSlice({
             },
         [deleteReadThunk.fulfilled] :
             (state, { payload }) => {
+                // console.log(`deleteReadThunk payload: ${payload}`)
                 state.loading = false
+                // console.log(`reading list size before delete: ${state.readingList.length}`)
                 state.readingList = state.readingList
                     .filter(review => review._id !== payload)
+                // console.log(`reading list size after delete: ${state.readingList.length}`)
                 state.read = state.readingList.filter(r => r.finished)
                 state.wantToRead = state.readingList.filter(r => !r.finished)
             },
         [updateReadThunk.fulfilled]:
             (state, { payload }) => {
+                // console.log(`updateReadThunk payload: ${JSON.stringify(payload)}`)
                 state.loading = false
                 const idx = state.readingList
                     .findIndex((r) => r._id === payload._id)
