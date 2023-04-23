@@ -58,20 +58,18 @@ const followersSlice = createSlice({
         [createFollowerThunk.fulfilled]:
             (state, { payload }) => {
                 state.loading = false
-                //state.followers.push(payload)
+                state.follows.push(payload)
                 state.following.push(payload)
             },
         [deleteFollowerThunk.fulfilled] :
             (state, { payload }) => {
                 state.loading = false
-                console.log(`folowing in payload: ${JSON.stringify(state.following)}`)
-                console.log(`payload in payload: ${JSON.stringify(payload)}`)
                 state.follows = state.follows
-                    .filter(f => f._id !== payload)
+                    .filter(f => f._id !== payload.deleted_id)
                 state.following = state.following
-                    .filter(f => f._id !== payload)
+                    .filter(f => f._id !== payload.deleted_id)
                 state.followers = state.followers
-                    .filter(f => f._id !== payload)
+                    .filter(f => f._id !== payload.deleted_id)
             },
 
     }
