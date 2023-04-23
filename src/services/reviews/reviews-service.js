@@ -27,7 +27,7 @@ export const deleteReview = async (rid) => {
     console.log(`${REVIEWS_API}/delete/${rid}`);
     const response = await axios.delete(`${REVIEWS_API}/delete/${rid}`);
     console.log(`response: ${JSON.stringify(response)}`);
-    return response.data;
+    return rid;
 }
 
 export const updateReview = async (review) => {

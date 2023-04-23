@@ -5,6 +5,7 @@ import {createReviewThunk, findReviewsByBookId} from "../../services/reviews/rev
 import {useParams} from "react-router-dom";
 import {findBookByIdThunk, findBooksThunk} from "../../services/books/library-thunk";
 import ReadingListButtons from "./reading-list-buttons";
+import {findReadByUserIdThunk} from "../../services/want-to-read/want-to-read-thunk";
 
 const BookItem = (
     {
@@ -33,6 +34,12 @@ const BookItem = (
     const dispatch = useDispatch();
 
     const {currentUser} = useSelector(store => store.currentUser)
+
+    const {readingList, read, wantToRead, loadingReadingList} =
+        useSelector(store => store.readingList)
+    useEffect(() => {
+        if (currentUser) {dispatch(findReadByUserIdThunk(currentUser._id))};
+    }, [])
 
     const {numResults, books, bookById, loading} =
         useSelector(store => store.library)
@@ -116,7 +123,7 @@ const BookItem = (
         let numerator = 0;
         let denominator = 0;
         if (book && book.ratings_count && book.ratings_average) {
-            console.log(`rating ${book.ratings_average} / count ${book.ratings_count}`);
+            // console.log(`rating ${book.ratings_average} / count ${book.ratings_count}`);
             numerator += (book.ratings_count * book.ratings_average);
             denominator += book.ratings_count;
         }
@@ -130,7 +137,7 @@ const BookItem = (
                 }
             }
         }
-        console.log(`numerator ${numerator} / denominator ${denominator}`);
+        // console.log(`numerator ${numerator} / denominator ${denominator}`);
         return denominator != 0 ? (numerator / denominator) : (numerator / denominator);
     }
 
@@ -165,7 +172,11 @@ const BookItem = (
                                    width="100%"
                                    src={"/images/no_cover.png"}
                                    alt="book cover"/>               }
-                        { currentUser ? <ReadingListButtons bookInfo={bookInfo} /> :
+                        { currentUser && readingList ? <ReadingListButtons bookInfo={bookInfo}
+                                                            readingList={readingList}
+                                                            read={read}
+                                                            wantToRead={wantToRead}
+                                                            loadingReadingList={loadingReadingList}/> :
                             <button type="button"
                                     className="btn btn-secondary mt-3 py-2 mb- 3"
                                     style={{width: "100%"}}>
