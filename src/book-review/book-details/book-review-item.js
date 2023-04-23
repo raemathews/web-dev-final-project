@@ -105,6 +105,7 @@ const ReviewItem = (
                 <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
                     <div className="row justify-content-center">
                         <img
+                            width={40}
                              className="float-end"
                              src={getProfileFile()}
                              onClick={visitProfile}
