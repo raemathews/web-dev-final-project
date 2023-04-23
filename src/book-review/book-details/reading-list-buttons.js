@@ -28,7 +28,7 @@ const ReadingListButtons = ({bookInfo}) => {
     useEffect(() => {
         console.log("DISPATCH");
         dispatch(findReadByUserIdThunk(currentUser._id));
-    }, [wtrMsg, readMsg])
+    }, [])
 
     const getMatch = (r) => {
         // console.log(`stringy: ${JSON.stringify(r)}`);
@@ -36,7 +36,15 @@ const ReadingListButtons = ({bookInfo}) => {
         return (r.book_id === bookid) && (r.user_id === currentUser._id);
     }
 
+    const clickButton = (finished) => {
+        new Promise((resolve, reject) => {
+            dispatch(findReadByUserIdThunk(currentUser._id));
+            resolve();
+        }).then(r => addToReadingListHandler(finished));
+    }
+
     const addToReadingListHandler = (finished) => {
+
         console.log('ADDING1');
         if (currentUser) {
             console.log('ADDING2');
@@ -96,13 +104,13 @@ const ReadingListButtons = ({bookInfo}) => {
             <button type="button"
                     className="btn btn-primary mt-3"
                     style={{width: "100%"}}
-                    onClick={() => addToReadingListHandler(true)}>
+                    onClick={() => clickButton(true)}>
                 {readButtonMsg}
             </button>
             <button type="button"
                     className="btn btn-primary mt-2"
                     style={{width: "100%"}}
-                    onClick={() => addToReadingListHandler(false)}>
+                    onClick={() => clickButton(false)}>
                 {wantToReadButtonMsg}
             </button>
         </>

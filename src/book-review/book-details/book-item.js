@@ -60,7 +60,6 @@ const BookItem = (
 
     const createReviewHandler = () => {
         // TODO: put real values
-        console.log(currentUser._id);
         const newReview = {
             "book_title": bookInfo.title,
             "review_title": currentTitle,
@@ -126,8 +125,8 @@ const BookItem = (
             for (const idx in reviews) {
                 const r = reviews[idx];
                 // console.log(`review ${JSON.stringify(r)}`);
-                if (r.rating) {
-                    numerator =+ r.rating;
+                if (r.rating && r.rating > 0) {
+                    numerator += r.rating;
                     denominator += 1;
                 }
             }
@@ -167,7 +166,7 @@ const BookItem = (
                                    width="100%"
                                    src={"/images/no_cover.png"}
                                    alt="book cover"/>               }
-                        <ReadingListButtons bookInfo={bookInfo} />
+                        { currentUser ? <ReadingListButtons bookInfo={bookInfo} /> : <></> }
                     </div>
                     <div className="col-9 position-relative pt-5 ps-xl-5" style={{marginLeft: '26%'}}>
                         <div>
@@ -192,35 +191,39 @@ const BookItem = (
                         <hr/>
 
                         <h3><b>Add a review</b></h3>
-                        <label htmlFor="rating" className="me-2">
-                            Rating (between 0 and 5):
-                        </label>
-                        <input type="number"
-                               className="mt-2 p-2"
-                               id="rating"
-                               name="rating"
-                               min="0"
-                               max="5"
-                               onChange={(event) => setCurrentRating(event.target.value)}>
-                        </input>
-                        <input type="text"
-                               className="mt-2 p-2"
-                               style={{width: "100%"}}
-                               placeholder="Write a title for your review here..."
-                               onChange={(event) => setCurrentTitle(event.target.value)}>
-                        </input>
-                        <textarea className="mt-2 p-2"
-                                       placeholder={'Write your review here...'}
-                                       style={{width: "100%"}}
-                                       onChange={(event) => setCurrentReview(event.target.value)}>
-                        </textarea>
-                        {/*TODO: will submit and add a review about this book*/}
-                        <button type="button"
-                                className="btn btn-primary mt-2 mb- 3"
-                                style={{width: "100%"}}
-                                onClick={() => createReviewHandler()}>
-                            Add review
-                        </button>
+                        {
+                            currentUser ?
+                        <>
+                            <label htmlFor="rating" className="me-2">
+                                Rating (between 0 and 5):
+                            </label>
+                            <input type="number"
+                                   className="mt-2 p-2"
+                                   id="rating"
+                                   name="rating"
+                                   min="0"
+                                   max="5"
+                                   onChange={(event) => setCurrentRating(event.target.value)}>
+                            </input>
+                            <input type="text"
+                                   className="mt-2 p-2"
+                                   style={{width: "100%"}}
+                                   placeholder="Write a title for your review here..."
+                                   onChange={(event) => setCurrentTitle(event.target.value)}>
+                            </input>
+                            <textarea className="mt-2 p-2"
+                                           placeholder={'Write your review here...'}
+                                           style={{width: "100%"}}
+                                           onChange={(event) => setCurrentReview(event.target.value)}>
+                            </textarea>
+                            <button type="button"
+                                    className="btn btn-primary mt-2 mb- 3"
+                                    style={{width: "100%"}}
+                                    onClick={() => createReviewHandler()}>
+                                Add review
+                            </button>
+                        </> : <p>Want to add a review? Log in or sign up for an account!</p>
+                        }
                         <hr/>
 
                         <BookReviewList reviews={reviews} loading={loadingReviews}/>
