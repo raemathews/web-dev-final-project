@@ -36,6 +36,15 @@ const ReviewItem = (
 ) => {
     let [currentComment, setCurrentComment] = useState('');
     let [user, setUser] = useState(defaultUser);
+    let [commentVisibility, setCommentVisibility] = useState(false);
+    let [toast, setToast] = useState(<div className="visually-hidden">
+        <div className="toast-header">
+            Toast Header
+        </div>
+        <div className="toast-body">
+            Some text inside the toast body
+        </div>
+    </div>);
     const {currentUser} = useSelector(store => store.currentUser);
     const {numResults, foundUsers, userFoundById, loading} =
         useSelector(store => store.users)
@@ -53,6 +62,7 @@ const ReviewItem = (
     }, [foundUsers]);
 
     const deleteReviewHandler = (id) => {
+        console.log("delete Review");
         dispatch(deleteReviewThunk(id));
     }
     const likeReviewHandler = (review) => {
@@ -73,6 +83,23 @@ const ReviewItem = (
             }
         } else {
             // TODO: display something telling them to log in/sign up
+
+            // Add the "show" class to DIV
+            setToast(<div className="">
+                <div className="toast-header">
+                    Toast Header
+                </div>
+                <div className="toast-body">
+                    Some text inside the toast body
+                </div>
+            </div>);
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function(){ setToast(<div className="visually-hidden">
+                <div className="toast-body">
+                    Log in or sign up to like or comment
+                </div>
+            </div>)}, 3000);
         }
     }
 
@@ -120,17 +147,20 @@ const ReviewItem = (
                     <div className="my-2">{review.body}</div>
                     <hr/>
                     <div className="my-2 mx-2">
-                        <label className="col-2 me-3">
+                        {toast}
+                        <label className="col-2 me-3"
+                                onClick={}>
                             <i className="fa-regular fa-comment pe-2"></i>
                             {review.replied} Comments
                         </label>
-                        <label className="col-2">
-                            <i className={`${likedIcon} pe-2`} onClick={() => likeReviewHandler(review)}></i>
+                        <label className="col-2"
+                               onClick={() => likeReviewHandler(review)}>
+                            <i className={`${likedIcon} pe-2`}></i>
                             {review.likes ? review.likes.length : 0} Loves
                         </label>
                     </div>
                     <div>
-                        <div className="row mt-3">
+                        <div className={`row mt-3 ${commentVisibility ? "" : "visually-hidden"}`}>
                             {/*TODO: Make a comment reply section*/}
                             <div className="col-11">
                                 <textarea value={currentComment} placeholder="Write a reply here..."
