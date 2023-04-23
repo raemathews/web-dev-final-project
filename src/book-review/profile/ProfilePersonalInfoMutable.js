@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateUserThunk} from "../../services/users/users-thunk";
 import {updateCurrentUser} from "../reducers/auth-reducer";
+import {updateLibrarianThunk} from "../../services/librarians/librarians-thunk";
 
 const ProfilePersonalInfoMutable = () => {
     const dispatch = useDispatch();
@@ -32,17 +33,29 @@ const ProfilePersonalInfoMutable = () => {
         setDefaultUser({...defaultUser, library: event.target.value});
     };
 
-    const updateProfileInfo = () => {
+    const updateProfileUserInfo = () => {
         dispatch(updateUserThunk(defaultUser));
         dispatch(updateCurrentUser(defaultUser));
     }
 
+    const updateProfileLibInfo = () => {
+        console.log("why we no update")
+        dispatch(updateLibrarianThunk(defaultUser));
+        dispatch(updateCurrentUser(defaultUser));
+    }
+
     let profileButton;
-    if (isEditing) {
+    if (isEditing && !currentUser.admin) {
         profileButton = (
             <button type="button" onClick={() => {
                 setIsEditing(false);
-                updateProfileInfo();}}> Update </button>
+                updateProfileUserInfo();}}> Update </button>
+        );
+    } else if (isEditing && currentUser.admin) {
+        profileButton = (
+            <button type="button" onClick={() => {
+                setIsEditing(false);
+                updateProfileLibInfo();}}> Update </button>
         );
     } else {
         profileButton = (

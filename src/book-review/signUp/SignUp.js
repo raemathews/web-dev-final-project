@@ -30,7 +30,7 @@ function SignUp() {
     const handleLibrarianSignUp = async () => {
         try {
             const admin = true
-            await dispatch(createLibrarianThunk({ username, password, handle, library, email, bio, admin }));
+            await dispatch(createLibrarianThunk({ username, password, handle, library, bio, admin }));
             handleLogin();
         } catch (e) {
             alert(e);
@@ -140,13 +140,6 @@ function SignUp() {
                         <input className="form-control"
                                type="handle" value={library} placeholder={"Ex: Boston Public Library"}
                                onChange={(event) => setLibrary(event.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label>Email</label>
-                        <input className="form-control"
-                               type="email" value={email} placeholder={"Ex: myemail@gmail.com"}
-                               onChange={(event) => setEmail(event.target.value)}
                         />
                     </div>
                     <button onClick={handleLibrarianSignUp}>
