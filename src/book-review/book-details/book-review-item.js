@@ -7,6 +7,7 @@ import {
     findUnfinishedReadByUserIdThunk,
     updateReadThunk
 } from "../../services/want-to-read/want-to-read-thunk";
+import {useNavigate} from "react-router";
 
 const defaultUser =({
     handle: "@user_handle",
@@ -43,6 +44,7 @@ const ReviewItem = (
         useSelector(store => store.users)
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(findUsersThunk());
@@ -92,6 +94,10 @@ const ReviewItem = (
         return `/images/${defaultUser.profile_pic}`;
     }
 
+    const visitProfile = () => {
+        navigate(currentUser && (review.user_id === currentUser._id) ? `/profile` : `/profile/${review.user_id}`)
+    }
+
     const likedIcon = currentUser && review.likes.includes(currentUser._id) ? "fa-solid text-danger fa-heart" : "fa-regular fa-heart"
 
     const spoilerTag = review.spoiler_flag ?
@@ -104,10 +110,11 @@ const ReviewItem = (
                 <div className="col-1">
                     <img width={40}
                          className="float-end rounded-circle"
-                         src={getProfileFile()}/>
+                         src={getProfileFile()}
+                         onClick={visitProfile}/>
                 </div>
                 <div className="col-11">
-                    <div>
+                    <div onClick={visitProfile}>
                         {currentUser && (currentUser._id == review.user_id || currentUser.admin) ?
                             <i className="bi bi-x-lg float-end" onClick={() => deleteReviewHandler(review._id)}></i>
                             : <></>
