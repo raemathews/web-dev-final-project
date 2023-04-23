@@ -37,7 +37,6 @@ const ProfileNonpersonalInfoNonmutable = ({user}) => {
                 // that means that you are already following this person. So show the unfollow button.
                 return (<button
                     onClick={() => {
-                        console.log("Sending this to delete follower: " + list[0]._id);
                         dispatch(deleteFollowerThunk(list[0]._id));
                     }}>Unfollow</button>);
             } else {
