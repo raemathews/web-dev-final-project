@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateUserThunk} from "../../services/users/users-thunk";
 import {updateCurrentUser} from "../reducers/auth-reducer";
+import {updateLibrarianThunk} from "../../services/librarians/librarians-thunk";
 
 const ProfilePersonalInfoMutable = () => {
     const dispatch = useDispatch();
@@ -28,17 +29,33 @@ const ProfilePersonalInfoMutable = () => {
         setDefaultUser({...defaultUser, password: event.target.value});
     };
 
-    const updateProfileInfo = () => {
+    const changeLibrary = event => {
+        setDefaultUser({...defaultUser, library: event.target.value});
+    };
+
+    const updateProfileUserInfo = () => {
         dispatch(updateUserThunk(defaultUser));
         dispatch(updateCurrentUser(defaultUser));
     }
 
+    const updateProfileLibInfo = () => {
+        console.log("why we no update")
+        dispatch(updateLibrarianThunk(defaultUser));
+        dispatch(updateCurrentUser(defaultUser));
+    }
+
     let profileButton;
-    if (isEditing) {
+    if (isEditing && !currentUser.admin) {
         profileButton = (
             <button type="button" onClick={() => {
                 setIsEditing(false);
-                updateProfileInfo();}}> Update </button>
+                updateProfileUserInfo();}}> Update </button>
+        );
+    } else if (isEditing && currentUser.admin) {
+        profileButton = (
+            <button type="button" onClick={() => {
+                setIsEditing(false);
+                updateProfileLibInfo();}}> Update </button>
         );
     } else {
         profileButton = (
@@ -46,9 +63,10 @@ const ProfilePersonalInfoMutable = () => {
                 setIsEditing(true);}}> Edit </button>
         );
     }
+    console.log("current User:" + JSON.stringify(currentUser))
 
     let updateOrViewInfo;
-    if (isEditing) {
+    if (isEditing && !currentUser.admin) {
         updateOrViewInfo = (
             <div>
                 <div>
@@ -81,13 +99,14 @@ const ProfilePersonalInfoMutable = () => {
                            value={defaultUser.email}
                            onChange={changeEmail}/>
                 </div>
-                <div>
-                    <label htmlFor="phoneNumFld">
-                        Phone Number</label>
-                    <input id="phoneNumFld"
-                           value={defaultUser.phone_number}
-                           onChange={changePhoneNum}/>
-                </div>
+                    <div>
+                        <label htmlFor="phoneNumFld">
+                            Phone Number</label>
+                        <input id="phoneNumFld"
+                               value={defaultUser.phone_number}
+                               onChange={changePhoneNum}/>
+                    </div>
+
                 <div>
                     <label htmlFor="passwordFld">
                         Password</label>
@@ -97,7 +116,50 @@ const ProfilePersonalInfoMutable = () => {
                 </div>
             </div>
         );
-    } else {
+    }else if (isEditing && currentUser.admin) {
+        updateOrViewInfo = (
+            <div>
+                <div>
+                    <label htmlFor="userNameFld">
+                        Username</label>
+                    <input id="userNameFld"
+                           value={defaultUser.username}
+                           onChange={changeUsername}/>
+                </div>
+                <div>
+                    <label htmlFor="handleFld">
+                        Handle</label>
+                    <input id="handleFld"
+                           value={defaultUser.handle}
+                           onChange={changeHandle}/>
+                </div>
+                <div>
+                    <label htmlFor="bioFld">Bio</label>
+                    <textarea id="bioFld"
+                              type="text"
+                              title="bio"
+                              placeholder="This is my bio for the profile!"
+                              value={defaultUser.bio}
+                              onChange={changeBio}/>
+                </div>
+                <div>
+                    <label htmlFor="libraryFld">
+                        Library</label>
+                    <input id="libraryFld"
+                           value={defaultUser.library}
+                           onChange={changeLibrary}/>
+                </div>
+
+                <div>
+                    <label htmlFor="passwordFld">
+                        Password</label>
+                    <input id="passwordFld"
+                           value={defaultUser.password}
+                           onChange={changePassword}/>
+                </div>
+            </div>
+        );
+    } else if(!isEditing && !currentUser.admin){
         updateOrViewInfo = (
             <div>
                 <div>
@@ -109,12 +171,35 @@ const ProfilePersonalInfoMutable = () => {
                 <div>
                     <text><b>Bio: </b> {currentUser.bio}</text>
                 </div>
+                    <div>
+                        <text><b>Email: </b> {currentUser.email}</text>
+                    </div>
+
+                    <div>
+                        <text><b>Phone Number: </b> {currentUser.phone_number}</text>
+                    </div>
+
                 <div>
-                    <text><b>Email: </b> {currentUser.email}</text>
+                    <text><b>Password: </b> {currentUser.password}</text>
+                </div>
+            </div>
+        );
+    } else if(!isEditing && currentUser.admin){
+        updateOrViewInfo = (
+            <div>
+                <h1>Librarian Account</h1>
+                <div>
+                    <text><b>Username: </b> {currentUser.username}</text>
                 </div>
                 <div>
-                    <text><b>Phone Number: </b> {currentUser.phone_number}</text>
+                    <text><b>Handle: </b> {currentUser.handle}</text>
                 </div>
+                <div>
+                    <text><b>Bio: </b> {currentUser.bio}</text>
+                </div>
+                    <div>
+                        <text><b>Library: </b> {currentUser.library}</text>
+                    </div>
                 <div>
                     <text><b>Password: </b> {currentUser.password}</text>
                 </div>
