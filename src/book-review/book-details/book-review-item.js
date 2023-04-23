@@ -104,7 +104,10 @@ const ReviewItem = (
                 <div className="col-11">
                     <div>
                         {/*TODO: Make only visible to user who wrote the review*/}
-                        <i className="bi bi-x-lg float-end" onClick={() => deleteReviewHandler(review._id)}></i>
+                        {currentUser && (currentUser._id == review.user_id || currentUser.admin) ?
+                            <i className="bi bi-x-lg float-end" onClick={() => deleteReviewHandler(review._id)}></i>
+                            : <></>
+                        }
                         <b>{user.username} </b>
                         {user.handle} | {review.time}
                     </div>
