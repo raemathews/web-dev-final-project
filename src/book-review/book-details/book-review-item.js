@@ -112,6 +112,11 @@ const ReviewItem = (
                          className="float-end rounded-circle"
                          src={getProfileFile()}
                          onClick={visitProfile}/>
+                    {user.admin ?
+                        <span className="badge bg-success">
+                            <i className="bi fa-lg bi-book-half"></i>
+                        </span>
+                        : <></>}
                 </div>
                 <div className="col-11">
                     <div onClick={visitProfile}>
@@ -122,7 +127,6 @@ const ReviewItem = (
                         <b>{user.username} </b>
                         {user.handle} | {review.time}
                     </div>
-
                     <div>
                         {spoilerTag}
                         <h3 className="mt-2">{review.review_title}</h3>
