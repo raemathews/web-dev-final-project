@@ -163,7 +163,7 @@ const BookItem = (
                                    alt="book cover"/>               }
                         { currentUser ? <ReadingListButtons bookInfo={bookInfo} /> :
                             <button type="button"
-                                    className="btn btn-secondary mt-3 mb- 3"
+                                    className="btn btn-secondary mt-3 py-2 mb- 3"
                                     style={{width: "100%"}}>
                                 Sign in to add this book to your reading list
                             </button> }

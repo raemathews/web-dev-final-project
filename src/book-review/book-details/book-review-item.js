@@ -37,14 +37,7 @@ const ReviewItem = (
     let [currentComment, setCurrentComment] = useState('');
     let [user, setUser] = useState(defaultUser);
     let [commentVisibility, setCommentVisibility] = useState(false);
-    let [toast, setToast] = useState(<div className="visually-hidden">
-        <div className="toast-header">
-            Toast Header
-        </div>
-        <div className="toast-body">
-            Some text inside the toast body
-        </div>
-    </div>);
+    let [toast, setToast] = useState(false);
     const {currentUser} = useSelector(store => store.currentUser);
     const {numResults, foundUsers, userFoundById, loading} =
         useSelector(store => store.users)
@@ -82,24 +75,9 @@ const ReviewItem = (
                 }));
             }
         } else {
-            // TODO: display something telling them to log in/sign up
-
-            // Add the "show" class to DIV
-            setToast(<div className="">
-                <div className="toast-header">
-                    Toast Header
-                </div>
-                <div className="toast-body">
-                    Some text inside the toast body
-                </div>
-            </div>);
-
-            // After 3 seconds, remove the show class from DIV
-            setTimeout(function(){ setToast(<div className="visually-hidden">
-                <div className="toast-body">
-                    Log in or sign up to like or comment
-                </div>
-            </div>)}, 3000);
+            // Display something telling them to log in/sign up
+            setToast(true);
+            setTimeout(function(){ setToast(false)}, 3000);
         }
     }
 
@@ -130,7 +108,6 @@ const ReviewItem = (
                 </div>
                 <div className="col-11">
                     <div>
-                        {/*TODO: Make only visible to user who wrote the review*/}
                         {currentUser && (currentUser._id == review.user_id || currentUser.admin) ?
                             <i className="bi bi-x-lg float-end" onClick={() => deleteReviewHandler(review._id)}></i>
                             : <></>
@@ -147,9 +124,13 @@ const ReviewItem = (
                     <div className="my-2">{review.body}</div>
                     <hr/>
                     <div className="my-2 mx-2">
-                        {toast}
+                        <div className={`${toast ? "" : "visually-hidden"}`}>
+                            <div className="alert alert-primary">
+                                Log in or sign up for an account to like or comment!
+                            </div>
+                        </div>
                         <label className="col-2 me-3"
-                                onClick={}>
+                                onClick={() => (currentUser? setCommentVisibility(!commentVisibility) : likeReviewHandler(review))}>
                             <i className="fa-regular fa-comment pe-2"></i>
                             {review.replied} Comments
                         </label>
