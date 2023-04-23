@@ -26,12 +26,7 @@ const usersSlice = createSlice({
         [findUsersThunk.fulfilled]:
             (state, {payload}) => {
                 state.loading = false;
-                // for(const user in payload) {
-                //     state.foundUsers.push(user)
-                // }
                 state.foundUsers = payload
-                //state.numResults = state.foundUsers.length;
-                // console.log("found users in state: ", state.foundUsers)
             },
         [findUsersThunk.rejected]:
             (state, action) => {

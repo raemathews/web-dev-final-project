@@ -4,23 +4,30 @@ import {
     findFollowersByUserIdThunk, //
     findFollowingByUserIdThunk,
     createFollowerThunk,
-    deleteFollowerThunk,
+    deleteFollowerThunk, findAllFollows,
 } from "../services/followers/followers-thunk";
 
 const initialState = {
     followers: [],
     following: [],
+    follows: [],
     loading: false
 }
 const followersSlice = createSlice({
     name: "reviews",
     initialState: initialState,
     extraReducers: {
+        [findAllFollows.fulfilled]:
+            (state, {payload}) => {
+                state.loading = false;
+                state.follows = payload
+            },
         [findFollowersByUserIdThunk.pending]:
             (state) => {
                 state.loading = true
                 state.followers = []
                 state.following = []
+                state.follows = []
             },
         [findFollowersByUserIdThunk.fulfilled]:
             (state, { payload }) => {
@@ -51,16 +58,20 @@ const followersSlice = createSlice({
         [createFollowerThunk.fulfilled]:
             (state, { payload }) => {
                 state.loading = false
-                state.followers.push(payload)
+                //state.followers.push(payload)
                 state.following.push(payload)
             },
         [deleteFollowerThunk.fulfilled] :
             (state, { payload }) => {
                 state.loading = false
-                state.followers = state.followers
-                    .filter(followers => followers._id !== payload)
+                console.log(`folowing in payload: ${JSON.stringify(state.following)}`)
+                console.log(`payload in payload: ${JSON.stringify(payload)}`)
+                state.follows = state.follows
+                    .filter(f => f._id !== payload)
                 state.following = state.following
-                    .filter(following => following._id !== payload)
+                    .filter(f => f._id !== payload)
+                state.followers = state.followers
+                    .filter(f => f._id !== payload)
             },
 
     }

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {findUsersByIDThunk, findUsersThunk} from "../../../services/users/users-thunk";
 import {Link} from "react-router-dom";
+import {useNavigate} from "react-router";
 const FollowersItem = (
     {f}
 ) => {
@@ -20,8 +21,17 @@ const FollowersItem = (
         if(list.length > 0) {setUser(list[0])};
     }, [foundUsers])
 
+    const navigate = useNavigate();
+    const visitProfile = () => {
+        if (!currentUser) {
+            navigate(`/profile/${user._id}`, {replace: true})
+        } else {
+            navigate((user._id === currentUser._id) ? `/profile` : `/profile/${user._id}`)
+        }
+    }
+
     return(
-        <Link to={(user._id === currentUser._id) ? `/profile` : `/profile/${user._id}`}>
+        <div onClick={visitProfile}>
             <li className="list-group-item">
                 <div className="row">
                     <div className="col-10">
@@ -36,7 +46,7 @@ const FollowersItem = (
                     </div>
                 </div>
             </li>
-        </Link>
+        </div>
     );
 };
 export default FollowersItem;
