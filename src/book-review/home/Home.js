@@ -1,12 +1,6 @@
 import React from 'react'
 import Navigation from "../navigation/Navigation";
-import ForYouList from "../for-you/for-you-list";
-import AddNewList from "../add-new/add-new-list";
-import TrendingList from "../trending/trending-list";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {findUsersThunk} from "../../services/users/users-thunk";
-import {findFollowsThunk} from "../../services/followers/followers-thunk";
 import PopularUsers from "./PopularUsers";
 import BooksForYou from "./BooksForYou";
 import SuggestedReviews from "./SuggestedReviews";
