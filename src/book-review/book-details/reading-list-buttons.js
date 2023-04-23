@@ -22,35 +22,42 @@ const ReadingListButtons = ({bookInfo, readingList, read, wantToRead, loadingRea
         (r) => (r.book_id === bookid) && (r.user_id === currentUser._id)) ?
         "Remove from Read list" : "Save to Read list";
 
+    const getBookOfMonthButton = () => {
+        if (currentUser && currentUser.admin) {
+            let text = "Add as Book Of the Month";
+            if (currentUser.book_of_month === bookid) {
+                text =  "Remove from Book Of the Month";
+            }
+            return (
+               //TODO: update librarian's book of the month
+                <button type="button"
+                        className="btn btn-outline-success border-2 mt-2"
+                        style={{width: "100%"}}>
+                    {text}
+                </button>);
+        }
+        return (<></>);
+    }
+
     const getMatch = (r) => {
-        // console.log(`stringy: ${JSON.stringify(r)}`);
-        // console.log(r.book_id === bookid);
         return (r.book_id === bookid) && (r.user_id === currentUser._id);
     }
 
     const addToReadingListHandler = (finished) => {
-        // console.log('Inside add to reading list');
         if (currentUser && bookInfo) {
-                // console.log(`Reading list: ${readingList.map((r) => (JSON.stringify(r)))}`);
-                // console.log(`read: ${read.map((r) => (JSON.stringify(r)))}`);
-                // console.log(`wtr: ${wantToRead.map((r) => (JSON.stringify(r)))}`);
                 const inReadingList = readingList.find((r) => getMatch(r));
-                // console.log(`Found book: ${inReadingList}`);
                 if (inReadingList) {
                     if (inReadingList.finished == finished) {
                         // They are trying to delete it
-                        // console.log('Removing book from reading list');
                         dispatch(deleteReadThunk(inReadingList._id));
                     } else {
                         // They are trying to add to the other list
-                        // console.log('Adding book to other list');
                         dispatch(updateReadThunk({
                             ...inReadingList,
                             finished: finished
                         }));
                     }
                 } else {
-                    // console.log('Adding book for first time');
                     dispatch(createReadThunk({
                         user_id: currentUser._id,
                         book_id: bookInfo.key.substring(7),
@@ -80,6 +87,7 @@ const ReadingListButtons = ({bookInfo, readingList, read, wantToRead, loadingRea
                     onClick={() => addToReadingListHandler(false)}>
                 {wantToReadButtonMsg}
             </button>
+            {getBookOfMonthButton()}
         </>
     );
 };

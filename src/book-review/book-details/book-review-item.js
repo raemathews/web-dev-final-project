@@ -2,11 +2,6 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteReviewThunk, updateReviewThunk} from "../../services/reviews/reviews-thunk";
 import {findUsersThunk} from "../../services/users/users-thunk";
-import {
-    createReadThunk,
-    findUnfinishedReadByUserIdThunk,
-    updateReadThunk
-} from "../../services/want-to-read/want-to-read-thunk";
 import {useNavigate} from "react-router";
 
 const defaultUser =({
@@ -108,13 +103,14 @@ const ReviewItem = (
         <li className="list-group-item">
             <div className="row my-2 me-2">
                 <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-                    <div className="row justify-content-center px-xl-3 px-lg-2 px-md-0">
-                        <img width={40}
-                             className="float-end rounded-circle"
+                    <div className="row justify-content-center">
+                        <img
+                             className="float-end"
                              src={getProfileFile()}
-                             onClick={visitProfile}/>
+                             onClick={visitProfile}
+                             style={{clipPath: "circle()"}}/>
                         {user.admin ?
-                            <span className="badge bg-primary position-relative"
+                            <span className="badge bg-success position-relative"
                                   style={{ top:"-10px", width: "fit-content"}}>
                                 <i className="d-none d-md-block bi fa-xl bi-book-half"></i>
                                 <i className="d-block d-md-none bi fa-lg bi-book-half"></i>
