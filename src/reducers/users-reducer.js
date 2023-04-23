@@ -32,7 +32,7 @@ const usersSlice = createSlice({
             (state, action) => {
                 state.loading = false
                 state.error = action.error
-                console.log("error finding user in reducer")
+                // console.log("error finding user in reducer")
             },
         [findUsersByIDThunk.pending]:
             (state) => {

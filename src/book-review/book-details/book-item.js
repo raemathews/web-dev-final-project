@@ -4,6 +4,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {createReviewThunk, findReviewsByBookId} from "../../services/reviews/reviews-thunk";
 import {useParams} from "react-router-dom";
 import {findBookByIdThunk, findBooksThunk} from "../../services/books/library-thunk";
+import {
+    createReadThunk, deleteReadThunk, findReadByUserIdThunk,
+    updateReadThunk
+} from "../../services/want-to-read/want-to-read-thunk";
+import ReadingListButtons from "./reading-list-buttons";
 
 const BookItem = (
     {
@@ -32,8 +37,10 @@ const BookItem = (
     const dispatch = useDispatch();
 
     const {currentUser} = useSelector(store => store.currentUser)
+
     const {numResults, books, bookById, loading} =
         useSelector(store => store.library)
+
     useEffect(() => {
         dispatch(findBookByIdThunk(bookid));
     }, [])
@@ -95,7 +102,7 @@ const BookItem = (
     }
 
     const getDescription = (book) => {
-        console.log(`keys: ${Object.keys(book)}`);
+        // console.log(`keys: ${Object.keys(book)}`);
         if (book.description) {
             if (typeof book.description == 'string') {
                 return book.description.split(/\(\[|\[/)[0];
@@ -118,7 +125,7 @@ const BookItem = (
         if (reviews && reviews.length > 0) {
             for (const idx in reviews) {
                 const r = reviews[idx];
-                console.log(`review ${JSON.stringify(r)}`);
+                // console.log(`review ${JSON.stringify(r)}`);
                 if (r.rating) {
                     numerator =+ r.rating;
                     denominator += 1;
@@ -140,9 +147,6 @@ const BookItem = (
         return result;
     }
 
-    const wantToReadButtonMsg = "Save to Want To Read List";
-    const readButtonMsg = "Save to Read List";
-
     return (
         <div className="container">
             {
@@ -163,17 +167,7 @@ const BookItem = (
                                    width="100%"
                                    src={"/images/no_cover.png"}
                                    alt="book cover"/>               }
-                        {/*TODO: will change to say something else when you click it, and # of saved will go up*/}
-                        <button type="button"
-                                className="btn btn-primary mt-3"
-                                style={{width: "100%"}}>
-                            {readButtonMsg}
-                        </button>
-                        <button type="button"
-                                className="btn btn-primary mt-2"
-                                style={{width: "100%"}}>
-                            {wantToReadButtonMsg}
-                        </button>
+                        <ReadingListButtons bookInfo={bookInfo} />
                     </div>
                     <div className="col-9 position-relative pt-5 ps-xl-5" style={{marginLeft: '26%'}}>
                         <div>

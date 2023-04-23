@@ -1,7 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteReviewThunk, updateReviewThunk} from "../../services/reviews/reviews-thunk";
-import {findUsersByIDThunk, findUsersThunk} from "../../services/users/users-thunk";
+import {findUsersThunk} from "../../services/users/users-thunk";
+import {
+    createReadThunk,
+    findUnfinishedReadByUserIdThunk,
+    updateReadThunk
+} from "../../services/want-to-read/want-to-read-thunk";
 
 const defaultUser =({
     handle: "@user_handle",
@@ -40,8 +45,9 @@ const ReviewItem = (
     useEffect(() => {
         dispatch(findUsersThunk());
     }, [])
+
     useEffect(() => {
-        console.log(foundUsers);
+        // console.log(foundUsers);
         const list = foundUsers.filter((u) => u._id == review.user_id)
         if (list.length > 0) {setUser(list[0])};
     }, [foundUsers]);
@@ -53,6 +59,7 @@ const ReviewItem = (
         if (currentUser) {
             if (review.likes.includes(currentUser._id)) {
                 // They've already liked it, unlike it
+                // TODO: change to just remove this user
                 dispatch(updateReviewThunk({
                     ...review,
                     likes: []
