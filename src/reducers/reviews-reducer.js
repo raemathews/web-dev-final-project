@@ -71,6 +71,7 @@ const reviewsSlice = createSlice({
             },
         [deleteReviewThunk.fulfilled] :
             (state, { payload }) => {
+                console.log(`payload: ${JSON.stringify(payload)}`);
                 state.loading = false
                 state.reviews = state.reviews
                     .filter(review => review._id !== payload)

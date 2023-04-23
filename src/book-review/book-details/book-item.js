@@ -4,10 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {createReviewThunk, findReviewsByBookId} from "../../services/reviews/reviews-thunk";
 import {useParams} from "react-router-dom";
 import {findBookByIdThunk, findBooksThunk} from "../../services/books/library-thunk";
-import {
-    createReadThunk, deleteReadThunk, findReadByUserIdThunk,
-    updateReadThunk
-} from "../../services/want-to-read/want-to-read-thunk";
 import ReadingListButtons from "./reading-list-buttons";
 
 const BookItem = (
@@ -45,6 +41,10 @@ const BookItem = (
         dispatch(findBookByIdThunk(bookid));
     }, [])
 
+    useEffect(() => {
+        if (bookById) {dispatch(findBooksThunk(bookById.title))};
+    }, [bookById])
+
     const {reviews, loadingReviews} = useSelector(
         state => state.reviews)
     useEffect(() => {
@@ -59,7 +59,6 @@ const BookItem = (
     }
 
     const createReviewHandler = () => {
-        // TODO: put real values
         const newReview = {
             "book_title": bookInfo.title,
             "review_title": currentTitle,
@@ -72,7 +71,7 @@ const BookItem = (
             "user_id": currentUser._id,
             "time": "now"
         }
-        console.log(newReview);
+        // console.log(newReview);
         dispatch(createReviewThunk(newReview));
     }
 
@@ -166,7 +165,12 @@ const BookItem = (
                                    width="100%"
                                    src={"/images/no_cover.png"}
                                    alt="book cover"/>               }
-                        { currentUser ? <ReadingListButtons bookInfo={bookInfo} /> : <></> }
+                        { currentUser ? <ReadingListButtons bookInfo={bookInfo} /> :
+                            <button type="button"
+                                    className="btn btn-secondary mt-3 py-2 mb- 3"
+                                    style={{width: "100%"}}>
+                                Sign in to add this book to your reading list
+                            </button> }
                     </div>
                     <div className="col-9 position-relative pt-5 ps-xl-5" style={{marginLeft: '26%'}}>
                         <div>
