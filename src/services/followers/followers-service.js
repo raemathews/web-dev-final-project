@@ -27,5 +27,5 @@ export const createFollows = async (follow) => {
 
 export const deleteFollows = async (fid) => {
     const response = await axios.delete(`${BASE_API}/follows/${fid}`);
-    return response.data;
+    return {response: response.data, deleted_id: fid};
 }
