@@ -258,7 +258,6 @@ const BookItem = (
                 </li>
             }
             {
-                <>
                 <div className="row mt-5">
                     {/*Side by side version*/}
                     <div className={`d-none d-md-block col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-5 position-fixed`} style={{top: '100px'}}>
@@ -276,13 +275,6 @@ const BookItem = (
                         {getSummaryColumnContents()}
                     </div>
                 </div>
-                    <div className="d-block d-sm-none fa-2x">XS</div>
-                    <div className="d-none d-sm-block d-md-none fa-2x">S</div>
-                    <div className="d-none d-md-block  fa-2x">M</div>
-                    <div className="d-none d-lg-block d-xl-none fa-2x">L</div>
-                    <div className="d-none d-xl-block d-xxl-none fa-2x">XL</div>
-                    <div className="d-none d-xxl-block fa-2x">XXL</div>
-                </>
             }
         </div>
     );
