@@ -2,10 +2,12 @@ import React, {useEffect, useState} from "react";
 import BookReviewList from "./book-review-list";
 import {useDispatch, useSelector} from "react-redux";
 import {createReviewThunk, findReviewsByBookId} from "../../services/reviews/reviews-thunk";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {findBookByIdThunk, findBooksThunk} from "../../services/books/library-thunk";
 import ReadingListButtons from "./reading-list-buttons";
 import {findReadByUserIdThunk} from "../../services/want-to-read/want-to-read-thunk";
+import {useNavigate} from "react-router";
+// TODO fix liking
 
 const BookItem = (
     {
@@ -32,6 +34,7 @@ const BookItem = (
     // Get book from library
     const {bookid} = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const {currentUser} = useSelector(store => store.currentUser)
 
@@ -66,6 +69,7 @@ const BookItem = (
     }
 
     const createReviewHandler = () => {
+        // TODO: actually do review time
         const newReview = {
             "book_title": bookInfo.title,
             "review_title": currentTitle,
@@ -179,7 +183,8 @@ const BookItem = (
                                                             loadingReadingList={loadingReadingList}/> :
                             <button type="button"
                                     className="btn btn-secondary mt-3 py-2 mb- 3"
-                                    style={{width: "100%"}}>
+                                    style={{width: "100%"}}
+                                    onClick={() => navigate("/login")}>
                                 Sign in to add this book to your reading list
                             </button> }
                     </div>
