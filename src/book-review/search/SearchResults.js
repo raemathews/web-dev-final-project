@@ -4,6 +4,7 @@ import "./BookRatings.css";
 import BookResults from "./BookResults";
 import UserResults from "./UserResults";
 import {useParams} from "react-router-dom";
+import {Tab, Tabs} from "react-bootstrap";
 
 
 const SearchResults = () => {
@@ -15,16 +16,24 @@ const SearchResults = () => {
             <div className="container">
                 <div className="row">
                     <span className="d-block d-md-none">{`Search Results for "${query}"`}</span>
-                    <ul className="nav nav-tabs mt-2 d-md-none">
-                        <li className="nav-item">
-                            <a className="nav-link active" href="#">Books</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Profiles</a>
-                        </li>
-                    </ul>
-                    <BookResults/>
-                    <UserResults/>
+
+                    <div className={"mt-2 d-md-none"}>
+                        <Tabs
+                            defaultActiveKey="reviews"
+                            id="uncontrolled-tab-example"
+                            className="mb-3 ">
+                            <Tab eventKey="books" title="Books">
+                                <BookResults/>
+                            </Tab>
+                            <Tab eventKey="users" title="Profiles">
+                                <UserResults/>
+                            </Tab>
+                        </Tabs>
+                    </div>
+                    <div className={"d-none d-md-flex"}>
+                        <BookResults />
+                        <UserResults />
+                    </div>
                 </div>
             </div>
         </div>

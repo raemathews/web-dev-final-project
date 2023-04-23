@@ -6,7 +6,7 @@ const ReviewList = ({reviews}) => {
     return (
         reviews.length > 0 ?
             reviews.map((r) =>
-                <ReviewItem review={r} />
+                <ReviewItem review={r}/>
             ) :
             <div className={"list-group"}>
                 <div className={"list-group-item"}>

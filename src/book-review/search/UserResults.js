@@ -28,6 +28,14 @@ const UserResults = () => {
                     <UserTile key={user.username} user={user} />
                     )
                 }
+                {
+                    filteredUsers.length === 0 &&
+                    <div className={"list-group"}>
+                        <div className={"list-group-item"}>
+                            No Users Found
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     )

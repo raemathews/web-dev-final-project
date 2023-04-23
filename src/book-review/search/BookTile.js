@@ -12,7 +12,7 @@ const BookTile = ({book}) => {
     let cover = findBookCover(book.cover_i);
     let author = book.author_name ? Object.values(book.author_name) : [""];
     return (
-        <Link to={"/book-details" + book.key} className="book-link">
+        <Link to={"/book-details" + (book.key || "/works/" + book.book_id)} className="book-link">
             <div className="d-inline-block">
                 <div className="card m-3">
                     {book.cover_i ?

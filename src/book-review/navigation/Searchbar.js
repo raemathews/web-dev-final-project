@@ -8,7 +8,7 @@ const Searcbbar = () => {
     const checkForSearch = (e) => {
         if (e.key === 'Enter') {
             searchKeys.replaceAll(" ", "+");
-            navigate("/search/" + searchKeys)
+            searchKeys && navigate("/search/" + searchKeys)
         }
     }
     return (
