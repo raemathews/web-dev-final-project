@@ -9,14 +9,19 @@ export const findFollowingByUserIdThunk = createAsyncThunk(
         await service.findFollowingByUserId(id)
 );
 
+export const findAllFollows = createAsyncThunk(
+    'followers/findAllFollows', async () =>
+        await service.findAllFollows()
+);
+
 export const findFollowersByUserIdThunk = createAsyncThunk(
     'followers/findFollowingByUserId', async (id) =>
         await service.findFollowersByUserId(id)
 );
 
 export const createFollowerThunk = createAsyncThunk(
-    'follows/createFollow', async (fid) =>
-        await service.createFollows(fid)
+    'follows/createFollow', async (follow) =>
+        await service.createFollows(follow)
 );
 
 export const deleteFollowerThunk = createAsyncThunk(

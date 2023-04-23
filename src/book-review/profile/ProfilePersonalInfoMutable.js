@@ -29,10 +29,6 @@ const ProfilePersonalInfoMutable = () => {
     };
 
     const updateProfileInfo = () => {
-        console.log("should update info");
-        // TODO: this needs to be through the thunk, which is connected to the services
-        // TODO: technically, nothing is connected to the button rn, since we are updated the moment
-        // we input something new....
         dispatch(updateUserThunk(defaultUser));
         dispatch(updateCurrentUser(defaultUser));
     }
