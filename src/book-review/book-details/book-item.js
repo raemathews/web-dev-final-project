@@ -41,6 +41,10 @@ const BookItem = (
         dispatch(findBookByIdThunk(bookid));
     }, [])
 
+    useEffect(() => {
+        if (bookById) {dispatch(findBooksThunk(bookById.title))};
+    }, [bookById])
+
     const {reviews, loadingReviews} = useSelector(
         state => state.reviews)
     useEffect(() => {
