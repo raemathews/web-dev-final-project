@@ -8,6 +8,7 @@ import {
     createReadThunk, deleteReadThunk, findReadByUserIdThunk,
     updateReadThunk
 } from "../../services/want-to-read/want-to-read-thunk";
+import ReadingListButtons from "./reading-list-buttons";
 
 const BookItem = (
     {
@@ -36,12 +37,6 @@ const BookItem = (
     const dispatch = useDispatch();
 
     const {currentUser} = useSelector(store => store.currentUser)
-
-    const {readingList, read, wantToRead, loadingReadingList} =
-        useSelector(store => store.readingList)
-    useEffect(() => {
-        dispatch(findReadByUserIdThunk(currentUser._id));
-    }, [])
 
     const {numResults, books, bookById, loading} =
         useSelector(store => store.library)
@@ -80,56 +75,6 @@ const BookItem = (
         }
         console.log(newReview);
         dispatch(createReviewThunk(newReview));
-    }
-
-    const getMatch = (r) => {
-        // console.log(`stringy: ${JSON.stringify(r)}`);
-        console.log(`/works/${r.book_id}` === bookInfo.key);
-       return (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id);
-    }
-
-    const addToReadingListHandler = (finished) => {
-        console.log('ADDING1');
-        if (currentUser) {
-            console.log('ADDING2');
-            if (bookInfo) {
-                console.log('ADDING3');
-                console.log(bookInfo.key);
-                console.log(`reading list: ${readingList.map((r) => (JSON.stringify(r)))}`);
-                console.log(`read: ${read.map((r) => (JSON.stringify(r)))}`);
-                console.log(`wtr: ${wantToRead.map((r) => (JSON.stringify(r)))}`);
-                const inReadingList = readingList.find((r) => getMatch(r));
-                console.log(inReadingList);
-                if (inReadingList) {
-                    if (inReadingList.finished == finished) {
-                        // They are trying to delete it
-                        console.log('ADDING4A');
-                        dispatch(deleteReadThunk(inReadingList._id));
-                    } else {
-                        // They are trying to add to the other list
-                        console.log('ADDING4A');
-                        dispatch(updateReadThunk({
-                            ...inReadingList,
-                            finished: finished
-                        }));
-                    }
-                } else {
-                    console.log('ADDING5');
-                    dispatch(createReadThunk({
-                        user_id: currentUser._id,
-                        book_id: bookInfo.key.substring(7),
-                        finished: finished,
-                        title: bookInfo.book_title,
-                        cover_i: bookInfo.cover_i,
-                        ratings_average: getAverageRating(bookInfo),
-                        ratings_count: getNumOfReviews(bookInfo),
-                        author_name: bookInfo.author_name ? bookInfo.author_name.toString() : "",
-                    }));
-                }
-            }
-        } else {
-            // TODO: display something telling them to log in/sign up
-        }
     }
 
     const StarRatingDetails = ({rating}) => {
@@ -202,13 +147,6 @@ const BookItem = (
         return result;
     }
 
-    const wantToReadButtonMsg = wantToRead && wantToRead.find(
-        (r) => (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id)) ?
-        "Remove from Want To Read" : "Save to Want To Read";
-    const readButtonMsg = read && read.find(
-        (r) => (`/works/${r.book_id}` === bookInfo.key) && (r.user_id === currentUser._id)) ?
-        "Remove from Read list" : "Save to Read list";
-
     return (
         <div className="container">
             {
@@ -229,19 +167,7 @@ const BookItem = (
                                    width="100%"
                                    src={"/images/no_cover.png"}
                                    alt="book cover"/>               }
-                        {/*TODO: will change to say something else when you click it, and # of saved will go up*/}
-                        <button type="button"
-                                className="btn btn-primary mt-3"
-                                style={{width: "100%"}}
-                                onClick={() => addToReadingListHandler(true)}>
-                            {readButtonMsg}
-                        </button>
-                        <button type="button"
-                                className="btn btn-primary mt-2"
-                                style={{width: "100%"}}
-                                onClick={() => addToReadingListHandler(false)}>
-                            {wantToReadButtonMsg}
-                        </button>
+                        <ReadingListButtons bookInfo={bookInfo} />
                     </div>
                     <div className="col-9 position-relative pt-5 ps-xl-5" style={{marginLeft: '26%'}}>
                         <div>
