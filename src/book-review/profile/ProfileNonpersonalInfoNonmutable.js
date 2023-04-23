@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {findUsersByIDThunk, findUsersThunk} from "../../services/users/users-thunk";
 import {
     createFollowerThunk, deleteFollowerThunk,
-    findFollowersByUserIdThunk,
     findFollowingByUserIdThunk
 } from "../../services/followers/followers-thunk";
 import ProfilePersonalInfoMutable from "./ProfilePersonalInfoMutable";
@@ -30,7 +29,7 @@ const ProfileNonpersonalInfoNonmutable = ({user}) => {
         if (!currentUser) {
             return (<h4>Log in to follow this account!</h4>);
         } else {
-            const list = following.filter((u) => u.follower_id == user);
+            const list = following.filter((u) => u.following_id == user);
             if (list.length > 0) {
                 // that means that you are already following this person. So show the unfollow button.
                 return (<button

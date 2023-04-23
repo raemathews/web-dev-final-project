@@ -5,7 +5,7 @@ import {findFollowingByUserIdThunk} from "../../../services/followers/followers-
 
 const FollowingList = () => {
     const { currentUser } = useSelector((state) => state.currentUser);
-    const {followers, following, loading} = useSelector(
+    const {followers, following, follows, loading} = useSelector(
         state => state.followers)
     const dispatch = useDispatch();
     useEffect(() => {
