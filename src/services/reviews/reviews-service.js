@@ -12,10 +12,7 @@ export const findReviewsByBookId = async (bid) => {
 }
 
 export const findReviewsByUserId = async (uid) => {
-    console.log("uid in service" + uid);
     const response = await axios.get(`${REVIEWS_API}/byUser/${uid}`)
-    console.log("response" + response);
-    console.log("response data" + response.data);
     return response.data
 }
 
