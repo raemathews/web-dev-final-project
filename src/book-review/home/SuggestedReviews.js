@@ -22,18 +22,18 @@ const SuggestedReviews = () => {
         useSelector(store => store.currentUser)
     const {reviews, loading} = useSelector(store => store.reviews)
     const {
+        followers,
+        following,
         follows,
-        followsLoading,
-        followersById,
-        followingById
+        followsloading
     } = useSelector(store => store.followers)
     useEffect(() => {
         dispatch(findReviewsThunk())
         currentUser &&
         dispatch(findFollowingByUserIdThunk(currentUser._id))
     }, [])
-    const display = currentUser && followingById ?
-        reviews.filter((r) => followingById.map((f) => f.follows).includes(r.user_id))
+    const display = currentUser && following ?
+        reviews.filter((r) => following.map((f) => f.follows).includes(r.user_id))
         : reviews
     console.log("reviews to display: " + display)
     return (

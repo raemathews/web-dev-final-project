@@ -1,7 +1,9 @@
 import React from 'react'
 import {useNavigate} from "react-router";
+import {useSelector} from "react-redux";
 
 const UserTile = ({user}) => {
+    const {currentUser} = useSelector(store => store.currentUser)
     const navigate = useNavigate();
     const visitProfile = () => {
         navigate(`/profile/${user._id}`, {replace: true})
@@ -22,7 +24,7 @@ const UserTile = ({user}) => {
                     <span className="fw-light">{user.handle}</span>
                 </div>
                 <div className="col-3">
-                    <button className="btn btn-sm btn-success" onClick={handleFollowUser}>
+                    <button className={`btn btn-sm btn-success ${currentUser || "d-none"}`} onClick={handleFollowUser}>
                         Follow
                     </button>
                 </div>
