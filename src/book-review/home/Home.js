@@ -15,10 +15,11 @@ const Home = () => {
                 <div className="row mt-2 ml-3">
                     <div className="col-12 col-md-3 col-lg-3 col-xl-3 ">
                         <PopularUsers user={currentUserId}/>
-                        <SuggestedReviews />
                     </div>
                     <div className="col-12 col-md-9 col-lg-9 col-xl-9">
                         <BooksForYou/>
+                        <hr />
+                        <SuggestedReviews />
                     </div>
                 </div>
 

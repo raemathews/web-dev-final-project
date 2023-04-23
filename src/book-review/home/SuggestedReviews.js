@@ -34,13 +34,16 @@ const SuggestedReviews = () => {
     }, [])
     const display = currentUser && following ?
         reviews.filter((r) => following.map((f) => f.follows).includes(r.user_id))
-        : reviews
+        : reviews.slice(0,3)
     console.log("reviews to display: " + display)
     return (
         <>
             <h5 className={"mt-3 fw-bolder"}>{currentUser ?
                 "Your Friends' Recent Reviews" : "Trending Reviews"}</h5>
-            <ReviewList reviews={display}/>
+            <div className={"list-group"}>
+                <ReviewList reviews={display} />
+
+            </div>
         </>
     )
 }

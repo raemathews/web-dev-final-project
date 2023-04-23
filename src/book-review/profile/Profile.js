@@ -7,8 +7,8 @@ const Profile = ({ownAccount, active}) => {
     const {uid} = useParams();
     return (
         <>
+            <Navigation />
             <div className="row mt-2">
-                    <Navigation />
                 <div className="col-2"></div>
                 <div className="col-8">
                     <ProfileInfo ownAccount={ownAccount} active={active}/>
