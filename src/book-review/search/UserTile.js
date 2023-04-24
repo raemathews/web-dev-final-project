@@ -11,25 +11,34 @@ const UserTile = ({user}) => {
     const handleFollowUser = () => {
         console.log("followed")
     }
-    console.log("username: " + user.username)
+
+    const getProfileFile = () => {
+        if (user.profile_pic) {
+            return `/images/${user.profile_pic}`;
+        }
+        return `/images/profile.jpg`;
+    }
+
     return (
-        <div onClick={visitProfile} className="list-group-item user-list-item">
-            <div className="row">
-                <div className="col-2 ">
-                    <i className="fa fa-user user-tile-icon"/>
+        <button onClick={visitProfile} className="btn btn-light list-group-item user-list-item mb-1">
+            <div className="row flex-row align-items-center">
+                <div className="col-xl-3 col-lg-5 col-md-5 col-sm-2 col-2">
+                    <img
+                        width="100%"
+                        className="float-end align-middle"
+                        src={getProfileFile()}
+                        style={{clipPath: "circle()"}}/>
                 </div>
-                <div className="col-7">
-                    <span className="fw-bold fs-6">{user.username}</span>
+                <div className="col-xl-4 col-lg-7 col-md-7 col-sm-5 col-5">
+                    <span className="fw-bold fs-6 align-middle">{user.username}</span>
                     <br />
-                    <span className="fw-light">{user.handle}</span>
+                    <span className="fw-light align-middle">{user.handle}</span>
                 </div>
-                <div className="col-3">
-                    <button className={`btn btn-sm btn-success ${currentUser || "d-none"}`} onClick={handleFollowUser}>
-                        Follow
-                    </button>
+                <div className="d-sm-block d-md-none d-xl-block col-xl-5 col-3">
+                    <span className="fw-normal align-middle">View Profile</span>
                 </div>
             </div>
-        </div>
+        </button>
     )
 }
 export default UserTile
