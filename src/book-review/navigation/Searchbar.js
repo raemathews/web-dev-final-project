@@ -12,7 +12,7 @@ const Searcbbar = () => {
         }
     }
     return (
-        <form className="nav-item mx-auto form-inline col-md-5">
+        <form className="nav-item mx-auto form-inline col-12 col-lg-5">
             <input className="form-control mr-sm-2 d-inline" type="text" placeholder="Search Books"
                    aria-label="SearchResults"
                    onChange={(e) => setSearchKeys(e.target.value)}
