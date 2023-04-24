@@ -20,7 +20,7 @@ const UserSignup = () => {
     const handleLogin = async () => {
         try {
             await dispatch(loginThunk({ username, password }));
-            navigate(-1);
+            navigate("/");
         } catch (e) {
             alert(e);
         }
@@ -69,7 +69,7 @@ const UserSignup = () => {
                 <label>Handle</label>
                 <input className="form-control"
                        type="handle" value={handle} placeholder={"Ex: yourHandle"}
-                       onChange={(event) => setHandle("@" + event.target.value)}
+                       onChange={(event) => setHandle(event.target.value)}
                 />
             </div>
             <div className={"mt-3"}>
