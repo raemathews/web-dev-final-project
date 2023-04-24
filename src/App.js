@@ -16,6 +16,7 @@ import {Provider} from "react-redux";
 import reviewsReducer from "./reducers/reviews-reducer";
 import LogOut from "./book-review/login/LogOut";
 import wantToReadReducer from "./reducers/want-to-read-reducer";
+import librarianReducer from "./reducers/librarian-reducer";
 
 const store = configureStore({reducer: {
             library: libraryReducer,
@@ -23,7 +24,8 @@ const store = configureStore({reducer: {
             currentUser: authReducer,
             reviews: reviewsReducer,
             followers: followersReducer,
-            readingList: wantToReadReducer
+            readingList: wantToReadReducer,
+            librarians: librarianReducer
         }});
 
 function App() {

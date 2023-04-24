@@ -69,7 +69,13 @@ const BookItem = (
     }
 
     const createReviewHandler = () => {
-        // TODO: actually do review time
+        const date = new Date();
+
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        let currentDate = `${month}/${day}/${year}`;
+
         const newReview = {
             "book_title": bookInfo.title,
             "review_title": currentTitle,
@@ -80,7 +86,7 @@ const BookItem = (
             "replied": 0,
             "spoiler_flag": false,
             "user_id": currentUser._id,
-            "time": "now"
+            "time": currentDate
         }
         // console.log(newReview);
         dispatch(createReviewThunk(newReview));
@@ -156,63 +162,60 @@ const BookItem = (
         return result;
     }
 
-    return (
-        <div className="container">
-            {
-                loading &&
-                <li className="list-group-item">
-                    Loading...
-                </li>
-            }
-            {
-                <div className="row">
-                    <div className="col-3 position-fixed sticky-lg-top" style={{top: '10%'}}>
-                        {bookInfo.cover_i ?
-                            <img className="float-end"
-                                 width="100%"
-                                 src={`https://covers.openlibrary.org/b/id/${bookInfo.cover_i}-L.jpg`}
-                                 alt="book cover"/>
-                            : <img className="float-end not-found"
-                                   width="100%"
-                                   src={"/images/no_cover.png"}
-                                   alt="book cover"/>               }
-                        { currentUser && readingList ? <ReadingListButtons bookInfo={bookInfo}
-                                                            readingList={readingList}
-                                                            read={read}
-                                                            wantToRead={wantToRead}
-                                                            loadingReadingList={loadingReadingList}/> :
-                            <button type="button"
-                                    className="btn btn-secondary mt-3 py-2 mb- 3"
-                                    style={{width: "100%"}}
-                                    onClick={() => navigate("/login")}>
-                                Sign in to add this book to your reading list
-                            </button> }
-                    </div>
-                    <div className="col-9 position-relative pt-5 ps-xl-5" style={{marginLeft: '26%'}}>
-                        <div>
-                            <div className="float-end">
-                                {StarRatingDetails({rating: getAverageRating(bookInfo)})}
-                            </div>
-                            <h1><b>{bookInfo.title}</b></h1>
-                            <h4>{bookInfo.author_name}</h4>
-                            <p>{getNumOfReviews(bookInfo)} Ratings
-                                | {bookInfo.readinglog_count? bookInfo.readinglog_count : 0} Saves</p>
-                        </div>
-                        <hr/>
-                        <div style={{whiteSpace: "pre-line"}}>{getDescription(bookInfo)}</div>
-                        <hr/>
-                        <div>
-                            <p>Tags: {bookInfo.subjects ?
-                                bookInfo.subjects.slice(0, Math.min(bookInfo.subjects.length, 25)).join(", ")
-                                : "No tags for this book"}</p>
-                            <p>Published: {bookInfo.first_publish_year ? bookInfo.first_publish_year : "--"}</p>
-                            <p>Number of Pages: {bookInfo.number_of_pages_median ? bookInfo.number_of_pages_median : "--"}</p>
-                        </div>
-                        <hr/>
+    const getBookColumnContents = () => {
+        return (
+        <>
+            {bookInfo.cover_i ?
+                <img className="float-end"
+                     width="100%"
+                     src={`https://covers.openlibrary.org/b/id/${bookInfo.cover_i}-L.jpg`}
+                     alt="book cover"/>
+                : <img className="float-end not-found"
+                       width="100%"
+                       src={"/images/no_cover.png"}
+                       alt="book cover"/>               }
+            { currentUser && readingList ? <ReadingListButtons bookInfo={bookInfo}
+                                                               readingList={readingList}
+                                                               read={read}
+                                                               wantToRead={wantToRead}
+                                                               loadingReadingList={loadingReadingList}/> :
+                <button type="button"
+                        className="btn btn-secondary mt-3 py-2 mb- 3"
+                        style={{width: "100%"}}
+                        onClick={() => navigate("/login")}>
+                    Sign in to add this book to your reading list
+                </button> }
+        </>);
+    }
 
-                        <h3><b>Add a review</b></h3>
-                        {
-                            currentUser ?
+
+    const getSummaryColumnContents = () => {
+        return (
+            <>
+                <div>
+                    <div className="float-end">
+                        {StarRatingDetails({rating: getAverageRating(bookInfo)})}
+                    </div>
+                    <h1><b>{bookInfo.title}</b></h1>
+                    <h4>{bookInfo.author_name}</h4>
+                    <p>{getNumOfReviews(bookInfo)} Ratings
+                        | {bookInfo.readinglog_count? bookInfo.readinglog_count : 0} Saves</p>
+                </div>
+                <hr/>
+                <div style={{whiteSpace: "pre-line"}}>{getDescription(bookInfo)}</div>
+                <hr/>
+                <div>
+                    <p>Tags: {bookInfo.subjects ?
+                        bookInfo.subjects.slice(0, Math.min(bookInfo.subjects.length, 25)).join(", ")
+                        : "No tags for this book"}</p>
+                    <p>Published: {bookInfo.first_publish_year ? bookInfo.first_publish_year : "--"}</p>
+                    <p>Number of Pages: {bookInfo.number_of_pages_median ? bookInfo.number_of_pages_median : "--"}</p>
+                </div>
+                <hr/>
+
+                <h3><b>Add a review</b></h3>
+                {
+                    currentUser ?
                         <>
                             <label htmlFor="rating" className="me-2">
                                 Rating (between 0 and 5):
@@ -232,9 +235,9 @@ const BookItem = (
                                    onChange={(event) => setCurrentTitle(event.target.value)}>
                             </input>
                             <textarea className="mt-2 p-2"
-                                           placeholder={'Write your review here...'}
-                                           style={{width: "100%"}}
-                                           onChange={(event) => setCurrentReview(event.target.value)}>
+                                      placeholder={'Write your review here...'}
+                                      style={{width: "100%"}}
+                                      onChange={(event) => setCurrentReview(event.target.value)}>
                             </textarea>
                             <button type="button"
                                     className="btn btn-primary mt-2 mb- 3"
@@ -243,10 +246,39 @@ const BookItem = (
                                 Add review
                             </button>
                         </> : <p>Want to add a review? Log in or sign up for an account!</p>
-                        }
-                        <hr/>
+                }
+                <hr/>
 
-                        <BookReviewList reviews={reviews} loading={loadingReviews}/>
+                <BookReviewList reviews={reviews} loading={loadingReviews}/>
+            </>
+        );
+    }
+
+    return (
+        <div className="container-fluid px-5">
+            {
+                // TODO fix this being ugly
+                loading &&
+                <li className="list-group-item">
+                    Loading...
+                </li>
+            }
+            {
+                <div className="row mt-5">
+                    {/*Side by side version*/}
+                    <div className={`d-none d-md-block col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-5 position-fixed`} style={{top: '100px'}}>
+                        {getBookColumnContents()}
+                    </div>
+                    <div className={` d-none d-md-block col-xl-9 col-lg-9 col-md-9 col-sm-12 offset-3 ps-5`}>
+                        {getSummaryColumnContents()}
+                    </div>
+
+                    {/*Stacked version*/}
+                    <div className={`d-block d-md-none col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-5`} style={{top: '100px'}}>
+                        {getBookColumnContents()}
+                    </div>
+                    <div className={`d-block d-md-none col-xl-9 col-lg-9 col-md-9 col-sm-12`}>
+                        {getSummaryColumnContents()}
                     </div>
                 </div>
             }

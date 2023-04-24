@@ -2,11 +2,6 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteReviewThunk, updateReviewThunk} from "../../services/reviews/reviews-thunk";
 import {findUsersThunk} from "../../services/users/users-thunk";
-import {
-    createReadThunk,
-    findUnfinishedReadByUserIdThunk,
-    updateReadThunk
-} from "../../services/want-to-read/want-to-read-thunk";
 import {useNavigate} from "react-router";
 
 const defaultUser =({
@@ -107,13 +102,24 @@ const ReviewItem = (
     return(
         <li className="list-group-item">
             <div className="row my-2 me-2">
-                <div className="col-1">
-                    <img width={40}
-                         className="float-end rounded-circle"
-                         src={getProfileFile()}
-                         onClick={visitProfile}/>
+                <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                    <div className="row justify-content-center">
+                        <img
+                            width={40}
+                             className="float-end"
+                             src={getProfileFile()}
+                             onClick={visitProfile}
+                             style={{clipPath: "circle()"}}/>
+                        {user.admin ?
+                            <span className="badge bg-success position-relative"
+                                  style={{ top:"-10px", width: "fit-content"}}>
+                                <i className="d-none d-md-block bi fa-xl bi-book-half"></i>
+                                <i className="d-block d-md-none bi fa-lg bi-book-half"></i>
+                            </span>
+                            : <></>}
+                    </div>
                 </div>
-                <div className="col-11">
+                <div className="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
                     <div onClick={visitProfile}>
                         {currentUser && (currentUser._id == review.user_id || currentUser.admin) ?
                             <i className="bi bi-x-lg float-end" onClick={() => deleteReviewHandler(review._id)}></i>
@@ -122,7 +128,6 @@ const ReviewItem = (
                         <b>{user.username} </b>
                         {user.handle} | {review.time}
                     </div>
-
                     <div>
                         {spoilerTag}
                         <h3 className="mt-2">{review.review_title}</h3>
@@ -136,12 +141,12 @@ const ReviewItem = (
                                 Log in or sign up for an account to like or comment!
                             </div>
                         </div>
-                        <label className="col-2 me-3"
+                        <label className="col-5 me-3"
                                 onClick={() => (currentUser? setCommentVisibility(!commentVisibility) : likeReviewHandler(review))}>
                             <i className="fa-regular fa-comment pe-2"></i>
                             {review.replied} Comments
                         </label>
-                        <label className="col-2"
+                        <label className="col-5"
                                onClick={() => likeReviewHandler(review)}>
                             <i className={`${likedIcon} pe-2`}></i>
                             {review.likes ? review.likes.length : 0} Loves

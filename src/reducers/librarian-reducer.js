@@ -3,10 +3,8 @@ import {
     findLibrariansThunk,
     findLibrarianByIDThunk,
     createLibrarianThunk,
-    deleteLibrarianThunk,
     updateLibrarianThunk
 } from "../services/librarians/librarians-thunk";
-import {findFollowingByUserIdThunk} from "../services/followers/followers-thunk";
 
 const initialState = {
     numResults: 0,
@@ -14,35 +12,34 @@ const initialState = {
     librarianFoundById: "",
     loading: false
 }
-const usersSlice = createSlice({
-    name: "users",
+const librariansSlice = createSlice({
+    name: "librarians",
     initialState: initialState,
     extraReducers: {
         [findLibrariansThunk.pending]:
             (state) => {
                 state.loading = true
-                state.foundUsers = []
+                state.foundLibrarians = []
             },
         [findLibrariansThunk.fulfilled]:
             (state, {payload}) => {
                 state.loading = false;
-                state.foundUsers = payload
+                state.foundLibrarians = payload
             },
         [findLibrariansThunk.rejected]:
             (state, action) => {
                 state.loading = false
                 state.error = action.error
-                // console.log("error finding user in reducer")
             },
         [findLibrarianByIDThunk.pending]:
             (state) => {
                 state.loading = true
-                state.userFoundById = []
+                state.librarianFoundById = []
             },
         [findLibrarianByIDThunk.fulfilled]:
             (state, {payload}) => {
                 state.loading = false
-                state.userFoundById = payload
+                state.librarianFoundById = payload
             },
         [createLibrarianThunk.pending]:
             (state) => {
@@ -51,8 +48,8 @@ const usersSlice = createSlice({
         [createLibrarianThunk.fulfilled]:
             (state, {payload}) => {
                 state.loading = false;
-                state.foundUsers.push(payload);
-                state.numResults = state.foundUsers.length;
+                state.foundLibrarians.push(payload);
+                state.numResults = state.foundLibrarians.length;
             },
         [updateLibrarianThunk.pending]:
             (state, {payload}) => {
@@ -61,14 +58,14 @@ const usersSlice = createSlice({
         [updateLibrarianThunk.fulfilled]:
             (state, {payload}) => {
                 state.loading = false;
-                const userIndex = state.foundUsers
+                const librarianIndex = state.foundLibrarians
                     .findIndex((u) => u._id === payload._id)
-                state.foundUsers[userIndex] = {
-                    ...state.foundUsers[userIndex],
+                state.foundLibrarians[librarianIndex] = {
+                    ...state.foundUsers[librarianIndex],
                     ...payload
                 }
             }
     }
 });
 
-export default usersSlice.reducer;
+export default librariansSlice.reducer;
