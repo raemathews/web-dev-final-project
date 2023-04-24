@@ -65,7 +65,7 @@ function Login() {
 
                                 <br />
                                 <br />
-                                <div className={"text-muted text-center"}>No account yet?</div>
+                                <div className={"text-muted text-center"}>No account yet? No problem.</div>
                             <button className="btn btn-warning list-group-item text-black bg-warning d-block">
                                 <Link to="/signUp">
                                     Sign Up
