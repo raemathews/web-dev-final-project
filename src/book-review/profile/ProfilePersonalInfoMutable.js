@@ -210,7 +210,7 @@ const ProfilePersonalInfoMutable = () => {
     return(
         <>
             <div className="col-4">
-                <img src={currentUser.profile_pic}
+                <img src={'/images/' + currentUser.profile_pic}
                      width="90%"
                      height="200px"/>
             </div>
