@@ -24,7 +24,7 @@ function LogOut() {
                 <div className={"row mt-4"}>
                     <div className={"col-1 col-md-4"} />
                     <div className={"col-10 col-md-4"}>
-                        <h1>Are you sure you want to logout?</h1>
+                        <h4>Are you sure you want to logout?</h4>
                         <button className="btn btn-warning"
                                 onClick={handleLogout}>
                             Logout
