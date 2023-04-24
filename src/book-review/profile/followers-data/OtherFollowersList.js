@@ -23,15 +23,22 @@ const OtherFollowersList = ({accountId}) => {
     }, [follows])
 
     return(
-        <ul className="list-group">
-            {
-                list.length > 0?
-                list.map(follower =>
-                    <FollowersItem
-                        key={follower._id} f={follower}/> )
-                    : <p> No followers yet :(</p>
-            }
-        </ul>
+        <>
+            <div className={"fw-bold h6 d-md-none"}>
+                Followers
+            </div>
+            <ul className="list-group">
+                {
+                    list.length > 0?
+                        list.map(follower =>
+                            <FollowersItem
+                                key={follower._id} f={follower}/> )
+                        : <div className={"list-group"}>
+                            <div className={"list-group-item"}>No Followers</div>
+                        </div>
+                }
+            </ul>
+        </>
     );
 };
 export default OtherFollowersList;

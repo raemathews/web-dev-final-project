@@ -18,16 +18,23 @@ const OtherFollowingList = ({accountId}) => {
         setList(follows.filter((u) => u.follower_id === accountId));
     }, [follows])
 
-    return(
-        <ul className="list-group">
-            {
-                list.length > 0?
-                list.map(f =>
-                    <FollowingItem
-                        key={f._id} f={f}/> )
-                    : <p> Not following anyone yet :( Go follow someone!!</p>
-            }
-        </ul>
+    return (
+        <>
+            <div className={"fw-bold h6 d-md-none"}>
+                Following
+            </div>
+            <ul className="list-group">
+                {
+                    list.length > 0 ?
+                        list.map(f =>
+                            <FollowingItem
+                                key={f._id} f={f}/>)
+                        : <div className={"list-group"}>
+                            <div className={"list-group-item"}>Not Following Anyone</div>
+                        </div>
+                }
+            </ul>
+        </>
     );
 };
 export default OtherFollowingList;

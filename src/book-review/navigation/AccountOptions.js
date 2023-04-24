@@ -18,8 +18,6 @@ const AccountOptions = () => {
                 {currentUser  && <Link to="/profile" className="dropdown-item">Profile</Link>}
                 {currentUser  && <Link to="/#" className="dropdown-item">Settings</Link>}
                 {currentUser  && <Link to="/logout" className="dropdown-item">Log Out</Link>}
-
-
             </div>
         </div>
     )
