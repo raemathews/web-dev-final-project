@@ -316,18 +316,24 @@ const ProfilePersonalInfoMutable = () => {
                         </div>
                     </div>
                 </div>
-                // <>
-                // <div className="col-4">
-                // <img src={currentUser.profile_pic}
-                //              width="90%"
-                //              height="200px"/>
-                //     </div>
-                //     <div className="col-6">
-                //         {updateOrViewInfo}
-                //         {profileButton}
-                //     </div>
-                // </>
-                );
-                }
+            </div>
+        );
+    }
+
+    return(
+        <>
+            <div className="col-4">
+                <img src={'/images/' + currentUser.profile_pic}
+                     width="90%"
+                     height="200px"/>
+            </div>
+            <div className="col-6">
+                {updateOrViewInfo}
+                {profileButton}
+            </div>
+        </>
+    );
+}
+
 
                 export default ProfilePersonalInfoMutable;

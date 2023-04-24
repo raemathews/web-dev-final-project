@@ -94,28 +94,28 @@ function SignUp() {
                     <div>
                         <label>Profile Picture</label>
                         <div>
-                            <button className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_1.png')}}>
+                            <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {setProfilePic('option_1.png')}}>
                                 <img
                                     width="60px"
                                     src={`/images/option_1.png`}
                                     style={{clipPath: "circle()"}}
                                 />
                             </button>
-                            <button className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_2.png')}}>
+                            <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {setProfilePic('option_2.png')}}>
                                 <img
                                     width="60px"
                                     src={`/images/option_2.png`}
                                     style={{clipPath: "circle()"}}
                                 />
                             </button>
-                            <button className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_3.png')}}>
+                            <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {setProfilePic('option_3.png')}}>
                                 <img
                                     width="60px"
                                     src={`/images/option_3.png`}
                                     style={{clipPath: "circle()"}}
                                 />
                             </button>
-                            <button width="60px" className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_4.png')}}>
+                            <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {setProfilePic('option_4.png')}}>
                                 <img
                                     width="60px"
                                     src={`/images/option_4.png`}
@@ -181,28 +181,28 @@ function SignUp() {
                     <div>
                         <label>Profile Picture</label>
                         <div>
-                            <button className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_1.png')}}>
+                            <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {setProfilePic('option_1.png')}}>
                                 <img
                                     width="60px"
                                     src={`/images/option_1.png`}
                                     style={{clipPath: "circle()"}}
                                 />
                             </button>
-                            <button className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_2.png')}}>
+                            <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {setProfilePic('option_2.png')}}>
                                 <img
                                     width="60px"
                                     src={`/images/option_2.png`}
                                     style={{clipPath: "circle()"}}
                                 />
                             </button>
-                            <button className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_3.png')}}>
+                            <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {setProfilePic('option_3.png')}}>
                                 <img
                                     width="60px"
                                     src={`/images/option_3.png`}
                                     style={{clipPath: "circle()"}}
                                 />
                             </button>
-                            <button width="60px" className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_4.png')}}>
+                            <button className="rounded-circle m-1 border-0 btn-outline-success " onClick={() => {setProfilePic('option_4.png')}}>
                                 <img
                                     width="60px"
                                     src={`/images/option_4.png`}
