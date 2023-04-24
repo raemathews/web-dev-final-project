@@ -1,33 +1,33 @@
 import React from 'react'
 import {Link} from "react-router-dom";
-import StarRating from "./StarRating";
+import StarRating from "../search/StarRating";
 
-const BookTile = ({book}) => {
+const BookOfTheMonth = ({book}) => {
     const maxTitleLength = 40;
     const maxAuthorLength = 25;
     let author = book.author_name ? Object.values(book.author_name) : [""];
     return (
         <Link to={"/book-details" + (book.key || "/works/" + book.book_id)} className="book-link">
             <div className="d-inline-block">
-                <div className="card m-3">
+                <div className="card btn-outline-success border-2 m-3">
                     {book.cover_i ?
                         <img className="card-img-top"
-                         style={{height: "380px"}}
-                         src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
-                         alt="book cover"/>
+                             style={{height: "380px"}}
+                             src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
+                             alt="book cover"/>
                         : <img className="card-img-top not-found"
                                style={{height: "380px"}}
                                src={"/images/no_cover.png"}
                                alt="book cover"/>               }
                     <div className="card-body" style={{maxHeight: "fit-content"}}>
-                        <h5 className="card-title mt-1">
+                        <h5 className="card-title fw-bold mt-1">
                             {
                                 book.title.length > maxTitleLength ?
-                                book.title.substring(0, maxTitleLength - 3) + "..." :
-                                book.title
+                                    book.title.substring(0, maxTitleLength - 3) + "..." :
+                                    book.title
                             }
                         </h5>
-                        <h6 className="card-subtitle mt-2">Author: {
+                        <h6 className="card-subtitle fw-semibold mt-2">Author: {
                             author[0].length > maxAuthorLength ?
                                 author[0].substring(0, maxAuthorLength - 3) + "..." :
                                 author[0]
@@ -43,4 +43,4 @@ const BookTile = ({book}) => {
     );
 }
 
-export default BookTile
+export default BookOfTheMonth

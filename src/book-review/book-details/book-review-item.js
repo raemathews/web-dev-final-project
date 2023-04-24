@@ -63,7 +63,7 @@ const ReviewItem = (
             if (review.likes.includes(currentUser._id)) {
                 // They've already liked it, unlike it
                 // TODO: change to just remove this user
-                const r = dispatch(updateReviewThunk({
+                dispatch(updateReviewThunk({
                     ...review,
                     likes: review.likes.filter((r) => (r != currentUser._id))
                 }));
@@ -146,32 +146,32 @@ const ReviewItem = (
                                 Log in or sign up for an account to like or comment!
                             </div>
                         </div>
-                        <label className="col-5 me-3"
-                                onClick={() => (currentUser? setCommentVisibility(!commentVisibility) : likeReviewHandler(review))}>
-                            <i className="fa-regular fa-comment pe-2"></i>
-                            {review.replied} Comments
-                        </label>
-                        <label className="col-5"
+                        {/*<label className="col-5 me-3"*/}
+                        {/*        onClick={() => (currentUser? setCommentVisibility(!commentVisibility) : likeReviewHandler(review))}>*/}
+                        {/*    <i className="fa-regular fa-comment pe-2"></i>*/}
+                        {/*    {review.replied} Comments*/}
+                        {/*</label>*/}
+                        <label //className="col-5"
                                onClick={() => likeReviewHandler(review)}>
                             <i className={`${likedIcon} pe-2`}></i>
                             {review.likes ? review.likes.length : 0} Loves
                         </label>
                     </div>
                     <div>
-                        <div className={`row mt-3 ${commentVisibility ? "" : "visually-hidden"}`}>
-                            {/*TODO: Make a comment reply section*/}
-                            <div className="col-11">
-                                <textarea value={currentComment} placeholder="Write a reply here..."
-                                          className="form-control border-1"
-                                          onChange={(event) => setCurrentComment(event.target.value)}>
-                                </textarea>
-                            </div>
-                            <button type="button"
-                                    className="btn btn-primary col-1"
-                                    onClick={() => createReplyHandler()}>
-                                Reply
-                            </button>
-                        </div>
+                        {/*<div className={`row mt-3 ${commentVisibility ? "" : "visually-hidden"}`}>*/}
+                        {/*    /!*TODO: Make a comment reply section*!/*/}
+                        {/*    <div className="col-11">*/}
+                        {/*        <textarea value={currentComment} placeholder="Write a reply here..."*/}
+                        {/*                  className="form-control border-1"*/}
+                        {/*                  onChange={(event) => setCurrentComment(event.target.value)}>*/}
+                        {/*        </textarea>*/}
+                        {/*    </div>*/}
+                        {/*    <button type="button"*/}
+                        {/*            className="btn btn-primary col-1"*/}
+                        {/*            onClick={() => createReplyHandler()}>*/}
+                        {/*        Reply*/}
+                        {/*    </button>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
             </div>
