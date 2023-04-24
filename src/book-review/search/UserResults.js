@@ -17,7 +17,7 @@ const UserResults = () => {
     }, [])
     const filteredUsers = foundUsers.filter((u) => u.username.includes(query) || u.handle.includes(query))
     return (
-        <div className="col-xs-12 col-sm-5 col-lg-3 col-xl-3">
+        <div className="col-12 col-sm-12 col-md-5 col-lg-4 col-xl-3">
             <div className="d-none d-sm-none d-md-block">
                 <h5 className="p-4">{`Profiles`}</h5>
                 <hr/>

@@ -8,7 +8,7 @@ import {findUsersThunk} from "../../../services/users/users-thunk";
 const OtherReadList = ({isRead, accountId}) => {
     const {numResults, foundUsers, userFoundById, l} = useSelector(
         state => state.users)
-    let[user, setUser] = useState({});
+    let [user, setUser] = useState({});
     const {readingList, read, wantToRead, loading} = useSelector(
         state => state.readingList)
     const dispatch = useDispatch();
@@ -20,7 +20,10 @@ const OtherReadList = ({isRead, accountId}) => {
 
     useEffect(() => {
         const userList = foundUsers.filter((u) => u._id == accountId)
-        if(userList.length > 0) {setUser(userList[0])};
+        if (userList.length > 0) {
+            setUser(userList[0])
+        }
+        ;
     }, [foundUsers])
 
     useEffect(() => {
@@ -35,14 +38,23 @@ const OtherReadList = ({isRead, accountId}) => {
         }
     }, [readingList])
 
-    return(
-        <ul className="list-group">
-            {
-                list.map(book =>
-                    <ReadItem
-                        key={book._id} book={book}/> )
-            }
-        </ul>
+    return (
+        <>
+            <div className={"fw-bold h6 d-md-none"}>
+                {isRead ? "Read" : "Want to Read"}
+            </div>
+            <ul className="list-group">
+                {
+                    list.length > 0 ?
+                        list.map(book =>
+                            <ReadItem
+                                key={book._id} book={book}/>)
+                        : <div className={"list-group"}>
+                            <div className={"list-group-item"}>No Books</div>
+                        </div>
+                }
+            </ul>
+        </>
     );
 };
 export default OtherReadList;

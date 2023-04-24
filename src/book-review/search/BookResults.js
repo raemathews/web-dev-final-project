@@ -17,7 +17,7 @@ const BookResults = () => {
 
     }, [])
     return (
-        <div className="col-xs-12 col-sm-7 col-lg-9 col-xl-9">
+        <div className="col-12 col-sm-12 col-md-7 col-lg-8 col-xl-9">
             <div className="d-none d-sm-none d-md-block">
                 <h5 className="p-4">
                     {

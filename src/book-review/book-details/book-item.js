@@ -29,7 +29,7 @@ const BookItem = (
 ) => {
     let [currentReview, setCurrentReview] = useState('');
     let [currentTitle, setCurrentTitle] = useState('');
-    let [currentRating, setCurrentRating] = useState(3);
+    let [currentRating, setCurrentRating] = useState(5);
 
     // Get book from library
     const {bookid} = useParams();
@@ -75,6 +75,10 @@ const BookItem = (
         let month = date.getMonth() + 1;
         let year = date.getFullYear();
         let currentDate = `${month}/${day}/${year}`;
+
+        setCurrentReview("");
+        setCurrentTitle("");
+        setCurrentRating(5);
 
         const newReview = {
             "book_title": bookInfo.title,
@@ -166,11 +170,11 @@ const BookItem = (
         return (
         <>
             {bookInfo.cover_i ?
-                <img className="float-end"
+                <img className="float-end shadow mb-3 bg-white rounded"
                      width="100%"
                      src={`https://covers.openlibrary.org/b/id/${bookInfo.cover_i}-L.jpg`}
                      alt="book cover"/>
-                : <img className="float-end not-found"
+                : <img className="float-end not-found border shadow mb-3 bg-white rounded"
                        width="100%"
                        src={"/images/no_cover.png"}
                        alt="book cover"/>               }
@@ -213,19 +217,17 @@ const BookItem = (
                 </div>
                 <hr/>
 
-                <h3><b>Add a review</b></h3>
                 {
                     currentUser ?
-                        <>
-                            <label htmlFor="rating" className="me-2">
-                                Rating (between 0 and 5):
-                            </label>
+                        <div class="card shadow-sm p-3" style={{width: "100%"}}>
+                            <h3><b>Add a review</b></h3>
                             <input type="number"
                                    className="mt-2 p-2"
                                    id="rating"
                                    name="rating"
                                    min="0"
                                    max="5"
+                                   placeholder="Rating (between 0 and 5):"
                                    onChange={(event) => setCurrentRating(event.target.value)}>
                             </input>
                             <input type="text"
@@ -245,7 +247,11 @@ const BookItem = (
                                     onClick={() => createReviewHandler()}>
                                 Add review
                             </button>
-                        </> : <p>Want to add a review? Log in or sign up for an account!</p>
+                        </div> :
+                        <>
+                            <h3><b>Add a review</b></h3>
+                            <p>Want to add a review? Log in or sign up for an account!</p>
+                        </>
                 }
                 <hr/>
 
