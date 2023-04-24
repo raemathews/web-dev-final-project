@@ -12,6 +12,7 @@ function SignUp() {
     const [library, setLibrary] = useState("");
     const [handle, setHandle] = useState("");
     const [email, setEmail] = useState("");
+    const [profile_pic, setProfilePic] = useState("profile.jpg");
     const [phone_number, setPhoneNum] = useState("");
     const bio = "I'm a new user!"
 
@@ -20,7 +21,7 @@ function SignUp() {
     const handleSignUp = async () => {
         try {
             const admin = false
-            await dispatch(createUserThunk({ username, password, handle, email, phone_number, bio, admin}));
+            await dispatch(createUserThunk({ username, password, handle, email, phone_number, profile_pic, bio, admin}));
             handleLogin();
         } catch (e) {
             alert(e);
@@ -30,7 +31,7 @@ function SignUp() {
     const handleLibrarianSignUp = async () => {
         try {
             const admin = true
-            await dispatch(createLibrarianThunk({ username, password, handle, library, bio, admin }));
+            await dispatch(createLibrarianThunk({ username, password, handle, library, bio, admin, profile_pic }));
             handleLogin();
         } catch (e) {
             alert(e);
@@ -90,6 +91,41 @@ function SignUp() {
                                onChange={(event) => setPhoneNum(event.target.value)}
                         />
                     </div>
+                    <div>
+                        <label>Profile Picture</label>
+                        <div>
+                            <button className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_1.png')}}>
+                                <img
+                                    width="60px"
+                                    src={`/images/option_1.png`}
+                                    style={{clipPath: "circle()"}}
+                                />
+                            </button>
+                            <button className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_2.png')}}>
+                                <img
+                                    width="60px"
+                                    src={`/images/option_2.png`}
+                                    style={{clipPath: "circle()"}}
+                                />
+                            </button>
+                            <button className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_3.png')}}>
+                                <img
+                                    width="60px"
+                                    src={`/images/option_3.png`}
+                                    style={{clipPath: "circle()"}}
+                                />
+                            </button>
+                            <button width="60px" className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_4.png')}}>
+                                <img
+                                    width="60px"
+                                    src={`/images/option_4.png`}
+                                    style={{clipPath: "circle()"}}
+                                />
+                            </button>
+
+
+                        </div>
+                    </div>
                     <button onClick={handleSignUp}>
                         Sign Up
                     </button>
@@ -141,6 +177,41 @@ function SignUp() {
                                type="handle" value={library} placeholder={"Ex: Boston Public Library"}
                                onChange={(event) => setLibrary(event.target.value)}
                         />
+                    </div>
+                    <div>
+                        <label>Profile Picture</label>
+                        <div>
+                            <button className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_1.png')}}>
+                                <img
+                                    width="60px"
+                                    src={`/images/option_1.png`}
+                                    style={{clipPath: "circle()"}}
+                                />
+                            </button>
+                            <button className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_2.png')}}>
+                                <img
+                                    width="60px"
+                                    src={`/images/option_2.png`}
+                                    style={{clipPath: "circle()"}}
+                                />
+                            </button>
+                            <button className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_3.png')}}>
+                                <img
+                                    width="60px"
+                                    src={`/images/option_3.png`}
+                                    style={{clipPath: "circle()"}}
+                                />
+                            </button>
+                            <button width="60px" className="rounded-circle border-0" onClick={() => {setProfilePic('/images/option_4.png')}}>
+                                <img
+                                    width="60px"
+                                    src={`/images/option_4.png`}
+                                    style={{clipPath: "circle()"}}
+                                />
+                            </button>
+
+
+                        </div>
                     </div>
                     <button onClick={handleLibrarianSignUp}>
                         Sign Up
