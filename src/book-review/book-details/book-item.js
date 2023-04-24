@@ -7,7 +7,6 @@ import {findBookByIdThunk, findBooksThunk} from "../../services/books/library-th
 import ReadingListButtons from "./reading-list-buttons";
 import {findReadByUserIdThunk} from "../../services/want-to-read/want-to-read-thunk";
 import {useNavigate} from "react-router";
-// TODO make review a spoiler
 // TODO fix liking
 
 const BookItem = (
@@ -21,6 +20,7 @@ const BookItem = (
             "reviews": 2378478,
             "saves": 200620,
             "saved": true,
+            "spoiler_flag": false,
             "pages": 386,
             "published": "August 2, 2016",
             "tags": "Romance, Fiction, Contemporary, New Adult, Contemporary Romance, Adult",
@@ -30,7 +30,8 @@ const BookItem = (
 ) => {
     let [currentReview, setCurrentReview] = useState('');
     let [currentTitle, setCurrentTitle] = useState('');
-    let [currentRating, setCurrentRating] = useState(5);
+    let [currentRating, setCurrentRating] = useState();
+    let [spoilerTag, setSpoilerTag] = useState(false);
 
     // Get book from library
     const {bookid} = useParams();
@@ -79,7 +80,7 @@ const BookItem = (
 
         setCurrentReview("");
         setCurrentTitle("");
-        setCurrentRating(5);
+        setCurrentRating();
 
         const newReview = {
             "book_title": bookInfo.title,
@@ -89,7 +90,7 @@ const BookItem = (
             "likes": [currentUser._id],
             "rating": currentRating,
             "replied": 0,
-            "spoiler_flag": false,
+            "spoiler_flag": spoilerTag,
             "user_id": currentUser._id,
             "time": currentDate
         }
@@ -225,7 +226,9 @@ const BookItem = (
                             <div className={"ps-2 mt-2"}>
                                 <label htmlFor="spoiler" className={"me-2 form-check-label"}>This review contains spoilers:</label>
                                 <input type="checkbox" id="spoiler" name="spoiler"
-                                       className={"form-check-input form-check-inline"}></input>
+                                       className={"form-check-input form-check-inline"}
+                                       onChange={() => setSpoilerTag(!spoilerTag)}
+                                ></input>
                             </div>
                             <input type="number"
                                    className="mt-2 p-2 form-control"
@@ -234,17 +237,20 @@ const BookItem = (
                                    min="0"
                                    max="5"
                                    placeholder="Rating (between 0 and 5):"
+                                   value={currentRating}
                                    onChange={(event) => setCurrentRating(event.target.value)}>
                             </input>
                             <input type="text"
                                    className="mt-2 p-2 form-control"
                                    style={{width: "100%"}}
                                    placeholder="Write a title for your review here..."
+                                   value={currentTitle}
                                    onChange={(event) => setCurrentTitle(event.target.value)}>
                             </input>
                             <textarea className="mt-2 p-2 form-control"
                                       placeholder={'Write your review here...'}
                                       style={{width: "100%"}}
+                                      value={currentReview}
                                       onChange={(event) => setCurrentReview(event.target.value)}>
                             </textarea>
                             <button type="button"

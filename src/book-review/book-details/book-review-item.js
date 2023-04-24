@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteReviewThunk, updateReviewThunk} from "../../services/reviews/reviews-thunk";
 import {findUsersThunk} from "../../services/users/users-thunk";
 import {useNavigate} from "react-router";
+import {findLibrariansThunk} from "../../services/librarians/librarians-thunk";
 
 const defaultUser =({
     handle: "@user_handle",
@@ -37,6 +38,9 @@ const ReviewItem = (
     const {currentUser} = useSelector(store => store.currentUser);
     const {numResults, foundUsers, userFoundById, loading} =
         useSelector(store => store.users)
+    const {numResultsLibrarian, foundLibrarians, librarianFoundById, loadingLibrarian} =
+        useSelector(store => store.librarians)
+
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -46,11 +50,14 @@ const ReviewItem = (
 
     useEffect(() => {
         dispatch(findUsersThunk());
+        dispatch(findLibrariansThunk());
     }, [])
 
     useEffect(() => {
         // console.log(foundUsers);
-        const list = foundUsers.filter((u) => u._id == review.user_id)
+        const users = foundUsers ? foundUsers.filter((u) => u._id == review.user_id) : [];
+        const librarians = foundLibrarians ? foundLibrarians.filter((u) => u._id == review.user_id) : [];
+        const list = [...users, ...librarians];
         if (list.length > 0) {setUser(list[0])};
     }, [foundUsers]);
 
