@@ -120,13 +120,15 @@ const ReviewItem = (
                     </div>
                 </div>
                 <div className="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
-                    <div onClick={visitProfile}>
+                    <div>
                         {currentUser && (currentUser._id == review.user_id || currentUser.admin) ?
                             <i className="bi bi-x-lg float-end" onClick={() => deleteReviewHandler(review._id)}></i>
                             : <></>
                         }
-                        <b>{user.username} </b>
-                        {user.handle} | {review.time}
+                        <div onClick={visitProfile}>
+                            <b>{user.username} </b>
+                            {user.handle} | {review.time}
+                        </div>
                     </div>
                     <div>
                         {spoilerTag}

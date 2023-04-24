@@ -7,6 +7,7 @@ import {
     updateReadThunk
 } from "../../services/want-to-read/want-to-read-thunk";
 import {useParams} from "react-router-dom";
+import {updateLibrarianThunk} from "../../services/librarians/librarians-thunk";
 
 const ReadingListButtons = ({bookInfo, readingList, read, wantToRead, loadingReadingList}) => {
     // const [wtrMsg, setWtrMsg] = useState("Save to Want To Read");
@@ -22,17 +23,29 @@ const ReadingListButtons = ({bookInfo, readingList, read, wantToRead, loadingRea
         (r) => (r.book_id === bookid) && (r.user_id === currentUser._id)) ?
         "Remove from Read list" : "Save to Read list";
 
+    const bookOfTheMonthHandler = () => {
+        if (currentUser && currentUser.admin) {
+            dispatch(updateLibrarianThunk({
+                ...currentUser,
+                book_of_month: {
+                    ...bookInfo
+                }
+            }))
+        }
+    }
+
     const getBookOfMonthButton = () => {
         if (currentUser && currentUser.admin) {
             let text = "Add as Book Of the Month";
-            if (currentUser.book_of_month === bookid) {
+            if (currentUser.book_of_month && currentUser.book_of_month.key === bookid) {
                 text =  "Remove from Book Of the Month";
             }
             return (
                //TODO: update librarian's book of the month
                 <button type="button"
                         className="btn btn-outline-success border-2 mt-2"
-                        style={{width: "100%"}}>
+                        style={{width: "100%"}}
+                        onClick={bookOfTheMonthHandler}>
                     {text}
                 </button>);
         }
