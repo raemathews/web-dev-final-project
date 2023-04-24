@@ -3,10 +3,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateUserThunk} from "../../services/users/users-thunk";
 import {updateCurrentUser} from "../reducers/auth-reducer";
 import {updateLibrarianThunk} from "../../services/librarians/librarians-thunk";
+import {deleteFollowerThunk} from "../../services/followers/followers-thunk";
 
 const ProfilePersonalInfoMutable = () => {
     const dispatch = useDispatch();
-    const { currentUser } = useSelector((state) => state.currentUser);
+    const {currentUser} = useSelector((state) => state.currentUser);
     const [defaultUser, setDefaultUser] = useState(currentUser);
 
     const [isEditing, setIsEditing] = useState(false);
@@ -32,6 +33,7 @@ const ProfilePersonalInfoMutable = () => {
     const changeLibrary = event => {
         setDefaultUser({...defaultUser, library: event.target.value});
     };
+    const [passwordVisibility, setPasswordVisibility] = useState(false);
 
     const updateProfileUserInfo = () => {
         dispatch(updateUserThunk(defaultUser));
@@ -39,7 +41,6 @@ const ProfilePersonalInfoMutable = () => {
     }
 
     const updateProfileLibInfo = () => {
-        console.log("why we no update")
         dispatch(updateLibrarianThunk(defaultUser));
         dispatch(updateCurrentUser(defaultUser));
     }
@@ -47,179 +48,286 @@ const ProfilePersonalInfoMutable = () => {
     let profileButton;
     if (isEditing && !currentUser.admin) {
         profileButton = (
-            <button type="button" onClick={() => {
+            <button className={"btn bg-warning text-white list-group-item d-inline"}
+                    type="button " onClick={() => {
                 setIsEditing(false);
-                updateProfileUserInfo();}}> Update </button>
+                updateProfileUserInfo();
+            }}> Update </button>
         );
     } else if (isEditing && currentUser.admin) {
         profileButton = (
-            <button type="button" onClick={() => {
+            <button className={"btn bg-warning text-white list-group-item d-inline"}
+                    type="button" onClick={() => {
                 setIsEditing(false);
-                updateProfileLibInfo();}}> Update </button>
+                updateProfileLibInfo();
+            }}> Update </button>
         );
     } else {
         profileButton = (
-            <button type="button" onClick={() => {
-                setIsEditing(true);}}> Edit </button>
+            <button className={"btn bg-secondary text-white list-group-item d-inline"}
+                    type="button" onClick={() => {
+                setIsEditing(true);
+            }}> Edit Profile
+                <i className={"fa fa-user-pen ms-2"}/>
+            </button>
         );
     }
-    console.log("current User:" + JSON.stringify(currentUser))
 
+    const cancelButton = (
+        <button className={"btn bg-danger text-white list-group-item d-inline"}
+                type="button" onClick={() => {
+            setIsEditing(false);
+        }}> Discard Changes </button>
+    )
     let updateOrViewInfo;
     if (isEditing && !currentUser.admin) {
         updateOrViewInfo = (
-            <div>
-                <div>
-                    <label htmlFor="userNameFld">
-                        Username</label>
-                    <input id="userNameFld"
-                           value={defaultUser.username}
-                           onChange={changeUsername}/>
+            <>
+                <div className={"row"}>
+                    <div className={"col-12 col-md-3"}>
+                        <label htmlFor="userNameFld" className={"form-label fw-bold"}>
+                            Username</label>
+                    </div>
+                    <div className={"col-12 col-md-6"}>
+                        <input className={"form-control"}
+                               id="userNameFld"
+                               value={defaultUser.username}
+                               onChange={changeUsername}/>
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="handleFld">
-                        Handle</label>
-                    <input id="handleFld"
-                           value={defaultUser.handle}
-                           onChange={changeHandle}/>
+                <div className={"row"}>
+                    <div className={"col-12 col-md-3"}>
+                        <label htmlFor="handleFld" className={"form-label fw-bold"}>
+                            Handle</label>
+                    </div>
+                    <div className={"col-12 col-md-6"}>
+                        <input className={"form-control"}
+                               id="handleFld"
+                               value={defaultUser.handle}
+                               onChange={changeHandle}/>
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="bioFld">Bio</label>
-                    <textarea id="bioFld"
-                              type="text"
-                              title="bio"
-                              placeholder="This is my bio for the profile!"
-                              value={defaultUser.bio}
-                              onChange={changeBio}/>
+                <div className={"row"}>
+                    <div className={"col-12 col-md-3"}>
+                        <label htmlFor="emailFld" className={"form-label fw-bold"}>
+                            Email</label>
+                    </div>
+                    <div className={"col-12 col-md-6"}>
+                        <input className={"form-control"}
+                               id="emailFld"
+                               value={defaultUser.email}
+                               onChange={changeEmail}/>
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="emailFld">
-                        Email</label>
-                    <input id="emailFld"
-                           value={defaultUser.email}
-                           onChange={changeEmail}/>
-                </div>
-                    <div>
-                        <label htmlFor="phoneNumFld">
-                            Phone Number</label>
-                        <input id="phoneNumFld"
+                <div className={"row"}>
+                    <div className={"col-12 col-md-3"}>
+                        <label htmlFor="phoneNumFld" className={"form-label fw-bold"}>
+                            Phone #</label>
+                    </div>
+                    <div className={"col-12 col-md-6"}>
+                        <input className={"form-control"}
+                               id="phoneNumFld"
                                value={defaultUser.phone_number}
                                onChange={changePhoneNum}/>
                     </div>
-
-                <div>
-                    <label htmlFor="passwordFld">
-                        Password</label>
-                    <input id="passwordFld"
-                           value={defaultUser.password}
-                           onChange={changePassword}/>
                 </div>
-            </div>
-        );
-    }else if (isEditing && currentUser.admin) {
-        updateOrViewInfo = (
-            <div>
-                <div>
-                    <label htmlFor="userNameFld">
-                        Username</label>
-                    <input id="userNameFld"
-                           value={defaultUser.username}
-                           onChange={changeUsername}/>
-                </div>
-                <div>
-                    <label htmlFor="handleFld">
-                        Handle</label>
-                    <input id="handleFld"
-                           value={defaultUser.handle}
-                           onChange={changeHandle}/>
-                </div>
-                <div>
-                    <label htmlFor="bioFld">Bio</label>
-                    <textarea id="bioFld"
-                              type="text"
-                              title="bio"
-                              placeholder="This is my bio for the profile!"
-                              value={defaultUser.bio}
-                              onChange={changeBio}/>
-                </div>
-                <div>
-                    <label htmlFor="libraryFld">
-                        Library</label>
-                    <input id="libraryFld"
-                           value={defaultUser.library}
-                           onChange={changeLibrary}/>
-                </div>
-
-                <div>
-                    <label htmlFor="passwordFld">
-                        Password</label>
-                    <input id="passwordFld"
-                           value={defaultUser.password}
-                           onChange={changePassword}/>
-                </div>
-            </div>
-        );
-    } else if(!isEditing && !currentUser.admin){
-        updateOrViewInfo = (
-            <div>
-                <div>
-                    <text><b>Username: </b> {currentUser.username}</text>
-                </div>
-                <div>
-                    <text><b>Handle: </b> {currentUser.handle}</text>
-                </div>
-                <div>
-                    <text><b>Bio: </b> {currentUser.bio}</text>
-                </div>
-                    <div>
-                        <text><b>Email: </b> {currentUser.email}</text>
+                <div className={"row"}>
+                    <div className={"col-12 col-md-3"}>
+                        <label htmlFor="passwordFld" className={"form-label fw-bold"}>
+                            Password</label>
                     </div>
-
-                    <div>
-                        <text><b>Phone Number: </b> {currentUser.phone_number}</text>
+                    <div className={"col-12 col-md-6"}>
+                        <input className={"form-control"}
+                               id="passwordFld"
+                               value={defaultUser.password}
+                               onChange={changePassword}/>
                     </div>
-
-                <div>
-                    <text><b>Password: </b> {currentUser.password}</text>
                 </div>
-            </div>
+                <div className={"row"}>
+                    <div className={"col-12 col-md-3"}>
+                        <label htmlFor="bioFld" className={"form-label fw-bold"}>
+                            Bio</label>
+                    </div>
+                    <div className={"col-12 col-md-6"}>
+                        <textarea className={"form-control"}
+                               id="bioFld"
+                               value={defaultUser.bio}
+                               onChange={changeBio}
+                               style={{height: "100px"}}
+                        />
+                    </div>
+                </div>
+            </>
         );
-    } else if(!isEditing && currentUser.admin){
+    } else if (isEditing && currentUser.admin) {
         updateOrViewInfo = (
-            <div>
-                <h1>Librarian Account</h1>
-                <div>
-                    <text><b>Username: </b> {currentUser.username}</text>
-                </div>
-                <div>
-                    <text><b>Handle: </b> {currentUser.handle}</text>
-                </div>
-                <div>
-                    <text><b>Bio: </b> {currentUser.bio}</text>
-                </div>
-                    <div>
-                        <text><b>Library: </b> {currentUser.library}</text>
+            <>
+                <div className={"row"}>
+                    <div className={"col-12 col-md-3"}>
+                        <label htmlFor="userNameFld" className={"form-label fw-bold"}>
+                            Username</label>
                     </div>
-                <div>
-                    <text><b>Password: </b> {currentUser.password}</text>
+                    <div className={"col-12 col-md-6"}>
+                        <input className={"form-control"}
+                               id="userNameFld"
+                               value={defaultUser.username}
+                               onChange={changeUsername}/>
+                    </div>
                 </div>
-            </div>
+                <div className={"row"}>
+                    <div className={"col-12 col-md-3"}>
+                        <label htmlFor="handleFld" className={"form-label fw-bold"}>
+                            Handle</label>
+                    </div>
+                    <div className={"col-12 col-md-6"}>
+                        <input className={"form-control"}
+                               id="handleFld"
+                               value={defaultUser.handle}
+                               onChange={changeHandle}/>
+                    </div>
+                </div>
+                <div className={"row"}>
+                    <div className={"col-12 col-md-3"}>
+                        <label htmlFor="passwordFld" className={"form-label fw-bold"}>
+                            Password</label>
+                    </div>
+                    <div className={"col-12 col-md-6"}>
+                        <input className={"form-control"}
+                               id="passwordFld"
+                               value={defaultUser.password}
+                               onChange={changePassword}/>
+                    </div>
+                </div>
+                <div className={"row"}>
+                    <div className={"col-12 col-md-3"}>
+                        <label htmlFor="bioFld" className={"form-label fw-bold"}>
+                            Bio</label>
+                    </div>
+                    <div className={"col-12 col-md-6"}>
+                        <textarea className={"form-control"}
+                                  id="bioFld"
+                                  value={defaultUser.bio}
+                                  onChange={changeBio}
+                                  style={{height: "100px"}}
+                        />
+                    </div>
+                </div>
+            </>
         );
-    }
+    } else if (!isEditing && !currentUser.admin) {
+        updateOrViewInfo = (
+            <div className={"col-12 col-md-9 "}>
+                <h4 className={"fw-bolder mt-2"}>{currentUser.username}</h4>
+                <span className={"fw-bold text-muted"}>{currentUser.handle}</span>
+                <span className={"fw-light text-muted d-block"}>{currentUser.email}</span>
+                <span className={"fw-light text-muted d-block"}>{currentUser.phone_number}</span>
+                {
+                    passwordVisibility ?
+                    <span className={"fw-light text-muted d-inline"} style={{width: "100px"}}>{currentUser.password}</span>
+                    :
+                        <input
+                            value={currentUser.password}
+                            readOnly
+                            type={"password"}
+                            className={"fw-light text-muted d-inline border-0 d-inline"}
+                            style={{width: "100px"}}
+                        />
+                }
+                {
+                    passwordVisibility ||
+                    <i className={`d-inline fa fa-eye ps-2 text-secondary`}
+                       id={"showPassword"}
+                       onClick={() => setPasswordVisibility(!passwordVisibility)}/>
+                }
+                {
+                    passwordVisibility &&
+                    <i className={`d-inline fa fa-eye-slash ps-2 text-secondary`}
+                       id={"showPassword"}
+                       onClick={() => setPasswordVisibility(!passwordVisibility)}/>
+                }
+                {currentUser.bio.length > 0 &&
+                    <div className={"list-group"}>
+                    <div className={"list-group-item mt-3"}>
+                {currentUser.bio}
+                    </div>
+                    </div>
+                }
+                    </div>
+                    );
+                } else if (!isEditing && currentUser.admin) {
+                updateOrViewInfo = (
+                    <div className={"col-12 col-md-9 "}>
+                        <h4 className={"fw-bolder mt-2"}>{currentUser.username}</h4>
+                        <span className={"fw-bold text-muted"}>{currentUser.handle}</span>
+                        <span className={"fw-light text-muted d-block"}>Library: {currentUser.library}</span>
+                        {
+                            passwordVisibility ?
+                                <span className={"fw-light text-muted d-inline"} style={{width: "100px"}}>{currentUser.password}</span>
+                                :
+                                <input
+                                    value={currentUser.password}
+                                    readOnly
+                                    type={"password"}
+                                    className={"fw-light text-muted d-inline border-0 d-inline"}
+                                    style={{width: "100px"}}
+                                />
+                        }
+                        {
+                            passwordVisibility ||
+                            <i className={`d-inline fa fa-eye ps-2 text-secondary`}
+                               id={"showPassword"}
+                               onClick={() => setPasswordVisibility(!passwordVisibility)}/>
+                        }
+                        {
+                            passwordVisibility &&
+                            <i className={`d-inline fa fa-eye-slash ps-2 text-secondary`}
+                               id={"showPassword"}
+                               onClick={() => setPasswordVisibility(!passwordVisibility)}/>
+                        }
+                        {currentUser.bio.length > 0 &&
+                            <div className={"list-group"}>
+                                <div className={"list-group-item mt-3"}>
+                                    {currentUser.bio}
+                                </div>
+                            </div>
+                        }
+                    </div>
+                );
+            }
+                const fillerProfilePic = "/images/profile.jpg"
+                return (
+                <div className={"container"}>
+                    <div className={"row"}>
+                        <div className="col-12 col-md-4">
+                            <img className="rounded-circle shadow-lg align-items-center justify-content-center"
+                                 alt="avatar2"
+                                 src={currentUser.profile_pic || fillerProfilePic}/>
+                        </div>
+                        <div className="col-12 col-md-8">
+                            <div className={"row"}>
+                                {updateOrViewInfo}
+                                <div className={"col-12 col-md-auto list-group"}>
+                                    {profileButton}
+                                </div>
+                                <div className={"col-12 col-md-auto list-group"}>
+                                    {isEditing && cancelButton}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                // <>
+                // <div className="col-4">
+                // <img src={currentUser.profile_pic}
+                //              width="90%"
+                //              height="200px"/>
+                //     </div>
+                //     <div className="col-6">
+                //         {updateOrViewInfo}
+                //         {profileButton}
+                //     </div>
+                // </>
+                );
+                }
 
-    return(
-        <>
-            <div className="col-4">
-                <img src={currentUser.profile_pic}
-                     width="90%"
-                     height="200px"/>
-            </div>
-            <div className="col-6">
-                {updateOrViewInfo}
-                {profileButton}
-            </div>
-        </>
-    );
-}
-
-export default ProfilePersonalInfoMutable;
+                export default ProfilePersonalInfoMutable;
