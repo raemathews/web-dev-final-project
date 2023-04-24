@@ -3,6 +3,7 @@ import ProfileTabs from "./ProfileTabs";
 import ProfilePersonalInfoMutable from "./ProfilePersonalInfoMutable";
 import {useParams} from "react-router-dom";
 import ProfileNonpersonalInfoNonmutable from "./ProfileNonpersonalInfoNonmutable";
+import ProfileTabsXS from "./ProfileTabsXS";
 
 
 const ProfileInfo = ({ownAccount, active}) => {
