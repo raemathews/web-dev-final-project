@@ -25,19 +25,29 @@ const ReadingListButtons = ({bookInfo, readingList, read, wantToRead, loadingRea
 
     const bookOfTheMonthHandler = () => {
         if (currentUser && currentUser.admin) {
-            dispatch(updateLibrarianThunk({
-                ...currentUser,
-                book_of_month: {
-                    ...bookInfo
-                }
-            }))
+            if (currentUser.book_of_month.book_id === bookid) {
+                // Remove it
+                dispatch(updateLibrarianThunk({
+                    ...currentUser,
+                    book_of_month: undefined
+                }))
+            } else {
+                // Add it
+                dispatch(updateLibrarianThunk({
+                    ...currentUser,
+                    book_of_month: {
+                        ...bookInfo,
+                        book_id: bookInfo.substring(7)
+                    }
+                }))
+            }
         }
     }
 
     const getBookOfMonthButton = () => {
         if (currentUser && currentUser.admin) {
             let text = "Add as Book Of the Month";
-            if (currentUser.book_of_month && currentUser.book_of_month.key === bookid) {
+            if (currentUser.book_of_month && currentUser.book_of_month.book_id === bookid) {
                 text =  "Remove from Book Of the Month";
             }
             return (
