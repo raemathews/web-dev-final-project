@@ -69,7 +69,13 @@ const BookItem = (
     }
 
     const createReviewHandler = () => {
-        // TODO: actually do review time
+        const date = new Date();
+
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        let currentDate = `${month}/${day}/${year}`;
+
         const newReview = {
             "book_title": bookInfo.title,
             "review_title": currentTitle,
@@ -80,7 +86,7 @@ const BookItem = (
             "replied": 0,
             "spoiler_flag": false,
             "user_id": currentUser._id,
-            "time": "now"
+            "time": currentDate
         }
         // console.log(newReview);
         dispatch(createReviewThunk(newReview));
