@@ -76,7 +76,8 @@ const ProfileNonpersonalInfoNonmutable = ({user}) => {
             <div className={"row"}>
                 <div className="col-12 col-md-4">
                     <img className="rounded-circle shadow-lg align-items-center justify-content-center" alt="avatar2"
-                         src={userFoundById.profile_pic || fillerProfilePic}/>
+                         width="200px"
+                         src={'/images/' + userFoundById.profile_pic || fillerProfilePic}/>
                 </div>
                 <div className="col-12 col-md-8">
                     <div className={"row"}>
