@@ -40,7 +40,7 @@ const SuggestedReviews = () => {
         <>
             <h5 className={"mt-3 fw-bolder"}>{currentUser ?
                 "Your Friends' Recent Reviews" : "Trending Reviews"}</h5>
-            <div className={"list-group"}>
+            <div className={"list-group mt-3"}>
                 <ReviewList reviews={display} />
 
             </div>

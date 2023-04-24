@@ -12,17 +12,17 @@ const Home = () => {
         <>
             <Navigation/>
             <div className={"container"}>
-                <div className="row mt-2 ml-3">
-                    <div className="col-12 col-md-3 col-lg-3 col-xl-3 ">
+                <div className="row mt-2 ml-3 ">
+                    <div className="col-12 col-md-5 col-lg-3 col-xl-3 align-items-center">
                         <PopularUsers user={currentUserId}/>
                     </div>
-                    <div className="col-12 col-md-9 col-lg-9 col-xl-9">
+                    <div className="col-12 col-md-7 col-lg-9 col-xl-9 align-items-center">
                         <BooksForYou/>
-                        <hr />
+                        <hr className={"text-secondary"} />
                         <SuggestedReviews />
                     </div>
                 </div>
-
+                <br/>
             </div>
 
         </>
