@@ -9,11 +9,11 @@ const Profile = ({ownAccount, active}) => {
         <>
             <Navigation />
             <div className="row mt-2">
-                <div className="col-2"></div>
+                <div className="col-2" />
                 <div className="col-8">
                     <ProfileInfo ownAccount={ownAccount} active={active}/>
                 </div>
-                <div className="col-2"></div>
+                <div className="col-2" />
             </div>
         </>
     );

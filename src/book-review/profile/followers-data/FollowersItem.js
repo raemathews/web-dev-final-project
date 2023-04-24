@@ -34,15 +34,16 @@ const FollowersItem = (
         <div onClick={visitProfile}>
             <li className="list-group-item">
                 <div className="row">
+                    <div className="col-1">
+                        <img className="float-end rounded-3" src={`/images/${user.profile_pic}`}/>
+                    </div>
                     <div className="col-10">
-                        <div className="fw-bolder">{user.handle}
-                            <i className="fas fa-check-circle"></i>
-                            - {user.username}
+                        <div className="fw-bolder">{user.username}
+                        </div>
+                        <div className={"text-muted"}>
+                            {user.handle}
                         </div>
                         <div>{user.bio}</div>
-                    </div>
-                    <div className="col-2">
-                        <img width={70} className="float-end rounded-3" src={`/images/${user.profile_pic}`}/>
                     </div>
                 </div>
             </li>

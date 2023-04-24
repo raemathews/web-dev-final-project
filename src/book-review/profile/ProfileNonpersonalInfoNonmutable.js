@@ -41,16 +41,25 @@ const ProfileNonpersonalInfoNonmutable = ({user}) => {
             const list = following.filter((u) => u.following_id === user);
             if (list.length > 0) {
                 // that means that you are already following this person. So show the unfollow button.
-                return (<button className={"btn btn-outline-danger"}
+                return (
+                    <div className={"list-group"}>
+                        <button className={"btn btn-outline-danger bg-danger text-white list-group-item"}
                                 onClick={() => {
                                     dispatch(deleteFollowerThunk(list[0]._id));
-                                }}>Unfollow</button>);
+                                }}>Unfollow
+                        </button>
+                    </div>);
+
             } else {
-                return (<button className={"btn btn-success"}
+                return (
+                    <div className={"list-group"}>
+                        <button className={"btn btn-success bg-success text-white list-group-item"}
                                 onClick={() => {
                                     const newFollower = {follower_id: currentUser._id, following_id: user}
                                     dispatch(createFollowerThunk(newFollower));
-                                }}>Follow</button>);
+                                }}>Follow
+                        </button>
+                    </div>);
             }
         }
     })
@@ -71,7 +80,7 @@ const ProfileNonpersonalInfoNonmutable = ({user}) => {
                 </div>
                 <div className="col-12 col-md-8">
                     <div className={"row"}>
-                        <div className={"col-12 col-md-9"}>
+                        <div className={"col-12 col-md-9 "}>
                             <h4 className={"fw-bolder mt-2"}>{userFoundById.username}</h4>
                             <span className={"fw-bold text-muted"}>{userFoundById.handle}</span>
                         </div>
