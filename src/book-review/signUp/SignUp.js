@@ -50,6 +50,7 @@ function SignUp() {
                                  className={"btn mt-3 btn-warning bg-warning list-group-item"}>
                                 Sign Up for a {librarianSignUp ? "Regular" : "Librarian"} Account
                             </div>
+
                         </div>
                     </div>
                 </div>

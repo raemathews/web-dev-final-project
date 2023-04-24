@@ -7,6 +7,7 @@ import {findBookByIdThunk, findBooksThunk} from "../../services/books/library-th
 import ReadingListButtons from "./reading-list-buttons";
 import {findReadByUserIdThunk} from "../../services/want-to-read/want-to-read-thunk";
 import {useNavigate} from "react-router";
+// TODO make review a spoiler
 // TODO fix liking
 
 const BookItem = (
@@ -219,10 +220,15 @@ const BookItem = (
 
                 {
                     currentUser ?
-                        <div class="card shadow-sm p-3" style={{width: "100%"}}>
-                            <h3><b>Add a review</b></h3>
+                        <div class="card shadow-sm p-3 form-group" style={{width: "100%"}}>
+                            <h3><b>Write a review</b></h3>
+                            <div className={"ps-2 mt-2"}>
+                                <label htmlFor="spoiler" className={"me-2 form-check-label"}>This review contains spoilers:</label>
+                                <input type="checkbox" id="spoiler" name="spoiler"
+                                       className={"form-check-input form-check-inline"}></input>
+                            </div>
                             <input type="number"
-                                   className="mt-2 p-2"
+                                   className="mt-2 p-2 form-control"
                                    id="rating"
                                    name="rating"
                                    min="0"
@@ -231,12 +237,12 @@ const BookItem = (
                                    onChange={(event) => setCurrentRating(event.target.value)}>
                             </input>
                             <input type="text"
-                                   className="mt-2 p-2"
+                                   className="mt-2 p-2 form-control"
                                    style={{width: "100%"}}
                                    placeholder="Write a title for your review here..."
                                    onChange={(event) => setCurrentTitle(event.target.value)}>
                             </input>
-                            <textarea className="mt-2 p-2"
+                            <textarea className="mt-2 p-2 form-control"
                                       placeholder={'Write your review here...'}
                                       style={{width: "100%"}}
                                       onChange={(event) => setCurrentReview(event.target.value)}>

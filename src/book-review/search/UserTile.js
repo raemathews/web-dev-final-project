@@ -21,21 +21,17 @@ const UserTile = ({user}) => {
 
     return (
         <button onClick={visitProfile} className="btn btn-light list-group-item user-list-item mb-1">
-            <div className="row flex-row align-items-center">
-                <div className="col-xl-3 col-lg-5 col-md-5 col-sm-2 col-2">
+            <div className="row flex-row ">
+                <div className="col-xl-3 col-lg-4 col-md-4 col-sm-2 col-2">
                     <img
                         width="100%"
                         className="float-end align-middle"
                         src={getProfileFile()}
                         style={{clipPath: "circle()"}}/>
                 </div>
-                <div className="col-xl-4 col-lg-7 col-md-7 col-sm-5 col-5">
-                    <span className="fw-bold fs-6 align-middle">{user.username}</span>
-                    <br />
-                    <span className="fw-light align-middle">{user.handle}</span>
-                </div>
-                <div className="d-sm-block d-md-none d-xl-block col-xl-5 col-3">
-                    <span className="fw-normal align-middle">View Profile</span>
+                <div className="my-1 col-xl-9 col-lg-8 col-md-8 col-sm-10 col-10 align-items-center">
+                    <p align="left" className="fw-bold p-0 m-0">{user.username}</p>
+                    <p align="left" className="fw-light p-0 m-0">{user.handle}</p>
                 </div>
             </div>
         </button>

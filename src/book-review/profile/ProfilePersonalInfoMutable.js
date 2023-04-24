@@ -150,10 +150,10 @@ const ProfilePersonalInfoMutable = () => {
                     </div>
                     <div className={"col-12 col-md-6"}>
                         <textarea className={"form-control"}
-                               id="bioFld"
-                               value={defaultUser.bio}
-                               onChange={changeBio}
-                               style={{height: "100px"}}
+                                  id="bioFld"
+                                  value={defaultUser.bio}
+                                  onChange={changeBio}
+                                  style={{height: "100px"}}
                         />
                     </div>
                 </div>
@@ -223,8 +223,8 @@ const ProfilePersonalInfoMutable = () => {
                 <span className={"fw-light text-muted d-block"}>{currentUser.phone_number}</span>
                 {
                     passwordVisibility ?
-                    <span className={"fw-light text-muted d-inline"} style={{width: "100px"}}>{currentUser.password}</span>
-                    :
+                        <span className={"fw-light text-muted d-inline"} style={{width: "100px"}}>{currentUser.password}</span>
+                        :
                         <input
                             value={currentUser.password}
                             readOnly
@@ -247,87 +247,77 @@ const ProfilePersonalInfoMutable = () => {
                 }
                 {currentUser.bio.length > 0 &&
                     <div className={"list-group"}>
-                    <div className={"list-group-item mt-3"}>
-                {currentUser.bio}
-                    </div>
+                        <div className={"list-group-item mt-3"}>
+                            {currentUser.bio}
+                        </div>
                     </div>
                 }
-                    </div>
-                    );
-                } else if (!isEditing && currentUser.admin) {
-                updateOrViewInfo = (
-                    <div className={"col-12 col-md-9 "}>
-                        <h4 className={"fw-bolder mt-2"}>{currentUser.username}</h4>
-                        <span className={"fw-bold text-muted"}>{currentUser.handle}</span>
-                        <span className={"fw-light text-muted d-block"}>Library: {currentUser.library}</span>
-                        {
-                            passwordVisibility ?
-                                <span className={"fw-light text-muted d-inline"} style={{width: "100px"}}>{currentUser.password}</span>
-                                :
-                                <input
-                                    value={currentUser.password}
-                                    readOnly
-                                    type={"password"}
-                                    className={"fw-light text-muted d-inline border-0 d-inline"}
-                                    style={{width: "100px"}}
-                                />
-                        }
-                        {
-                            passwordVisibility ||
-                            <i className={`d-inline fa fa-eye ps-2 text-secondary`}
-                               id={"showPassword"}
-                               onClick={() => setPasswordVisibility(!passwordVisibility)}/>
-                        }
-                        {
-                            passwordVisibility &&
-                            <i className={`d-inline fa fa-eye-slash ps-2 text-secondary`}
-                               id={"showPassword"}
-                               onClick={() => setPasswordVisibility(!passwordVisibility)}/>
-                        }
-                        {currentUser.bio.length > 0 &&
-                            <div className={"list-group"}>
-                                <div className={"list-group-item mt-3"}>
-                                    {currentUser.bio}
-                                </div>
-                            </div>
-                        }
-                    </div>
-                );
-            }
-                const fillerProfilePic = "/images/profile.jpg"
-                return (
-                <div className={"container"}>
-                    <div className={"row"}>
-                        <div className="col-12 col-md-4">
-                            <img className="rounded-circle shadow-lg align-items-center justify-content-center"
-                                 alt="avatar2"
-                                 src={currentUser.profile_pic || fillerProfilePic}/>
+            </div>
+        );
+    } else if (!isEditing && currentUser.admin) {
+        updateOrViewInfo = (
+            <div className={"col-12 col-md-9 "}>
+                <h4 className={"fw-bolder mt-2"}>{currentUser.username}</h4>
+                <span className={"fw-bold text-muted"}>{currentUser.handle}</span>
+                <span className={"fw-light text-muted d-block"}>Library: {currentUser.library}</span>
+                {
+                    passwordVisibility ?
+                        <span className={"fw-light text-muted d-inline"} style={{width: "100px"}}>{currentUser.password}</span>
+                        :
+                        <input
+                            value={currentUser.password}
+                            readOnly
+                            type={"password"}
+                            className={"fw-light text-muted d-inline border-0 d-inline"}
+                            style={{width: "100px"}}
+                        />
+                }
+                {
+                    passwordVisibility ||
+                    <i className={`d-inline fa fa-eye ps-2 text-secondary`}
+                       id={"showPassword"}
+                       onClick={() => setPasswordVisibility(!passwordVisibility)}/>
+                }
+                {
+                    passwordVisibility &&
+                    <i className={`d-inline fa fa-eye-slash ps-2 text-secondary`}
+                       id={"showPassword"}
+                       onClick={() => setPasswordVisibility(!passwordVisibility)}/>
+                }
+                {currentUser.bio.length > 0 &&
+                    <div className={"list-group"}>
+                        <div className={"list-group-item mt-3"}>
+                            {currentUser.bio}
                         </div>
-                        <div className="col-12 col-md-8">
-                            <div className={"row"}>
-                                {updateOrViewInfo}
-                                <div className={"col-12 col-md-auto list-group"}>
-                                    {profileButton}
-                                </div>
-                                <div className={"col-12 col-md-auto list-group"}>
-                                    {isEditing && cancelButton}
-                                </div>
-                            </div>
+                    </div>
+                }
+            </div>
+        );
+    }
+    const fillerProfilePic = "/images/profile.jpg"
+    return (
+        <div className={"container"}>
+            <div className={"row"}>
+                <div className="col-12 col-md-4">
+                    <img className="rounded-circle shadow-lg align-items-center justify-content-center"
+                         width="200px"
+                         alt="avatar2"
+                         src={"/images/" + currentUser.profile_pic || fillerProfilePic}/>
+                </div>
+                <div className="col-12 col-md-8">
+                    <div className={"row"}>
+                        {updateOrViewInfo}
+                        <div className={"col-12 col-md-auto list-group"}>
+                            {profileButton}
+                        </div>
+                        <div className={"col-12 col-md-auto list-group"}>
+                            {isEditing && cancelButton}
                         </div>
                     </div>
                 </div>
-                // <>
-                // <div className="col-4">
-                // <img src={currentUser.profile_pic}
-                //              width="90%"
-                //              height="200px"/>
-                //     </div>
-                //     <div className="col-6">
-                //         {updateOrViewInfo}
-                //         {profileButton}
-                //     </div>
-                // </>
-                );
-                }
+            </div>
+        </div>
+    );
+}
 
-                export default ProfilePersonalInfoMutable;
+export default ProfilePersonalInfoMutable;

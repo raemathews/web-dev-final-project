@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import ReviewItem from "../../book-details/book-review-item"
+import ReviewItem from "../../book-details/book-review-item";
 import {useDispatch, useSelector} from "react-redux";
 import {findReviewsByUserIdThunk} from "../../../services/reviews/reviews-thunk";
 
