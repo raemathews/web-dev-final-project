@@ -79,7 +79,7 @@ const LibrarianSignUp = () => {
                     <label>Profile Picture</label>
                     <div>
                         <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {
-                            setProfilePic('/images/option_1.png')
+                            setProfilePic('option_1.png')
                         }}>
                             <img
                                 width="60px"
@@ -88,7 +88,7 @@ const LibrarianSignUp = () => {
                             />
                         </button>
                         <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {
-                            setProfilePic('/images/option_2.png')
+                            setProfilePic('option_2.png')
                         }}>
                             <img
                                 width="60px"
@@ -97,7 +97,7 @@ const LibrarianSignUp = () => {
                             />
                         </button>
                         <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {
-                            setProfilePic('/images/option_3.png')
+                            setProfilePic('option_3.png')
                         }}>
                             <img
                                 width="60px"
@@ -106,7 +106,7 @@ const LibrarianSignUp = () => {
                             />
                         </button>
                         <button width="60px" className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {
-                            setProfilePic('/images/option_4.png')
+                            setProfilePic('option_4.png')
                         }}>
                             <img
                                 width="60px"
