@@ -18,8 +18,9 @@ export const createLibrarian = async(newLibrarian) => {
 
 
 export const updateLibrarian = async(id, updatedLibrarian) => {
+    console.log(`updated librarian: ${JSON.stringify(updatedLibrarian)}`);
     const response = await axios.put(`${USERS_API}/${id}`, updatedLibrarian)
-    return response.status
+    return updatedLibrarian
 }
 
 
