@@ -3,15 +3,15 @@ import {useDispatch, useSelector}
     from "react-redux";
 import {
     createReadThunk,
-    deleteReadThunk,
+    deleteReadThunk, findReadByUserIdThunk,
     updateReadThunk
 } from "../../services/want-to-read/want-to-read-thunk";
 import {useParams} from "react-router-dom";
-import {updateLibrarianThunk} from "../../services/librarians/librarians-thunk";
+import {findLibrariansThunk, updateLibrarianThunk} from "../../services/librarians/librarians-thunk";
+import {findUsersThunk} from "../../services/users/users-thunk";
+import {updateCurrentUser} from "../reducers/auth-reducer";
 
 const ReadingListButtons = ({bookInfo, readingList, read, wantToRead, loadingReadingList}) => {
-    // const [wtrMsg, setWtrMsg] = useState("Save to Want To Read");
-    // const [readMsg, setReadMsg] = useState("Save to Read list");
     const {bookid} = useParams();
     const dispatch = useDispatch();
     const {currentUser} = useSelector(store => store.currentUser)
@@ -22,14 +22,20 @@ const ReadingListButtons = ({bookInfo, readingList, read, wantToRead, loadingRea
     let readButtonMsg = read && read.find(
         (r) => (r.book_id === bookid) && (r.user_id === currentUser._id)) ?
         "Remove from Read list" : "Save to Read list";
+    let bookOfMonthText = currentUser.book_of_month && currentUser.book_of_month.book_id === bookid ?
+        "Remove from Book Of the Month" : "Add as Book Of the Month";
 
     const bookOfTheMonthHandler = () => {
         if (currentUser && currentUser.admin) {
-            if (currentUser.book_of_month.book_id === bookid) {
+            if (currentUser.book_of_month && currentUser.book_of_month.book_id === bookid) {
                 // Remove it
                 dispatch(updateLibrarianThunk({
                     ...currentUser,
-                    book_of_month: undefined
+                    book_of_month: {}
+                }))
+                dispatch(updateCurrentUser({
+                    ...currentUser,
+                    book_of_month: {}
                 }))
             } else {
                 // Add it
@@ -37,29 +43,18 @@ const ReadingListButtons = ({bookInfo, readingList, read, wantToRead, loadingRea
                     ...currentUser,
                     book_of_month: {
                         ...bookInfo,
-                        book_id: bookInfo.substring(7)
+                        book_id: bookInfo.key.substring(7)
+                    }
+                }))
+                dispatch(updateCurrentUser({
+                    ...currentUser,
+                    book_of_month: {
+                        ...bookInfo,
+                        book_id: bookInfo.key.substring(7)
                     }
                 }))
             }
         }
-    }
-
-    const getBookOfMonthButton = () => {
-        if (currentUser && currentUser.admin) {
-            let text = "Add as Book Of the Month";
-            if (currentUser.book_of_month && currentUser.book_of_month.book_id === bookid) {
-                text =  "Remove from Book Of the Month";
-            }
-            return (
-               //TODO: update librarian's book of the month
-                <button type="button"
-                        className="btn btn-outline-success border-2 mt-2"
-                        style={{width: "100%"}}
-                        onClick={bookOfTheMonthHandler}>
-                    {text}
-                </button>);
-        }
-        return (<></>);
     }
 
     const getMatch = (r) => {
@@ -97,7 +92,6 @@ const ReadingListButtons = ({bookInfo, readingList, read, wantToRead, loadingRea
 
     return(
         <>
-            {/*TODO: will change to say something else when you click it, and # of saved will go up*/}
             <button type="button"
                     className="btn btn-primary mt-3"
                     style={{width: "100%"}}
@@ -110,7 +104,14 @@ const ReadingListButtons = ({bookInfo, readingList, read, wantToRead, loadingRea
                     onClick={() => addToReadingListHandler(false)}>
                 {wantToReadButtonMsg}
             </button>
-            {getBookOfMonthButton()}
+            { currentUser && currentUser.admin &&
+                <button type="button"
+                        className="btn btn-outline-success border-2 mt-2"
+                        style={{width: "100%"}}
+                        onClick={bookOfTheMonthHandler}>
+                    {bookOfMonthText}
+                </button>
+            }
         </>
     );
 };

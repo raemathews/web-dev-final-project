@@ -22,15 +22,15 @@ const BookOfTheMonth = ({book}) => {
                     <div className="card-body" style={{maxHeight: "fit-content"}}>
                         <h5 className="card-title fw-bold mt-1">
                             {
-                                book.title.length > maxTitleLength ?
+                                book && book.title && book.title.length > maxTitleLength ?
                                     book.title.substring(0, maxTitleLength - 3) + "..." :
                                     book.title
                             }
                         </h5>
                         <h6 className="card-subtitle fw-semibold mt-2">Author: {
-                            author[0].length > maxAuthorLength ?
+                            author && author[0] && author[0].length > maxAuthorLength ?
                                 author[0].substring(0, maxAuthorLength - 3) + "..." :
-                                author[0]
+                                author ? author[0] : "--"
                         }</h6>
                         <div className="mt-2">
                             <StarRating rating={book.ratings_average}

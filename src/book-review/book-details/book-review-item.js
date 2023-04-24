@@ -69,7 +69,6 @@ const ReviewItem = (
         if (currentUser) {
             if (review.likes.includes(currentUser._id)) {
                 // They've already liked it, unlike it
-                // TODO: change to just remove this user
                 dispatch(updateReviewThunk({
                     ...review,
                     likes: review.likes.filter((r) => (r != currentUser._id))
