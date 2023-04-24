@@ -40,6 +40,9 @@ const ReviewItem = (
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const visitBookDetail = () => {
+        navigate(`/book-details/works/${review.book_id}`)
+    }
 
     useEffect(() => {
         dispatch(findUsersThunk());
@@ -100,7 +103,7 @@ const ReviewItem = (
         : <span></span>
 
     return(
-        <li className="list-group-item">
+        <li onClick={visitBookDetail} className="list-group-item">
             <div className="row my-2 me-2">
                 <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
                     <div className="row justify-content-center">
