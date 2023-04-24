@@ -78,7 +78,7 @@ const LibrarianSignUp = () => {
                 <div className={"mb-3 mt-3"}>
                     <label>Profile Picture</label>
                     <div>
-                        <button className="rounded-circle border-0" onClick={() => {
+                        <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {
                             setProfilePic('/images/option_1.png')
                         }}>
                             <img
@@ -87,7 +87,7 @@ const LibrarianSignUp = () => {
                                 style={{clipPath: "circle()"}}
                             />
                         </button>
-                        <button className="rounded-circle border-0" onClick={() => {
+                        <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {
                             setProfilePic('/images/option_2.png')
                         }}>
                             <img
@@ -96,7 +96,7 @@ const LibrarianSignUp = () => {
                                 style={{clipPath: "circle()"}}
                             />
                         </button>
-                        <button className="rounded-circle border-0" onClick={() => {
+                        <button className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {
                             setProfilePic('/images/option_3.png')
                         }}>
                             <img
@@ -105,7 +105,7 @@ const LibrarianSignUp = () => {
                                 style={{clipPath: "circle()"}}
                             />
                         </button>
-                        <button width="60px" className="rounded-circle border-0" onClick={() => {
+                        <button width="60px" className="rounded-circle m-1 border-0 btn-outline-success" onClick={() => {
                             setProfilePic('/images/option_4.png')
                         }}>
                             <img
