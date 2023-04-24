@@ -78,7 +78,7 @@ const reviewsSlice = createSlice({
             },
         [updateReviewThunk.fulfilled]:
             (state, { payload }) => {
-                // console.log(`updateReviewThunk payload: ${JSON.stringify(payload)}`)
+                console.log(`updateReviewThunk payload: ${JSON.stringify(payload)}`)
                 state.loading = false
                 const reviewIndex = state.reviews
                     .findIndex((r) => r._id === payload._id)

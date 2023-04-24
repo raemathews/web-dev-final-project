@@ -166,11 +166,11 @@ const BookItem = (
         return (
         <>
             {bookInfo.cover_i ?
-                <img className="float-end"
+                <img className="float-end shadow mb-3 bg-white rounded"
                      width="100%"
                      src={`https://covers.openlibrary.org/b/id/${bookInfo.cover_i}-L.jpg`}
                      alt="book cover"/>
-                : <img className="float-end not-found"
+                : <img className="float-end not-found border shadow mb-3 bg-white rounded"
                        width="100%"
                        src={"/images/no_cover.png"}
                        alt="book cover"/>               }
