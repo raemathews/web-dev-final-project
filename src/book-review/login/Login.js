@@ -10,9 +10,8 @@ function Login() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const handleLogin = async () => {
-        console.log(username);
-        console.log(password);
         try {
             await dispatch(loginThunk({username, password}));
         } catch (e) {
@@ -76,14 +75,7 @@ function Login() {
                         </>
                         }
 
-                        {currentUser && <> <h1>You're all logged in!</h1>
-                            <button className="btn btn-warning">
-                                <Link to="/profile">
-                                    Proceed to your profile
-                                </Link>
-
-                            </button>
-                        </>}
+                        {currentUser && navigate("/")}
 
                         <div className={`${toast ? "" : "visually-hidden"}`}>
                             <div className="alert alert-primary">
