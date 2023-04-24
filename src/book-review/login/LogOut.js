@@ -18,16 +18,23 @@ function LogOut() {
     return (
         <>
             <Navigation />
-            <div>
-                <h1>Are you sure you want to logout?</h1>
-
-                <button onClick={handleLogout}>
-                    Logout
-                </button>
+            <div className={"container"}>
+                <br />
+                <br />
+                <div className={"row mt-4"}>
+                    <div className={"col-1 col-md-4"} />
+                    <div className={"col-10 col-md-4 text-center"}>
+                        <h1>Are you sure you want to logout?</h1>
+                        <button className="btn btn-warning"
+                                onClick={handleLogout}>
+                            Logout
+                        </button>
+                    </div>
+                    <div className={"col-1 col-md-4"} />
+                </div>
             </div>
 
         </>
-
     );
 
 
