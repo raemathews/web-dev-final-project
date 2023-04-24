@@ -33,12 +33,13 @@ const FollowingItem = (
 
     return(
         <div onClick={visitProfile}>
-            <li onClick={visitProfile} className="list-group-item">
+            <li className="list-group-item">
                 <div className="row">
                     <div className="col-10">
-                        <div className="fw-bolder">{user.handle}
-                            <i className="fas fa-check-circle"></i>
-                            - {user.username}
+                        <div className="fw-bolder">{user.username}
+                        </div>
+                        <div className={"text-muted"}>
+                            {user.handle}
                         </div>
                         <div>{user.bio}</div>
                     </div>

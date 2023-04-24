@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import FollowingItem from "./FollowingItem.js";
 import {useDispatch, useSelector} from "react-redux";
 import {findFollowingByUserIdThunk} from "../../../services/followers/followers-thunk";
+import FollowersItem from "../followers-data/FollowersItem";
 
 const FollowingList = () => {
     const { currentUser } = useSelector((state) => state.currentUser);
