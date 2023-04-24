@@ -11,8 +11,8 @@ function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleLogin = async () => {
-        console.log(username);
-        console.log(password);
+        // console.log(username);
+        // console.log(password);
         try {
             await dispatch(loginThunk({username, password}));
         } catch (e) {

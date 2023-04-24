@@ -61,7 +61,7 @@ const librariansSlice = createSlice({
                 const librarianIndex = state.foundLibrarians
                     .findIndex((u) => u._id === payload._id)
                 state.foundLibrarians[librarianIndex] = {
-                    ...state.foundUsers[librarianIndex],
+                    ...state.foundLibrarians[librarianIndex],
                     ...payload
                 }
             }

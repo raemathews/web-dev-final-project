@@ -7,7 +7,6 @@ import {findBookByIdThunk, findBooksThunk} from "../../services/books/library-th
 import ReadingListButtons from "./reading-list-buttons";
 import {findReadByUserIdThunk} from "../../services/want-to-read/want-to-read-thunk";
 import {useNavigate} from "react-router";
-// TODO fix liking
 
 const BookItem = (
     {
@@ -274,13 +273,6 @@ const BookItem = (
 
     return (
         <div className="container-fluid px-5">
-            {
-                // TODO fix this being ugly
-                loading &&
-                <li className="list-group-item">
-                    Loading...
-                </li>
-            }
             {
                 <div className="row mt-5">
                     {/*Side by side version*/}
